@@ -1,4 +1,4 @@
 module.exports = {
-  run: require('./run'),
-  watch: require('./watch').watch,
+  run: require('./run'),          // Exports everything from the './run' module
+  watch: require('./watch').watch // Exports only the 'watch' property from the './watch' module
 };

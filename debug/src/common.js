@@ -1,292 +1,229 @@
-
 /**
- * This is the common logic for both the Node.js and web browser
- * implementations of `debug()`.
+ * Common logic for both Node.js and browser implementations of `debug()`.
  */
 
 function setup(env) {
-	createDebug.debug = createDebug;
-	createDebug.default = createDebug;
-	createDebug.coerce = coerce;
-	createDebug.disable = disable;
-	createDebug.enable = enable;
-	createDebug.enabled = enabled;
-	createDebug.humanize = require('ms');
-	createDebug.destroy = destroy;
+  // Initialize core debug function and attach helpers
+  createDebug.debug = createDebug;
+  createDebug.default = createDebug;
+  createDebug.coerce = coerce;
+  createDebug.disable = disable;
+  createDebug.enable = enable;
+  createDebug.enabled = enabled;
+  createDebug.humanize = require('ms');
+  createDebug.destroy = destroy;
 
-	Object.keys(env).forEach(key => {
-		createDebug[key] = env[key];
-	});
+  // Merge environment-specific properties
+  Object.keys(env).forEach(key => {
+    createDebug[key] = env[key];
+  });
 
-	/**
-	* The currently active debug mode names, and names to skip.
-	*/
+  // State for active debug namespaces
+  createDebug.names = [];
+  createDebug.skips = [];
 
-	createDebug.names = [];
-	createDebug.skips = [];
+  // Formatter map for %x style placeholders
+  createDebug.formatters = {};
 
-	/**
-	* Map of special "%n" handling functions, for the debug "format" argument.
-	*
-	* Valid key names are a single, lower or upper-case letter, i.e. "n" and "N".
-	*/
-	createDebug.formatters = {};
+  /**
+   * Select a color for a debug namespace
+   */
+  function selectColor(namespace) {
+    let hash = 0;
+    for (let i = 0; i < namespace.length; i++) {
+      hash = ((hash << 5) - hash) + namespace.charCodeAt(i);
+      hash |= 0; // Convert to 32-bit integer
+    }
+    return createDebug.colors[Math.abs(hash) % createDebug.colors.length];
+  }
+  createDebug.selectColor = selectColor;
 
-	/**
-	* Selects a color for a debug namespace
-	* @param {String} namespace The namespace string for the debug instance to be colored
-	* @return {Number|String} An ANSI color code for the given namespace
-	* @api private
-	*/
-	function selectColor(namespace) {
-		let hash = 0;
+  /**
+   * Create a debug instance for a given namespace
+   */
+  function createDebug(namespace) {
+    let prevTime;
+    let enableOverride = null;
+    let namespacesCache;
+    let enabledCache;
 
-		for (let i = 0; i < namespace.length; i++) {
-			hash = ((hash << 5) - hash) + namespace.charCodeAt(i);
-			hash |= 0; // Convert to 32bit integer
-		}
+    function debug(...args) {
+      if (!debug.enabled) return;
 
-		return createDebug.colors[Math.abs(hash) % createDebug.colors.length];
-	}
-	createDebug.selectColor = selectColor;
+      const self = debug;
+      const curr = Date.now();
+      const ms = curr - (prevTime || curr);
+      self.diff = ms;
+      self.prev = prevTime;
+      self.curr = curr;
+      prevTime = curr;
 
-	/**
-	* Create a debugger with the given `namespace`.
-	*
-	* @param {String} namespace
-	* @return {Function}
-	* @api public
-	*/
-	function createDebug(namespace) {
-		let prevTime;
-		let enableOverride = null;
-		let namespacesCache;
-		let enabledCache;
+      args[0] = createDebug.coerce(args[0]);
 
-		function debug(...args) {
-			// Disabled?
-			if (!debug.enabled) {
-				return;
-			}
+      if (typeof args[0] !== 'string') args.unshift('%O');
 
-			const self = debug;
+      // Apply formatters
+      let index = 0;
+      args[0] = args[0].replace(/%([a-zA-Z%])/g, (match, format) => {
+        if (match === '%%') return '%';
+        index++;
+        const formatter = createDebug.formatters[format];
+        if (typeof formatter === 'function') {
+          const val = args[index];
+          match = formatter.call(self, val);
+          args.splice(index, 1);
+          index--;
+        }
+        return match;
+      });
 
-			// Set `diff` timestamp
-			const curr = Number(new Date());
-			const ms = curr - (prevTime || curr);
-			self.diff = ms;
-			self.prev = prevTime;
-			self.curr = curr;
-			prevTime = curr;
+      // Env-specific formatting (colors, etc.)
+      createDebug.formatArgs.call(self, args);
 
-			args[0] = createDebug.coerce(args[0]);
+      const logFn = self.log || createDebug.log;
+      logFn.apply(self, args);
+    }
 
-			if (typeof args[0] !== 'string') {
-				// Anything else let's inspect with %O
-				args.unshift('%O');
-			}
+    // Debug instance properties
+    debug.namespace = namespace;
+    debug.useColors = createDebug.useColors();
+    debug.color = createDebug.selectColor(namespace);
+    debug.extend = extend;
+    debug.destroy = createDebug.destroy;
 
-			// Apply any `formatters` transformations
-			let index = 0;
-			args[0] = args[0].replace(/%([a-zA-Z%])/g, (match, format) => {
-				// If we encounter an escaped % then don't increase the array index
-				if (match === '%%') {
-					return '%';
-				}
-				index++;
-				const formatter = createDebug.formatters[format];
-				if (typeof formatter === 'function') {
-					const val = args[index];
-					match = formatter.call(self, val);
+    Object.defineProperty(debug, 'enabled', {
+      enumerable: true,
+      configurable: false,
+      get: () => {
+        if (enableOverride !== null) return enableOverride;
+        if (namespacesCache !== createDebug.namespaces) {
+          namespacesCache = createDebug.namespaces;
+          enabledCache = createDebug.enabled(namespace);
+        }
+        return enabledCache;
+      },
+      set: v => { enableOverride = v; }
+    });
 
-					// Now we need to remove `args[index]` since it's inlined in the `format`
-					args.splice(index, 1);
-					index--;
-				}
-				return match;
-			});
+    if (typeof createDebug.init === 'function') createDebug.init(debug);
 
-			// Apply env-specific formatting (colors, etc.)
-			createDebug.formatArgs.call(self, args);
+    return debug;
+  }
 
-			const logFn = self.log || createDebug.log;
-			logFn.apply(self, args);
-		}
+  /**
+   * Extend a debug namespace
+   */
+  function extend(namespace, delimiter) {
+    const newDebug = createDebug(
+      this.namespace + (delimiter === undefined ? ':' : delimiter) + namespace
+    );
+    newDebug.log = this.log;
+    return newDebug;
+  }
 
-		debug.namespace = namespace;
-		debug.useColors = createDebug.useColors();
-		debug.color = createDebug.selectColor(namespace);
-		debug.extend = extend;
-		debug.destroy = createDebug.destroy; // XXX Temporary. Will be removed in the next major release.
+  /**
+   * Enable debug namespaces
+   */
+  function enable(namespaces) {
+    createDebug.save(namespaces);
+    createDebug.namespaces = namespaces;
 
-		Object.defineProperty(debug, 'enabled', {
-			enumerable: true,
-			configurable: false,
-			get: () => {
-				if (enableOverride !== null) {
-					return enableOverride;
-				}
-				if (namespacesCache !== createDebug.namespaces) {
-					namespacesCache = createDebug.namespaces;
-					enabledCache = createDebug.enabled(namespace);
-				}
+    createDebug.names = [];
+    createDebug.skips = [];
 
-				return enabledCache;
-			},
-			set: v => {
-				enableOverride = v;
-			}
-		});
+    const split = (typeof namespaces === 'string' ? namespaces : '')
+      .trim()
+      .replace(' ', ',')
+      .split(',')
+      .filter(Boolean);
 
-		// Env-specific initialization logic for debug instances
-		if (typeof createDebug.init === 'function') {
-			createDebug.init(debug);
-		}
+    for (const ns of split) {
+      if (ns[0] === '-') createDebug.skips.push(ns.slice(1));
+      else createDebug.names.push(ns);
+    }
+  }
 
-		return debug;
-	}
+  /**
+   * Check if `name` matches a namespace template with wildcards
+   */
+  function matchesTemplate(search, template) {
+    let searchIndex = 0;
+    let templateIndex = 0;
+    let starIndex = -1;
+    let matchIndex = 0;
 
-	function extend(namespace, delimiter) {
-		const newDebug = createDebug(this.namespace + (typeof delimiter === 'undefined' ? ':' : delimiter) + namespace);
-		newDebug.log = this.log;
-		return newDebug;
-	}
+    while (searchIndex < search.length) {
+      if (
+        templateIndex < template.length &&
+        (template[templateIndex] === search[searchIndex] || template[templateIndex] === '*')
+      ) {
+        if (template[templateIndex] === '*') {
+          starIndex = templateIndex;
+          matchIndex = searchIndex;
+          templateIndex++;
+        } else {
+          searchIndex++;
+          templateIndex++;
+        }
+      } else if (starIndex !== -1) {
+        templateIndex = starIndex + 1;
+        matchIndex++;
+        searchIndex = matchIndex;
+      } else return false;
+    }
 
-	/**
-	* Enables a debug mode by namespaces. This can include modes
-	* separated by a colon and wildcards.
-	*
-	* @param {String} namespaces
-	* @api public
-	*/
-	function enable(namespaces) {
-		createDebug.save(namespaces);
-		createDebug.namespaces = namespaces;
+    while (templateIndex < template.length && template[templateIndex] === '*') templateIndex++;
 
-		createDebug.names = [];
-		createDebug.skips = [];
+    return templateIndex === template.length;
+  }
 
-		const split = (typeof namespaces === 'string' ? namespaces : '')
-			.trim()
-			.replace(' ', ',')
-			.split(',')
-			.filter(Boolean);
+  /**
+   * Disable all debug output
+   */
+  function disable() {
+    const namespaces = [
+      ...createDebug.names,
+      ...createDebug.skips.map(ns => '-' + ns)
+    ].join(',');
+    createDebug.enable('');
+    return namespaces;
+  }
 
-		for (const ns of split) {
-			if (ns[0] === '-') {
-				createDebug.skips.push(ns.slice(1));
-			} else {
-				createDebug.names.push(ns);
-			}
-		}
-	}
+  /**
+   * Check if a namespace is enabled
+   */
+  function enabled(name) {
+    for (const skip of createDebug.skips) {
+      if (matchesTemplate(name, skip)) return false;
+    }
+    for (const ns of createDebug.names) {
+      if (matchesTemplate(name, ns)) return true;
+    }
+    return false;
+  }
 
-	/**
-	 * Checks if the given string matches a namespace template, honoring
-	 * asterisks as wildcards.
-	 *
-	 * @param {String} search
-	 * @param {String} template
-	 * @return {Boolean}
-	 */
-	function matchesTemplate(search, template) {
-		let searchIndex = 0;
-		let templateIndex = 0;
-		let starIndex = -1;
-		let matchIndex = 0;
+  /**
+   * Coerce a value (Errors => stack/message)
+   */
+  function coerce(val) {
+    if (val instanceof Error) return val.stack || val.message;
+    return val;
+  }
 
-		while (searchIndex < search.length) {
-			if (templateIndex < template.length && (template[templateIndex] === search[searchIndex] || template[templateIndex] === '*')) {
-				// Match character or proceed with wildcard
-				if (template[templateIndex] === '*') {
-					starIndex = templateIndex;
-					matchIndex = searchIndex;
-					templateIndex++; // Skip the '*'
-				} else {
-					searchIndex++;
-					templateIndex++;
-				}
-			} else if (starIndex !== -1) { // eslint-disable-line no-negated-condition
-				// Backtrack to the last '*' and try to match more characters
-				templateIndex = starIndex + 1;
-				matchIndex++;
-				searchIndex = matchIndex;
-			} else {
-				return false; // No match
-			}
-		}
+  /**
+   * Temporary destroy stub
+   */
+  function destroy() {
+    console.warn(
+      'Instance method `debug.destroy()` is deprecated and no longer does anything. ' +
+      'It will be removed in the next major version of `debug`.'
+    );
+  }
 
-		// Handle trailing '*' in template
-		while (templateIndex < template.length && template[templateIndex] === '*') {
-			templateIndex++;
-		}
+  // Load saved namespaces
+  createDebug.enable(createDebug.load());
 
-		return templateIndex === template.length;
-	}
-
-	/**
-	* Disable debug output.
-	*
-	* @return {String} namespaces
-	* @api public
-	*/
-	function disable() {
-		const namespaces = [
-			...createDebug.names,
-			...createDebug.skips.map(namespace => '-' + namespace)
-		].join(',');
-		createDebug.enable('');
-		return namespaces;
-	}
-
-	/**
-	* Returns true if the given mode name is enabled, false otherwise.
-	*
-	* @param {String} name
-	* @return {Boolean}
-	* @api public
-	*/
-	function enabled(name) {
-		for (const skip of createDebug.skips) {
-			if (matchesTemplate(name, skip)) {
-				return false;
-			}
-		}
-
-		for (const ns of createDebug.names) {
-			if (matchesTemplate(name, ns)) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	* Coerce `val`.
-	*
-	* @param {Mixed} val
-	* @return {Mixed}
-	* @api private
-	*/
-	function coerce(val) {
-		if (val instanceof Error) {
-			return val.stack || val.message;
-		}
-		return val;
-	}
-
-	/**
-	* XXX DO NOT USE. This is a temporary stub function.
-	* XXX It WILL be removed in the next major release.
-	*/
-	function destroy() {
-		console.warn('Instance method `debug.destroy()` is deprecated and no longer does anything. It will be removed in the next major version of `debug`.');
-	}
-
-	createDebug.enable(createDebug.load());
-
-	return createDebug;
+  return createDebug;
 }
 
 module.exports = setup;

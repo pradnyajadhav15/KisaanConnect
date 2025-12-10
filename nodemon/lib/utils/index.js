@@ -1,103 +1,106 @@
-var noop = function () { };
-var path = require('path');
-const semver = require('semver');
-var version = process.versions.node.split('.') || [null, null, null];
+'use strict';
 
-var utils = (module.exports = {
+const path = require('path');
+const semver = require('semver');
+const os = require('os');
+
+const noop = () => {};
+
+const versionParts = process.versions.node.split('.') || [0, 0, 0];
+
+const utils = (module.exports = {
+  // Node version and semver utilities
   semver: semver,
-  satisfies: test => semver.satisfies(process.versions.node, test),
+  satisfies: (range) => semver.satisfies(process.versions.node, range),
   version: {
-    major: parseInt(version[0] || 0, 10),
-    minor: parseInt(version[1] || 0, 10),
-    patch: parseInt(version[2] || 0, 10),
+    major: parseInt(versionParts[0] || 0, 10),
+    minor: parseInt(versionParts[1] || 0, 10),
+    patch: parseInt(versionParts[2] || 0, 10),
   },
+
+  // General utilities
   clone: require('./clone'),
   merge: require('./merge'),
   bus: require('./bus'),
+
+  // Platform detection
   isWindows: process.platform === 'win32',
   isMac: process.platform === 'darwin',
   isLinux: process.platform === 'linux',
-  isIBMi: require('os').type() === 'OS400',
-  isRequired: (function () {
-    var p = module.parent;
-    while (p) {
-      // in electron.js engine it happens
-      if (!p.filename) {
-        return true;
-      }
-      if (p.filename.indexOf('bin' + path.sep + 'nodemon.js') !== -1) {
-        return false;
-      }
-      p = p.parent;
-    }
+  isIBMi: os.type() === 'OS400',
 
+  // Detect if this module is required or executed directly
+  isRequired: (() => {
+    let parent = module.parent;
+    while (parent) {
+      if (!parent.filename) return true;
+      if (parent.filename.includes(`bin${path.sep}nodemon.js`)) return false;
+      parent = parent.parent;
+    }
     return true;
   })(),
+
+  // Home directory
   home: process.env.HOME || process.env.HOMEPATH,
-  quiet: function () {
-    // nukes the logging
+
+  // Logging control
+  quiet() {
     if (!this.debug) {
-      for (var method in utils.log) {
-        if (typeof utils.log[method] === 'function') {
-          utils.log[method] = noop;
-        }
+      for (const method in this.log) {
+        if (typeof this.log[method] === 'function') this.log[method] = noop;
       }
     }
   },
-  reset: function () {
+
+  reset() {
     if (!this.debug) {
-      for (var method in utils.log) {
-        if (typeof utils.log[method] === 'function') {
-          delete utils.log[method];
-        }
+      for (const method in this.log) {
+        if (typeof this.log[method] === 'function') delete this.log[method];
       }
     }
     this.debug = false;
   },
-  regexpToText: function (t) {
-    return t
+
+  // Convert a regexp string back to human-readable text
+  regexpToText(str) {
+    return str
       .replace(/\.\*\\./g, '*.')
       .replace(/\\{2}/g, '^^')
       .replace(/\\/g, '')
       .replace(/\^\^/g, '\\');
   },
-  stringify: function (exec, args) {
-    // serializes an executable string and array of arguments into a string
-    args = args || [];
 
+  // Serialize executable + args to a command string
+  stringify(exec, args = []) {
     return [exec]
       .concat(
-      args.map(function (arg) {
-        // if an argument contains a space, we want to show it with quotes
-        // around it to indicate that it is a single argument
-        if (arg.length > 0 && arg.indexOf(' ') === -1) {
-          return arg;
-        }
-        // this should correctly escape nested quotes
-        return JSON.stringify(arg);
-      })
+        args.map((arg) =>
+          arg.length > 0 && !arg.includes(' ') ? arg : JSON.stringify(arg)
+        )
       )
       .join(' ')
       .trim();
   },
 });
 
+// Logging utility
 utils.log = require('./log')(utils.isRequired);
 
+// Proxy debug and colour properties to log module
 Object.defineProperty(utils, 'debug', {
-  set: function (value) {
-    this.log.debug = value;
-  },
-  get: function () {
+  get() {
     return this.log.debug;
+  },
+  set(value) {
+    this.log.debug = value;
   },
 });
 
 Object.defineProperty(utils, 'colours', {
-  set: function (value) {
-    this.log.useColours = value;
-  },
-  get: function () {
+  get() {
     return this.log.useColours;
+  },
+  set(value) {
+    this.log.useColours = value;
   },
 });

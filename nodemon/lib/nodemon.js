@@ -1,85 +1,75 @@
-var debug = require('debug')('nodemon');
-var path = require('path');
-var monitor = require('./monitor');
-var cli = require('./cli');
-var version = require('./version');
-var util = require('util');
-var utils = require('./utils');
-var bus = utils.bus;
-var help = require('./help');
-/** @type {import('..').NodemonEventConfig} */
-var config = require('./config');
-var spawn = require('./spawn');
-const defaults = require('./config/defaults')
-var eventHandlers = {};
+'use strict';
 
-// this is fairly dirty, but theoretically sound since it's part of the
-// stable module API
+const debug = require('debug')('nodemon');
+const path = require('path');
+const util = require('util');
+
+const monitor = require('./monitor');
+const cli = require('./cli');
+const version = require('./version');
+const utils = require('./utils');
+const bus = utils.bus;
+const help = require('./help');
+const config = require('./config');
+const spawn = require('./spawn');
+const defaults = require('./config/defaults');
+
+let eventHandlers = {};
 config.required = utils.isRequired;
 
 /**
- * @param {import('..').NodemonSettings | string} settings
- * @returns {import('..').Nodemon}
+ * Main nodemon function
+ * @param {string|object} settings - CLI string or options object
+ * @returns {object} nodemon instance
  */
 function nodemon(settings) {
   bus.emit('boot');
   nodemon.reset();
-  
-  /** @type {import('..').NodemonSettings} */
-  let options
 
-  // allow the cli string as the argument to nodemon, and allow for
-  // `node nodemon -V app.js` or just `-V app.js`
+  let options;
+
+  // Parse CLI string or use options object directly
   if (typeof settings === 'string') {
     settings = settings.trim();
-    if (settings.indexOf('node') !== 0) {
-      if (settings.indexOf('nodemon') !== 0) {
+    if (!settings.startsWith('node')) {
+      if (!settings.startsWith('nodemon')) {
         settings = 'nodemon ' + settings;
       }
       settings = 'node ' + settings;
     }
     options = cli.parse(settings);
-  } else options = settings;
-
-  // set the debug flag as early as possible to get all the detailed logging
-  if (options.verbose) {
-    utils.debug = true;
+  } else {
+    options = settings;
   }
 
+  // Enable debug early if verbose
+  if (options.verbose) utils.debug = true;
+
+  // Handle help command
   if (options.help) {
-    if (process.stdout.isTTY) {
-      process.stdout._handle.setBlocking(true); // nodejs/node#6456
-    }
+    if (process.stdout.isTTY) process.stdout._handle.setBlocking(true);
     console.log(help(options.help));
-    if (!config.required) {
-      process.exit(0);
-    }
+    if (!config.required) process.exit(0);
   }
 
+  // Handle version command
   if (options.version) {
-    version().then(function (v) {
+    version().then(v => {
       console.log(v);
-      if (!config.required) {
-        process.exit(0);
-      }
+      if (!config.required) process.exit(0);
     });
     return;
   }
 
-  // nodemon tools like grunt-nodemon. This affects where
-  // the script is being run from, and will affect where
-  // nodemon looks for the nodemon.json files
-  if (options.cwd) {
-    // this is protection to make sure we haven't dont the chdir already...
-    // say like in cli/parse.js (which is where we do this once already!)
-    if (process.cwd() !== path.resolve(config.system.cwd, options.cwd)) {
-      process.chdir(options.cwd);
-    }
+  // Handle custom working directory
+  if (options.cwd && process.cwd() !== path.resolve(config.system.cwd, options.cwd)) {
+    process.chdir(options.cwd);
   }
 
+  // Load configuration
   config.load(options, function (config) {
     if (!config.options.dump && !config.options.execOptions.script &&
-      config.options.execOptions.exec === 'node') {
+        config.options.execOptions.exec === 'node') {
       if (!config.required) {
         console.log(help('usage'));
         process.exit();
@@ -87,184 +77,74 @@ function nodemon(settings) {
       return;
     }
 
-    // before we print anything, update the colour setting on logging
+    // Set logging colors
     utils.colours = config.options.colours;
 
-    // always echo out the current version
+    // Show current nodemon version
     utils.log.info(version.pinned);
 
     const cwd = process.cwd();
 
-    if (config.options.cwd) {
-      utils.log.detail('process root: ' + cwd);
-    }
+    if (config.options.cwd) utils.log.detail('process root: ' + cwd);
 
-    config.loaded.map(file => file.replace(cwd, '.')).forEach(file => {
-      utils.log.detail('reading config ' + file);
-    });
+    config.loaded.map(file => file.replace(cwd, '.'))
+                 .forEach(file => utils.log.detail('reading config ' + file));
 
-    if (config.options.stdin && config.options.restartable) {
-      // allow nodemon to restart when the use types 'rs\n'
-      process.stdin.resume();
-      process.stdin.setEncoding('utf8');
-      process.stdin.on('data', data => {
-        const str = data.toString().trim().toLowerCase();
-
-        // if the keys entered match the restartable value, then restart!
-        if (str === config.options.restartable) {
-          bus.emit('restart');
-        } else if (data.charCodeAt(0) === 12) { // ctrl+l
-          console.clear();
-        }
-      });
-    } else if (config.options.stdin) {
-      // so let's make sure we don't eat the key presses
-      // but also, since we're wrapping, watch out for
-      // special keys, like ctrl+c x 2 or '.exit' or ctrl+d or ctrl+l
-      var ctrlC = false;
-      var buffer = '';
-
-      process.stdin.on('data', function (data) {
-        data = data.toString();
-        buffer += data;
-        const chr = data.charCodeAt(0);
-
-        // if restartable, echo back
-        if (chr === 3) {
-          if (ctrlC) {
-            process.exit(0);
-          }
-
-          ctrlC = true;
-          return;
-        } else if (buffer === '.exit' || chr === 4) { // ctrl+d
-          process.exit();
-        } else if (chr === 13 || chr === 10) { // enter / carriage return
-          buffer = '';
-        } else if (chr === 12) { // ctrl+l
-          console.clear();
-          buffer = '';
-        }
-        ctrlC = false;
-      });
-      if (process.stdin.setRawMode) {
-        process.stdin.setRawMode(true);
-      }
-    }
+    setupStdin(options, config);
 
     if (config.options.restartable) {
-      utils.log.info('to restart at any time, enter `' +
-        config.options.restartable + '`');
+      utils.log.info(`to restart at any time, enter \`${config.options.restartable}\``);
     }
 
-    if (!config.required) {
-      const restartSignal = config.options.signal === 'SIGUSR2' ? 'SIGHUP' : 'SIGUSR2';
-      process.on(restartSignal, nodemon.restart);
-      utils.bus.on('error', () => {
-        utils.log.fail((new Error().stack));
-      });
-      utils.log.detail((config.options.restartable ? 'or ' : '') + 'send ' +
-        restartSignal + ' to ' + process.pid + ' to restart');
-    }
+    setupRestartSignals(config);
 
-    const ignoring = config.options.monitor.map(function (rule) {
-      if (rule.slice(0, 1) !== '!') {
-        return false;
-      }
-
-      rule = rule.slice(1);
-
-      // don't notify of default ignores
-      if (defaults.ignoreRoot.indexOf(rule) !== -1) {
-        return false;
-        // return rule.slice(3).slice(0, -3);
-      }
-
-      if (rule.startsWith(cwd)) {
-        return rule.replace(cwd, '.');
-      }
-
-      return rule;
-    }).filter(Boolean).join(' ');
-    if (ignoring) utils.log.detail('ignoring: ' + ignoring);
-
-    utils.log.info('watching path(s): ' + config.options.monitor.map(function (rule) {
-      if (rule.slice(0, 1) !== '!') {
-        try {
-          rule = path.relative(process.cwd(), rule);
-        } catch (e) {}
-
-        return rule;
-      }
-
-      return false;
-    }).filter(Boolean).join(' '));
-
-    utils.log.info('watching extensions: ' + (config.options.execOptions.ext || '(all)'));
+    logWatchingPaths(config);
 
     if (config.options.dump) {
-      utils.log._log('log', '--------------');
-      utils.log._log('log', 'node: ' + process.version);
-      utils.log._log('log', 'nodemon: ' + version.pinned);
-      utils.log._log('log', 'command: ' + process.argv.join(' '));
-      utils.log._log('log', 'cwd: ' + cwd);
-      utils.log._log('log', ['OS:', process.platform, process.arch].join(' '));
-      utils.log._log('log', '--------------');
-      utils.log._log('log', util.inspect(config, { depth: null }));
-      utils.log._log('log', '--------------');
-      if (!config.required) {
-        process.exit();
-      }
-
+      dumpConfig(config);
+      if (!config.required) process.exit();
       return;
     }
 
     config.run = true;
 
     if (config.options.stdout === false) {
-      nodemon.on('start', function () {
+      nodemon.on('start', () => {
         nodemon.stdout = bus.stdout;
         nodemon.stderr = bus.stderr;
-
         bus.emit('readable');
       });
     }
 
-    if (config.options.events && Object.keys(config.options.events).length) {
-      Object.keys(config.options.events).forEach(function (key) {
-        utils.log.detail('bind ' + key + ' -> `' +
-          config.options.events[key] + '`');
-        nodemon.on(key, function () {
-          if (config.options && config.options.events) {
-            spawn(config.options.events[key], config,
-              [].slice.apply(arguments));
-          }
-        });
-      });
-    }
+    bindCustomEvents(config);
 
     monitor.run(config.options);
-
   });
 
   return nodemon;
 }
 
+/**
+ * Restart the nodemon process
+ */
 nodemon.restart = function () {
   utils.log.status('restarting child process');
   bus.emit('restart');
   return nodemon;
 };
 
+/**
+ * Event listener management
+ */
 nodemon.addListener = nodemon.on = function (event, handler) {
-  if (!eventHandlers[event]) { eventHandlers[event] = []; }
+  eventHandlers[event] ??= [];
   eventHandlers[event].push(handler);
   bus.on(event, handler);
   return nodemon;
 };
 
 nodemon.once = function (event, handler) {
-  if (!eventHandlers[event]) { eventHandlers[event] = []; }
+  eventHandlers[event] ??= [];
   eventHandlers[event].push(handler);
   bus.once(event, function () {
     debug('bus.once(%s)', event);
@@ -275,21 +155,19 @@ nodemon.once = function (event, handler) {
 };
 
 nodemon.emit = function () {
-  bus.emit.apply(bus, [].slice.call(arguments));
+  bus.emit.apply(bus, arguments);
   return nodemon;
 };
 
 nodemon.removeAllListeners = function (event) {
-  // unbind only the `nodemon.on` event handlers
-  Object.keys(eventHandlers).filter(function (e) {
-    return event ? e === event : true;
-  }).forEach(function (event) {
-    eventHandlers[event].forEach(function (handler) {
-      bus.removeListener(event, handler);
-      eventHandlers[event].splice(eventHandlers[event].indexOf(handler), 1);
+  Object.keys(eventHandlers)
+    .filter(e => !event || e === event)
+    .forEach(e => {
+      eventHandlers[e].forEach(handler => {
+        bus.removeListener(e, handler);
+        eventHandlers[e].splice(eventHandlers[e].indexOf(handler), 1);
+      });
     });
-  });
-
   return nodemon;
 };
 
@@ -297,21 +175,126 @@ nodemon.reset = function (done) {
   bus.emit('reset', done);
 };
 
+// Reset logic when bus emits 'reset'
 bus.on('reset', function (done) {
   debug('reset');
   nodemon.removeAllListeners();
-  monitor.run.kill(true, function () {
+  monitor.run.kill(true, () => {
     utils.reset();
     config.reset();
     config.run = false;
-    if (done) {
-      done();
-    }
+    done?.();
   });
 });
 
-// expose the full config
+// Expose the full config
 nodemon.config = config;
-
 module.exports = nodemon;
 
+/** Helper functions **/
+
+function setupStdin(options, config) {
+  if (!options.stdin) return;
+
+  process.stdin.resume();
+  process.stdin.setEncoding('utf8');
+
+  let buffer = '';
+  let ctrlC = false;
+
+  process.stdin.on('data', data => {
+    const str = data.toString().trim().toLowerCase();
+    const chr = data.charCodeAt(0);
+
+    // Restart if matching restartable key
+    if (config.options.restartable && str === config.options.restartable) {
+      bus.emit('restart');
+    } 
+    // Handle control sequences
+    else if (chr === 12) console.clear(); // ctrl+l
+    else if (chr === 3) { // ctrl+c
+      if (ctrlC) process.exit(0);
+      ctrlC = true;
+    } 
+    else if (buffer === '.exit' || chr === 4) { // ctrl+d
+      process.exit();
+    } 
+    else if (chr === 13 || chr === 10) { // enter
+      buffer = '';
+    } else {
+      buffer += data;
+      ctrlC = false;
+    }
+  });
+
+  if (process.stdin.setRawMode) process.stdin.setRawMode(true);
+}
+
+function setupRestartSignals(config) {
+  if (config.required) return;
+
+  const restartSignal = config.options.signal === 'SIGUSR2' ? 'SIGHUP' : 'SIGUSR2';
+  process.on(restartSignal, nodemon.restart);
+  bus.on('error', () => utils.log.fail(new Error().stack));
+
+  utils.log.detail((config.options.restartable ? 'or ' : '') +
+    'send ' + restartSignal + ' to ' + process.pid + ' to restart');
+}
+
+function logWatchingPaths(config) {
+  const cwd = process.cwd();
+
+  // Ignored paths
+  const ignoring = config.options.monitor
+    .map(rule => {
+      if (rule.startsWith('!')) {
+        rule = rule.slice(1);
+        if (defaults.ignoreRoot.includes(rule)) return false;
+        if (rule.startsWith(cwd)) return rule.replace(cwd, '.');
+        return rule;
+      }
+      return false;
+    })
+    .filter(Boolean)
+    .join(' ');
+
+  if (ignoring) utils.log.detail('ignoring: ' + ignoring);
+
+  // Watched paths
+  const watchedPaths = config.options.monitor
+    .map(rule => {
+      if (!rule.startsWith('!')) {
+        try { return path.relative(cwd, rule); } catch (e) {}
+      }
+      return false;
+    })
+    .filter(Boolean)
+    .join(' ');
+
+  utils.log.info('watching path(s): ' + watchedPaths);
+  utils.log.info('watching extensions: ' + (config.options.execOptions.ext || '(all)'));
+}
+
+function bindCustomEvents(config) {
+  if (!config.options.events) return;
+
+  Object.keys(config.options.events).forEach(key => {
+    utils.log.detail('bind ' + key + ' -> `' + config.options.events[key] + '`');
+    nodemon.on(key, function () {
+      spawn(config.options.events[key], config, Array.from(arguments));
+    });
+  });
+}
+
+function dumpConfig(config) {
+  const cwd = process.cwd();
+  utils.log._log('log', '--------------');
+  utils.log._log('log', 'node: ' + process.version);
+  utils.log._log('log', 'nodemon: ' + version.pinned);
+  utils.log._log('log', 'command: ' + process.argv.join(' '));
+  utils.log._log('log', 'cwd: ' + cwd);
+  utils.log._log('log', ['OS:', process.platform, process.arch].join(' '));
+  utils.log._log('log', '--------------');
+  utils.log._log('log', util.inspect(config, { depth: null }));
+  utils.log._log('log', '--------------');
+}

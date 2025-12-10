@@ -1,5 +1,8 @@
-import type { WatchOptions } from 'chokidar'
+import type { WatchOptions } from 'chokidar';
 
+/**
+ * List of events that Nodemon can emit
+ */
 export type NodemonEventHandler =
   | 'start'
   | 'crash'
@@ -12,6 +15,9 @@ export type NodemonEventHandler =
   | 'stdout'
   | 'stderr';
 
+/**
+ * Nodemon event listener definitions
+ */
 export type NodemonEventListener = {
   on(event: 'start' | 'crash' | 'readable', listener: () => void): Nodemon;
   on(event: 'log', listener: (e: NodemonEventLog) => void): Nodemon;
@@ -22,6 +28,9 @@ export type NodemonEventListener = {
   on(event: 'config:update', listener: (e?: NodemonEventConfig) => void): Nodemon;
 };
 
+/**
+ * Main Nodemon type
+ */
 export type Nodemon = {
   removeAllListeners(event: NodemonEventHandler): Nodemon;
   emit(type: NodemonEventHandler, event?: any): Nodemon;
@@ -29,25 +38,23 @@ export type Nodemon = {
   restart(): Nodemon;
   config: NodemonSettings;
 } & NodemonEventListener & {
-  [K in keyof NodemonEventListener as "addListener"]: NodemonEventListener[K];
+  [K in keyof NodemonEventListener as 'addListener']: NodemonEventListener[K];
 } & {
-  [K in keyof NodemonEventListener as "once"]: NodemonEventListener[K];
+  [K in keyof NodemonEventListener as 'once']: NodemonEventListener[K];
 };
 
+/**
+ * Log event type
+ */
 export type NodemonEventLog = {
-  /**
-    - detail: what you get with nodemon --verbose.
-    - status: subprocess starting, restarting.
-    - fail: is the subprocess crashing.
-    - error: is a nodemon system error.
-  */
   type: 'detail' | 'log' | 'status' | 'error' | 'fail';
-  /** the plain text message */
   message: string;
-  /** contains the terminal escape codes to add colour, plus the "[nodemon]" prefix */
   colour: string;
 };
 
+/**
+ * Restart event type
+ */
 export interface NodemonEventRestart {
   matched?: {
     result: string[];
@@ -55,35 +62,44 @@ export interface NodemonEventRestart {
   };
 }
 
+/**
+ * Quit event type
+ */
 export type NodemonEventQuit = 143 | 130;
 
+/**
+ * Nodemon configuration event type
+ */
 export type NodemonEventConfig = {
   run: boolean;
-  system: {
-    cwd: string;
-  };
+  system: { cwd: string };
   required: boolean;
   dirs: string[];
   timeout: number;
   options: NodemonConfig;
-  lastStarted: number
-  loaded: string[]
-  load: (settings: NodemonSettings, ready: (config: NodemonEventConfig) => void) => void
-  reset: () => void
+  lastStarted: number;
+  loaded: string[];
+  load: (settings: NodemonSettings, ready: (config: NodemonEventConfig) => void) => void;
+  reset: () => void;
 };
 
+/**
+ * Execution options for scripts
+ */
 export interface NodemonExecOptions {
   script: string;
   scriptPosition?: number;
-  args?: string[]
-  ext?: string; // "js,mjs" etc (should really support an array of strings, but I don't think it does right now)
-  exec?: string; // node, python, etc
-  execArgs?: string[]; // args passed to node, etc,
-  nodeArgs?: string[]; // args passed to node, etc,
+  args?: string[];
+  ext?: string; // e.g., "js,mjs"
+  exec?: string; // e.g., node, python
+  execArgs?: string[];
+  nodeArgs?: string[];
 }
 
+/**
+ * Nodemon configuration options
+ */
 export interface NodemonConfig {
-  /** restartable defaults to "rs" as a string the user enters */
   restartable?: false | string;
   colours?: boolean;
   execMap?: { [key: string]: string };
@@ -96,30 +112,36 @@ export interface NodemonConfig {
   signal?: string;
   stdout?: boolean;
   watchOptions?: WatchOptions;
-  help?: string
-  version?: boolean
-  cwd?: string
-  dump?: boolean
-  ignore?: string[]
-  watch?: string[]
-  monitor?: string[]
-  spawn?: boolean
-  noUpdateNotifier?: boolean
-  legacyWatch?: boolean
-  pollingInterval?: number
-  /** @deprecated as this is "on" by default */
-  js?: boolean
-  quiet?: boolean
-  configFile?: string
-  exitCrash?: boolean
-  execOptions?: NodemonExecOptions
+  help?: string;
+  version?: boolean;
+  cwd?: string;
+  dump?: boolean;
+  monitor?: string[];
+  spawn?: boolean;
+  noUpdateNotifier?: boolean;
+  legacyWatch?: boolean;
+  pollingInterval?: number;
+  js?: boolean; // deprecated
+  quiet?: boolean;
+  configFile?: string;
+  exitCrash?: boolean;
+  execOptions?: NodemonExecOptions;
 }
 
+/**
+ * Nodemon settings including exec options and additional env/events
+ */
 export interface NodemonSettings extends NodemonConfig, NodemonExecOptions {
   events?: { [key: string]: string };
   env?: { [key: string]: string };
 }
 
-const nodemon: Nodemon = (settings: NodemonSettings): Nodemon => {};
+/**
+ * Nodemon function stub
+ */
+const nodemon: Nodemon = (settings: NodemonSettings): Nodemon => {
+  // Implementation goes here
+  return {} as Nodemon;
+};
 
 export = nodemon;

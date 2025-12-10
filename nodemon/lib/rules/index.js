@@ -1,30 +1,33 @@
 'use strict';
-var utils = require('../utils');
-var add = require('./add');
-var parse = require('./parse');
 
-// exported
-var rules = { ignore: [], watch: [] };
+const utils = require('../utils');
+const add = require('./add');
+const parse = require('./parse');
+
+// Main rules object that stores ignore and watch patterns
+const rules = {
+  ignore: [],
+  watch: []
+};
 
 /**
- * Loads a nodemon config file and populates the ignore
- * and watch rules with it's contents, and calls callback
- * with the new rules
+ * Load a nodemon configuration file and populate rules
  *
- * @param  {String} filename
- * @param  {Function} callback
+ * @param {String} filename - path to the config file
+ * @param {Function} callback - called with (err, rules)
  */
 function load(filename, callback) {
-  parse(filename, function (err, result) {
+  parse(filename, (err, result) => {
     if (err) {
-      // we should have bombed already, but
       utils.log.error(err);
-      callback(err);
+      return callback(err);
     }
 
     if (result.raw) {
+      // If raw rules exist, treat them as ignore rules
       result.raw.forEach(add.bind(null, rules, 'ignore'));
     } else {
+      // Otherwise, process ignore and watch separately
       result.ignore.forEach(add.bind(null, rules, 'ignore'));
       result.watch.forEach(add.bind(null, rules, 'watch'));
     }
@@ -34,20 +37,32 @@ function load(filename, callback) {
 }
 
 module.exports = {
-  reset: function () { // just used for testing
-    rules.ignore.length = rules.watch.length = 0;
+  // Reset rules (used mainly for testing)
+  reset: function () {
+    rules.ignore.length = 0;
+    rules.watch.length = 0;
     delete rules.ignore.re;
     delete rules.watch.re;
   },
+
+  // Load rules from a file
   load: load,
+
+  // Ignore rules helpers
   ignore: {
     test: add.bind(null, rules, 'ignore'),
     add: add.bind(null, rules, 'ignore'),
   },
+
+  // Watch rules helpers
   watch: {
     test: add.bind(null, rules, 'watch'),
     add: add.bind(null, rules, 'watch'),
   },
+
+  // Generic add function
   add: add.bind(null, rules),
-  rules: rules,
+
+  // Export the rules object itself
+  rules: rules
 };

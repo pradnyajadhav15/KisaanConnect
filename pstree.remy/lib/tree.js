@@ -1,37 +1,49 @@
-const spawn = require('child_process').spawn;
+const { spawn } = require('child_process');
 
-module.exports = function (rootPid, callback) {
+/**
+ * Get all child PIDs for a given root PID using `ps` (Unix systems)
+ * @param {number|string} rootPid - The root process ID
+ * @param {function(Error|null, number[]|null)} callback - Callback with error or array of child PIDs
+ */
+module.exports = function getChildPIDs(rootPid, callback) {
+  // Set to track PIDs we care about (root PID + children)
   const pidsOfInterest = new Set([parseInt(rootPid, 10)]);
-  var output = '';
+  let output = '';
 
-  // *nix
+  // Spawn the `ps` command to list all processes and their parent PIDs
   const ps = spawn('ps', ['-A', '-o', 'ppid,pid']);
+
+  // Collect output data
   ps.stdout.on('data', (data) => {
     output += data.toString('ascii');
   });
 
+  // When the command finishes, parse the output
   ps.on('close', () => {
     try {
-      const res = output
-        .split('\n')
-        .slice(1)
-        .map((_) => _.trim())
+      const childPIDs = output
+        .split('\n')         // split into lines
+        .slice(1)            // skip header
+        .map((line) => line.trim())
         .reduce((acc, line) => {
-          const pids = line.split(/\s+/);
-          const ppid = parseInt(pids[0], 10);
+          const [ppidStr, pidStr] = line.split(/\s+/);
+          const ppid = parseInt(ppidStr, 10);
 
           if (pidsOfInterest.has(ppid)) {
-            const pid = parseInt(pids[1], 10);
+            const pid = parseInt(pidStr, 10);
             acc.push(pid);
-            pidsOfInterest.add(pid);
+            pidsOfInterest.add(pid); // track this PID for further child detection
           }
 
           return acc;
         }, []);
 
-      callback(null, res);
-    } catch (e) {
-      callback(e, null);
+      callback(null, childPIDs);
+    } catch (err) {
+      callback(err, null);
     }
   });
+
+  // Handle errors from the spawned process
+  ps.on('error', (err) => callback(err, null));
 };

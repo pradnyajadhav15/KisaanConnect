@@ -1,37 +1,51 @@
-const exec = require('child_process').exec;
+const { exec } = require('child_process');
 const tree = require('./tree');
 const utils = require('./utils');
-var hasPS = true;
 
-// discover if the OS has `ps`, and therefore can use psTree
+let hasPS = true;
+
+// Check if the OS has the `ps` command (needed for psTree)
 exec('ps', (error) => {
-  module.exports.hasPS = hasPS = !error;
+  hasPS = !error;
+  module.exports.hasPS = hasPS;
 });
 
-module.exports = function main(pid, callback) {
-  if (typeof pid === 'number') {
-    pid = pid.toString();
-  }
+/**
+ * Get all child PIDs for a given PID.
+ * Falls back to using OS-specific utilities if `ps` is not available.
+ * 
+ * @param {number|string} pid - The parent process ID
+ * @param {function(Error|null, string[]|null)} callback - Callback with error or array of PIDs
+ */
+module.exports = function getChildPIDs(pid, callback) {
+  // Ensure PID is a string
+  if (typeof pid === 'number') pid = pid.toString();
 
+  // If `ps` is available and not disabled via env
   if (hasPS && !process.env.NO_PS) {
     return tree(pid, callback);
   }
 
-  utils
-    .getStat()
+  // Fallback using utils to get process tree
+  utils.getStat()
     .then(utils.tree)
-    .then((tree) => utils.pidsForTree(tree, pid))
-    .then((res) =>
-      callback(
-        null,
-        res.map((p) => p.PID)
-      )
-    )
+    .then((treeData) => utils.pidsForTree(treeData, pid))
+    .then((result) => {
+      // Return only PID numbers
+      const pids = result.map((p) => p.PID);
+      callback(null, pids);
+    })
     .catch((error) => callback(error));
 };
 
+// CLI support: node thisFile.js <pid>
 if (!module.parent) {
-  module.exports(process.argv[2], (e, pids) => console.log(pids));
+  const pidArg = process.argv[2];
+  module.exports(pidArg, (err, pids) => {
+    if (err) console.error(err);
+    else console.log(pids);
+  });
 }
 
+// Export whether `ps` is available
 module.exports.hasPS = hasPS;

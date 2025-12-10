@@ -1,55 +1,55 @@
-var debug = require('debug')('nodemon');
-var fs = require('fs');
-var path = require('path');
-var exists = fs.exists || path.exists;
-var utils = require('../utils');
-var rules = require('../rules');
-var parse = require('../rules/parse');
-var exec = require('./exec');
-var defaults = require('./defaults');
+/**
+ * Loads nodemon configuration, merging global, local, and CLI settings.
+ * Handles script discovery, exec options, and rule normalization.
+ */
+
+const debug = require('debug')('nodemon');
+const fs = require('fs');
+const path = require('path');
+const utils = require('../utils');
+const rules = require('../rules');
+const exec = require('./exec');
+const defaults = require('./defaults');
 
 module.exports = load;
 module.exports.mutateExecOptions = mutateExecOptions;
 
-var existsSync = fs.existsSync || path.existsSync;
+const existsSync = fs.existsSync || path.existsSync;
 
+/**
+ * Try to find the app script if not explicitly provided
+ */
 function findAppScript() {
-  // nodemon has been run alone, so try to read the package file
-  // or try to read the index.js file
+  const pkgPath = path.join(process.cwd(), 'package.json');
+  const pkg = existsSync(pkgPath) && require(pkgPath);
 
-  var pkg =
-    existsSync(path.join(process.cwd(), 'package.json')) &&
-    require(path.join(process.cwd(), 'package.json'));
-  if ((!pkg || pkg.main == undefined) && existsSync('./index.js')) {
+  if ((!pkg || !pkg.main) && existsSync('./index.js')) {
     return 'index.js';
   }
 }
 
 /**
- * Load the nodemon config, first reading the global root/nodemon.json, then
- * the local nodemon.json to the exec and then overwriting using any user
- * specified settings (i.e. from the cli)
- *
- * @param {Object} settings user defined settings
+ * Load nodemon configuration
+ * @param {Object} settings CLI/user settings
  * @param {Object} options global options
- * @param {Object} config the config object to be updated
- * @param {Function} callback that receives complete config
+ * @param {Object} config config object to update
+ * @param {Function} callback called with final merged options
  */
 function load(settings, options, config, callback) {
   config.loaded = [];
-  // first load the root nodemon.json
-  loadFile(options, config, utils.home, function (options) {
-    // then load the user's local configuration file
+
+  // Load global nodemon.json
+  loadFile(options, config, utils.home, (options) => {
+    // Load local nodemon.json (or specified file)
     if (settings.configFile) {
       options.configFile = path.resolve(settings.configFile);
     }
-    loadFile(options, config, process.cwd(), function (options) {
-      // Then merge over with the user settings (parsed from the cli).
-      // Note that merge protects and favours existing values over new values,
-      // and thus command line arguments get priority
+
+    loadFile(options, config, process.cwd(), (options) => {
+      // Merge CLI/user settings (priority)
       options = utils.merge(settings, options);
 
-      // legacy support
+      // Legacy support: ensure ignore is an array
       if (!Array.isArray(options.ignore)) {
         options.ignore = [options.ignore];
       }
@@ -58,69 +58,44 @@ function load(settings, options, config, callback) {
         options.ignoreRoot = defaults.ignoreRoot;
       }
 
-      // blend the user ignore and the default ignore together
-      if (options.ignoreRoot && options.ignore) {
-        if (!Array.isArray(options.ignoreRoot)) {
-          options.ignoreRoot = [options.ignoreRoot];
-        }
-        options.ignore = options.ignoreRoot.concat(options.ignore);
-      } else {
-        options.ignore = defaults.ignore.concat(options.ignore);
-      }
+      // Merge default ignores
+      options.ignore = (options.ignoreRoot || []).concat(options.ignore);
 
-      // add in any missing defaults
+      // Fill missing defaults
       options = utils.merge(options, defaults);
 
+      // Discover script if not provided
       if (!options.script && !options.exec) {
-        var found = findAppScript();
+        const found = findAppScript();
         if (found) {
-          if (!options.args) {
-            options.args = [];
-          }
-          // if the script is found as a result of not being on the command
-          // line, then we move any of the pre double-dash args in execArgs
-          const n =
-            options.scriptPosition === null
-              ? options.args.length
-              : options.scriptPosition;
-
-          options.execArgs = (options.execArgs || []).concat(
-            options.args.splice(0, n)
-          );
+          options.args = options.args || [];
+          const n = options.scriptPosition === null ? options.args.length : options.scriptPosition;
+          options.execArgs = (options.execArgs || []).concat(options.args.splice(0, n));
           options.scriptPosition = null;
-
           options.script = found;
         }
       }
 
+      // Determine final exec options
       mutateExecOptions(options);
 
-      if (options.quiet) {
-        utils.quiet();
-      }
+      // Apply utility flags
+      if (options.quiet) utils.quiet();
+      if (options.verbose) utils.debug = true;
 
-      if (options.verbose) {
-        utils.debug = true;
-      }
-
-      // simplify the ready callback to be called after the rules are normalised
-      // from strings to regexp through the rules lib. Note that this gets
-      // created *after* options is overwritten twice in the lines above.
-      var ready = function (options) {
-        normaliseRules(options, callback);
-      };
-
-      ready(options);
+      // Normalize rules (watch & ignore)
+      normaliseRules(options, callback);
     });
   });
 }
 
+/**
+ * Normalize watch and ignore arrays into rules
+ */
 function normaliseRules(options, ready) {
-  // convert ignore and watch options to rules/regexp
   rules.watch.add(options.watch);
   rules.ignore.add(options.ignore);
 
-  // normalise the watch and ignore arrays
   options.watch = options.watch === false ? false : rules.rules.watch;
   options.ignore = rules.rules.ignore;
 
@@ -128,79 +103,54 @@ function normaliseRules(options, ready) {
 }
 
 /**
- * Looks for a config in the current working directory, and a config in the
- * user's home directory, merging the two together, giving priority to local
- * config. This can then be overwritten later by command line arguments
- *
- * @param  {Function} ready callback to pass loaded settings to
+ * Load a configuration file (nodemon.json or package.json)
  */
-function loadFile(options, config, dir, ready) {
-  if (!ready) {
-    ready = function () {};
-  }
+function loadFile(options, config, dir, ready = () => {}) {
+  const callback = (settings) => ready(utils.merge(settings, options));
+  if (!dir) return callback({});
 
-  var callback = function (settings) {
-    // prefer the local nodemon.json and fill in missing items using
-    // the global options
-    ready(utils.merge(settings, options));
-  };
+  const filename = options.configFile || path.join(dir, 'nodemon.json');
+  if (config.loaded.includes(filename)) return callback({});
 
-  if (!dir) {
-    return callback({});
-  }
-
-  var filename = options.configFile || path.join(dir, 'nodemon.json');
-
-  if (config.loaded.indexOf(filename) !== -1) {
-    // don't bother re-parsing the same config file
-    return callback({});
-  }
-
-  fs.readFile(filename, 'utf8', function (err, data) {
+  fs.readFile(filename, 'utf8', (err, data) => {
     if (err) {
-      if (err.code === 'ENOENT') {
-        if (!options.configFile && dir !== utils.home) {
-          // if no specified local config file and local nodemon.json
-          // doesn't exist, try the package.json
-          return loadPackageJSON(config, callback);
-        }
+      if (err.code === 'ENOENT' && !options.configFile && dir !== utils.home) {
+        return loadPackageJSON(config, callback);
       }
       return callback({});
     }
 
-    var settings = {};
-
+    let settings = {};
     try {
       settings = JSON.parse(data.toString('utf8').replace(/^\uFEFF/, ''));
       if (!filename.endsWith('package.json') || settings.nodemonConfig) {
         config.loaded.push(filename);
       }
     } catch (e) {
-      utils.log.fail('Failed to parse config ' + filename);
+      utils.log.fail(`Failed to parse config ${filename}`);
       console.error(e);
       process.exit(1);
     }
 
-    // options values will overwrite settings
     callback(settings);
   });
 }
 
-function loadPackageJSON(config, ready) {
-  if (!ready) {
-    ready = () => {};
-  }
-
+/**
+ * Load configuration from package.json
+ */
+function loadPackageJSON(config, ready = () => {}) {
   const dir = process.cwd();
   const filename = path.join(dir, 'package.json');
-  const packageLoadOptions = { configFile: filename };
-  return loadFile(packageLoadOptions, config, dir, (settings) => {
+  return loadFile({ configFile: filename }, config, dir, (settings) => {
     ready(settings.nodemonConfig || {});
   });
 }
 
+/**
+ * Determine final exec options based on script, args, nodeArgs, etc.
+ */
 function mutateExecOptions(options) {
-  // work out the execOptions based on the final config we have
   options.execOptions = exec(
     {
       script: options.script,
@@ -215,7 +165,7 @@ function mutateExecOptions(options) {
     options.execMap
   );
 
-  // clean up values that we don't need at the top level
+  // Remove top-level keys that are now inside execOptions
   delete options.scriptPosition;
   delete options.script;
   delete options.args;

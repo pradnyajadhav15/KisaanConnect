@@ -1,41 +1,58 @@
-from fastapi import FastAPI, HTTPException, Query
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
-import pandas as pd
-import joblib
 import os
 import sys
+import joblib
+import pandas as pd
 from typing import Optional, Dict, Any
 
-# Add parent directory to path
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, Field
+
+
+# --------------------------------------------------
+# 1️⃣ PATH SETUP
+# --------------------------------------------------
+
+# Add parent directory to system path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# Set paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 model_dir = os.path.join(parent_dir, 'models')
 
-# Load model and feature columns
+# Model file paths
 model_path = os.path.join(model_dir, 'crop_price_model.joblib')
 feature_columns_path = os.path.join(model_dir, 'feature_columns.joblib')
 
-# Initialize FastAPI app
+
+# --------------------------------------------------
+# 2️⃣ FASTAPI APP INITIALIZATION
+# --------------------------------------------------
+
 app = FastAPI(
     title="Crop Price Prediction API",
     description="API for predicting crop prices using machine learning",
     version="1.0.0"
 )
 
-# Add CORS middleware
+
+# --------------------------------------------------
+# 3️⃣ CORS CONFIGURATION
+# --------------------------------------------------
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # For development, in production specify actual domains
+    allow_origins=["*"],   # Dev only
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Define the input model for prediction
+
+# --------------------------------------------------
+# 4️⃣ INPUT DATA MODEL
+# --------------------------------------------------
+
 class CropPriceInput(BaseModel):
     crop_name: str = Field(..., description="Name of the crop (e.g., Rice, Wheat, Potato)")
     quantity: float = Field(..., description="Quantity in kg", gt=0)
@@ -44,7 +61,7 @@ class CropPriceInput(BaseModel):
     rain_fall: Optional[float] = Field(None, description="Rainfall in mm")
     temperature: Optional[float] = Field(None, description="Temperature in Celsius")
     soil_quality: Optional[str] = Field(None, description="Soil quality (High, Medium, Low)")
-    
+
     class Config:
         json_schema_extra = {
             "example": {
@@ -58,7 +75,11 @@ class CropPriceInput(BaseModel):
             }
         }
 
-# Define the response model
+
+# --------------------------------------------------
+# 5️⃣ RESPONSE MODEL
+# --------------------------------------------------
+
 class PricePredictionResponse(BaseModel):
     predicted_price: float
     price_per_kg: float
@@ -68,34 +89,47 @@ class PricePredictionResponse(BaseModel):
     confidence: str
     factors: Dict[str, Any]
 
-# Handle startup events - load model when app starts
+
+# --------------------------------------------------
+# 6️⃣ LOAD MODEL ON STARTUP
+# --------------------------------------------------
+
 @app.on_event("startup")
 async def startup_event():
     global model, feature_columns
     try:
         model = joblib.load(model_path)
         feature_columns = joblib.load(feature_columns_path)
-        print("Model and feature columns loaded successfully")
+        print("✅ Model and feature columns loaded successfully")
     except Exception as e:
-        print(f"Error loading model: {e}")
+        print(f"❌ Error loading model: {e}")
         model = None
         feature_columns = None
 
-# Health check endpoint
+
+# --------------------------------------------------
+# 7️⃣ HEALTH CHECK API
+# --------------------------------------------------
+
 @app.get("/health")
 async def health_check():
     if model is not None:
         return {"status": "healthy", "model_loaded": True}
     return {"status": "unhealthy", "model_loaded": False}
 
-# Prediction endpoint
+
+# --------------------------------------------------
+# 8️⃣ PRICE PREDICTION API
+# --------------------------------------------------
+
 @app.post("/predict", response_model=PricePredictionResponse)
 async def predict_price(crop_input: CropPriceInput):
+
     if model is None:
         raise HTTPException(status_code=503, detail="Model not loaded")
-    
+
     try:
-        # Create a DataFrame with a single row for prediction
+        # ✅ Convert input to DataFrame
         input_data = pd.DataFrame({
             'crop_name': [crop_input.crop_name],
             'quantity': [crop_input.quantity],
@@ -105,30 +139,33 @@ async def predict_price(crop_input: CropPriceInput):
             'temperature': [crop_input.temperature if crop_input.temperature is not None else 0],
             'soil_quality': [crop_input.soil_quality if crop_input.soil_quality is not None else 'Medium']
         })
-        
-        # Make prediction
+
+        # ✅ Prediction
         predicted_price = model.predict(input_data)[0]
-        
-        # Calculate price per kg
+
+        # ✅ Price per KG
         price_per_kg = predicted_price / crop_input.quantity
-        
-        # Generate response with confidence interval (10% range)
+
+        # ✅ Confidence Range (±10%)
         min_price = predicted_price * 0.9
         max_price = predicted_price * 1.1
-        
-        # Calculate median price (as an estimate based on min and max)
         median_price = (min_price + max_price) / 2
-        
-        # Determine confidence based on input completeness
-        missing_values = sum(1 for value in [crop_input.rain_fall, crop_input.temperature, crop_input.soil_quality] if value is None)
+
+        # ✅ Confidence Level Calculation
+        missing_values = sum(
+            1 for value in 
+            [crop_input.rain_fall, crop_input.temperature, crop_input.soil_quality] 
+            if value is None
+        )
+
         if missing_values == 0:
             confidence = "High"
         elif missing_values == 1:
             confidence = "Medium"
         else:
             confidence = "Low"
-        
-        # Return prediction results
+
+        # ✅ Final Response
         return PricePredictionResponse(
             predicted_price=round(predicted_price, 2),
             price_per_kg=round(price_per_kg, 2),
@@ -148,10 +185,15 @@ async def predict_price(crop_input: CropPriceInput):
                 "soil_quality": crop_input.soil_quality
             }
         )
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Prediction error: {str(e)}")
 
-# Run with: uvicorn price_prediction.api.prediction_api:app --reload
+
+# --------------------------------------------------
+# 9️⃣ RUN SERVER DIRECTLY
+# --------------------------------------------------
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000) 
+    uvicorn.run(app, host="0.0.0.0", port=8000)

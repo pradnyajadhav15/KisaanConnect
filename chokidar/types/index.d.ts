@@ -1,6 +1,6 @@
 // TypeScript Version: 3.0
 
-/// <reference types="node" />
+// / <reference types="node" />
 
 import * as fs from "fs";
 import { EventEmitter } from "events";

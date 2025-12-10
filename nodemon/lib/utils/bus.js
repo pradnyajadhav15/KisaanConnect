@@ -1,44 +1,52 @@
-var events = require('events');
-var debug = require('debug')('nodemon');
-var util = require('util');
+'use strict';
 
-var Bus = function () {
-  events.EventEmitter.call(this);
-};
+const EventEmitter = require('events');
+const debug = require('debug')('nodemon');
+const util = require('util');
 
-util.inherits(Bus, events.EventEmitter);
+/**
+ * Bus class to handle event communication
+ * Inherits from Node.js EventEmitter
+ */
+class Bus extends EventEmitter {
+  constructor() {
+    super();
 
-var bus = new Bus();
+    // Track first-time listeners for logging purposes
+    this._collected = {};
 
-// /*
-var collected = {};
-bus.on('newListener', function (event) {
-  debug('bus new listener: %s (%s)', event, bus.listeners(event).length);
-  if (!collected[event]) {
-    collected[event] = true;
-    bus.on(event, function () {
-      debug('bus emit: %s', event);
+    // Wrap newListener to log debug info when listeners are added
+    this.on('newListener', (event) => {
+      debug('bus new listener: %s (%s)', event, this.listeners(event).length);
+
+      if (!this._collected[event]) {
+        this._collected[event] = true;
+
+        // Log debug message every time the event is emitted
+        this.on(event, () => {
+          debug('bus emit: %s', event);
+        });
+      }
     });
+
+    // If this process receives messages (when forked), forward to bus
+    process.on('message', (event) => {
+      debug('process.message(%s)', event);
+      this.emit(event);
+    });
+
+    // If nodemon was forked, wrap emit to also send messages upstream
+    if (process.send) {
+      const originalEmit = this.emit.bind(this);
+
+      this.emit = (event, ...args) => {
+        process.send({ type: event, data: args[0] }); // send first argument as data
+        originalEmit(event, ...args); // still emit locally
+      };
+    }
   }
-});
-
-// */
-
-// proxy process messages (if forked) to the bus
-process.on('message', function (event) {
-  debug('process.message(%s)', event);
-  bus.emit(event);
-});
-
-var emit = bus.emit;
-
-// if nodemon was spawned via a fork, allow upstream communication
-// via process.send
-if (process.send) {
-  bus.emit = function (event, data) {
-    process.send({ type: event, data: data });
-    emit.apply(bus, arguments);
-  };
 }
 
+// Export a single shared bus instance
+const bus = new Bus();
 module.exports = bus;

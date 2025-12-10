@@ -1,31 +1,33 @@
-var ignoreRoot = require('ignore-by-default').directories();
+const ignoreRoot = require('ignore-by-default').directories();
 
-// default options for config.options
+// Default configuration options
 const defaults = {
   restartable: 'rs',
   colours: true,
+
   execMap: {
     py: 'python',
     rb: 'ruby',
     ts: 'ts-node',
-    // more can be added here such as ls: lsc - but please ensure it's cross
-    // compatible with linux, mac and windows, or make the default.js
-    // dynamically append the `.cmd` for node based utilities
+    // More can be added here (ensure cross-platform compatibility)
   },
-  ignoreRoot: ignoreRoot.map((_) => `**/${_}/**`),
+
+  ignoreRoot: ignoreRoot.map(dir => `**/${dir}/**`),
+
   watch: ['*.*'],
   stdin: true,
   runOnChangeOnly: false,
   verbose: false,
   signal: 'SIGUSR2',
-  // 'stdout' refers to the default behaviour of a required nodemon's child,
-  // but also includes stderr. If this is false, data is still dispatched via
-  // nodemon.on('stdout/stderr')
+
+  // Includes both stdout and stderr output by default
   stdout: true,
+
   watchOptions: {},
 };
 
-const nodeOptions = process.env.NODE_OPTIONS || ''; // ?
+// Disable ts-node when Node loader/import is present
+const nodeOptions = process.env.NODE_OPTIONS || '';
 
 if (/--(loader|import)\b/.test(nodeOptions)) {
   delete defaults.execMap.ts;

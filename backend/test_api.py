@@ -1,30 +1,59 @@
 """
-Test script for the KisaanConnect API
-Run this script after starting the server to test various API endpoints
+KisaanConnect API Test Script
+Run this script after starting the server to test various API endpoints.
+This script covers health checks, farmer dashboard, and consumer dashboard.
 """
 
 import requests
 import json
 import uuid
 
-# Base URL
+# ------------------------------
+# Configuration
+# ------------------------------
 BASE_URL = "http://localhost:8000"
 
-def test_health():
-    """Test the health endpoint"""
-    response = requests.get(f"{BASE_URL}/health")
-    print("Health check:", response.json())
+
+# ------------------------------
+# Helper Functions
+# ------------------------------
+def print_title(title: str):
+    print("\n" + "="*len(title))
+    print(title)
+    print("="*len(title))
+
+
+def print_json(data, limit=None):
+    """Pretty-print JSON. Optionally limit list output"""
+    if isinstance(data, list) and limit:
+        print(json.dumps(data[:limit], indent=4))
+    else:
+        print(json.dumps(data, indent=4))
     print()
 
+
+# ------------------------------
+# Health Check
+# ------------------------------
+def test_health():
+    print_title("TESTING HEALTH ENDPOINT")
+    response = requests.get(f"{BASE_URL}/health")
+    print_json(response.json())
+
+
+# ------------------------------
+# Farmer Dashboard Tests
+# ------------------------------
 def test_farmer_dashboard():
-    """Test the farmer dashboard endpoints"""
-    print("===== TESTING FARMER DASHBOARD =====")
+    print_title("TESTING FARMER DASHBOARD")
     
-    # Get all crops
+    # 1. Get all crops
     response = requests.get(f"{BASE_URL}/farmer")
-    print("All crops:", response.json()[:2])  # Show just the first 2 crops
+    all_crops = response.json()
+    print("All crops (first 2 shown):")
+    print_json(all_crops, limit=2)
     
-    # Add a new crop
+    # 2. Add a new crop
     new_crop = {
         "name": "Carrots",
         "quantity": 75.5,
@@ -34,70 +63,80 @@ def test_farmer_dashboard():
         "location": "Karnataka",
         "available": True
     }
-    
     response = requests.post(f"{BASE_URL}/farmer", json=new_crop)
     created_crop = response.json()
-    print("Created crop:", created_crop)
+    print("Created crop:")
+    print_json(created_crop)
     
-    # Get dashboard stats
+    # 3. Get dashboard stats
     response = requests.get(f"{BASE_URL}/farmer/dashboard/stats")
-    print("Farmer dashboard stats:", response.json())
-    print()
+    stats = response.json()
+    print("Farmer dashboard stats:")
+    print_json(stats)
 
+
+# ------------------------------
+# Consumer Dashboard Tests
+# ------------------------------
 def test_consumer_dashboard():
-    """Test the consumer dashboard endpoints"""
-    print("===== TESTING CONSUMER DASHBOARD =====")
+    print_title("TESTING CONSUMER DASHBOARD")
     
-    # Get marketplace products
+    # 1. Get marketplace products
     response = requests.get(f"{BASE_URL}/consumer/marketplace")
     products = response.json()
-    print(f"Marketplace products: {len(products)} products available")
+    print(f"Marketplace products available: {len(products)}")
     
     if not products:
-        print("No products available in marketplace")
+        print("No products available in marketplace. Skipping further tests.")
         return
     
-    # Create a cart
+    # 2. Create a cart
     cart_id = str(uuid.uuid4())
     print(f"Created cart with ID: {cart_id}")
     
-    # Add item to cart
+    # 3. Add item to cart
     cart_item = {
         "crop_id": products[0]["id"],
         "quantity": 5,
         "cart_id": cart_id,
         "unit_price": products[0]["price_per_unit"]
     }
-    
     response = requests.post(f"{BASE_URL}/consumer/cart", json=cart_item)
     added_item = response.json()
-    print("Added item to cart:", added_item)
+    print("Added item to cart:")
+    print_json(added_item)
     
-    # Get cart items
+    # 4. Retrieve cart items
     response = requests.get(f"{BASE_URL}/consumer/cart/{cart_id}")
-    print("Cart items:", response.json())
+    cart_contents = response.json()
+    print("Cart items:")
+    print_json(cart_contents)
     
-    # Create an order
+    # 5. Create an order
     order = {
         "total_amount": added_item["quantity"] * added_item["unit_price"],
         "status": "pending",
         "shipping_address": "123 Test Street, Test City",
         "items": [added_item]
     }
-    
     response = requests.post(f"{BASE_URL}/consumer/orders", json=order)
     created_order = response.json()
-    print("Created order:", created_order)
+    print("Created order:")
+    print_json(created_order)
     
-    # Get dashboard stats
+    # 6. Get consumer dashboard stats
     response = requests.get(f"{BASE_URL}/consumer/dashboard/stats")
-    print("Consumer dashboard stats:", response.json())
-    print()
+    stats = response.json()
+    print("Consumer dashboard stats:")
+    print_json(stats)
 
+
+# ------------------------------
+# Main Execution
+# ------------------------------
 if __name__ == "__main__":
-    # Run all tests
     test_health()
     test_farmer_dashboard()
     test_consumer_dashboard()
     
-    print("All tests completed!") 
+    print_title("ALL TESTS COMPLETED")

@@ -1,27 +1,33 @@
-var fs = require('fs');
-var path = require('path');
+const fs = require('fs');
+const path = require('path');
 const supportsColor = require('supports-color');
 
 module.exports = help;
 
-const highlight = supportsColor.stdout ? '\x1B\[$1m' : '';
+// Use ANSI highlight sequences only if the terminal supports color
+const highlight = supportsColor.stdout ? '\x1B[$1m' : '';
 
+/**
+ * Returns the help text for a given CLI item
+ * @param {string|boolean} item - The CLI command or option to get help for
+ * @returns {string} Help text
+ */
 function help(item) {
-  if (!item) {
-    item = 'help';
-  } else if (item === true) { // if used with -h or --help and no args
+  // Default to 'help' if no item is provided or used as -h/--help
+  if (!item || item === true) {
     item = 'help';
   }
 
-  // cleanse the filename to only contain letters
-  // aka: /\W/g but figured this was eaiser to read
+  // Remove all non-alphabetic characters
   item = item.replace(/[^a-z]/gi, '');
 
   try {
-    var dir = path.join(__dirname, '..', '..', 'doc', 'cli', item + '.txt');
-    var body = fs.readFileSync(dir, 'utf8');
+    const filePath = path.join(__dirname, '..', '..', 'doc', 'cli', `${item}.txt`);
+    let body = fs.readFileSync(filePath, 'utf8');
+
+    // Replace ANSI escape sequences with highlight code if supported
     return body.replace(/\\x1B\[(.)m/g, highlight);
-  } catch (e) {
-    return '"' + item + '" help can\'t be found';
+  } catch (err) {
+    return `"${item}" help can't be found`;
   }
 }

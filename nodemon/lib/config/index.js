@@ -1,18 +1,22 @@
 /**
- * Manages the internal config of nodemon, checking for the state of support
- * with fs.watch, how nodemon can watch files (using find or fs methods).
+ * Manages the internal config of nodemon, including system capability detection,
+ * file watching strategies, and config merging.
  *
- * This is *not* the user's config.
+ * This is NOT the user's configuration.
  */
-var debug = require('debug')('nodemon');
-var load = require('./load');
-var rules = require('../rules');
-var utils = require('../utils');
-var pinVersion = require('../version').pin;
-var command = require('./command');
-var rulesToMonitor = require('../monitor/match').rulesToMonitor;
-var bus = utils.bus;
 
+const debug = require('debug')('nodemon');
+const load = require('./load');
+const rules = require('../rules');
+const utils = require('../utils');
+const pinVersion = require('../version').pin;
+const command = require('./command');
+const { rulesToMonitor } = require('../monitor/match');
+const bus = utils.bus;
+
+/**
+ * Resets internal nodemon state.
+ */
 function reset() {
   rules.reset();
 
@@ -22,11 +26,16 @@ function reset() {
   config.loaded = [];
 }
 
-var config = {
+/**
+ * Core internal configuration object
+ */
+const config = {
   run: false,
+
   system: {
     cwd: process.cwd(),
   },
+
   required: false,
   dirs: [],
   timeout: 1000,
@@ -34,57 +43,69 @@ var config = {
 };
 
 /**
- * Take user defined settings, then detect the local machine capability, then
- * look for local and global nodemon.json files and merge together the final
- * settings with the config for nodemon.
+ * Loads nodemon configuration from:
+ * - User CLI options
+ * - Local/global nodemon.json
+ * - System defaults
  *
- * @param  {Object} settings user defined settings for nodemon (typically on
- *  the cli)
- * @param  {Function} ready callback fired once the config is loaded
+ * @param {Object} settings
+ * @param {Function} ready
  */
 config.load = function (settings, ready) {
   reset();
-  var config = this;
-  load(settings, config.options, config, function (options) {
-    config.options = options;
 
+  const self = this;
+
+  load(settings, self.options, self, function (options) {
+    self.options = options;
+
+    // Ensure watch array is never empty
     if (options.watch.length === 0) {
-      // this is to catch when the watch is left blank
       options.watch.push('*.*');
     }
 
-    if (options['watch_interval']) { // jshint ignore:line
-      options.watchInterval = options['watch_interval']; // jshint ignore:line
+    // Backward compatibility for watch interval
+    if (options.watch_interval) {
+      options.watchInterval = options.watch_interval;
     }
 
-    config.watchInterval = options.watchInterval || null;
+    self.watchInterval = options.watchInterval || null;
+
     if (options.signal) {
-      config.signal = options.signal;
+      self.signal = options.signal;
     }
 
-    var cmd = command(config.options);
-    config.command = {
+    // Build execution command
+    const cmd = command(self.options);
+
+    self.command = {
       raw: cmd,
       string: utils.stringify(cmd.executable, cmd.args),
     };
 
-    // now run automatic checks on system adding to the config object
-    options.monitor = rulesToMonitor(options.watch, options.ignore, config);
+    // Apply automatic monitor rules
+    options.monitor = rulesToMonitor(options.watch, options.ignore, self);
 
-    var cwd = process.cwd();
-    debug('config: dirs', config.dirs);
-    if (config.dirs.length === 0) {
-      config.dirs.unshift(cwd);
+    const cwd = process.cwd();
+    debug('config: dirs', self.dirs);
+
+    if (self.dirs.length === 0) {
+      self.dirs.unshift(cwd);
     }
 
-    bus.emit('config:update', config);
-    pinVersion().then(function () {
-      ready(config);
-    }).catch(e => {
-      // this doesn't help testing, but does give exposure on syntax errors
-      console.error(e.stack);
-      setTimeout(() => { throw e; }, 0);
-    });
+    bus.emit('config:update', self);
+
+    pinVersion()
+      .then(() => {
+        ready(self);
+      })
+      .catch((e) => {
+        // Surface unexpected internal errors clearly
+        console.error(e.stack);
+        setTimeout(() => {
+          throw e;
+        }, 0);
+      });
   });
 };
 

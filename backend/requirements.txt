@@ -1,13 +1,41 @@
-fastapi==0.110.0
-uvicorn==0.29.0
-scikit-learn==1.4.0
-pandas==2.2.0
-numpy==1.26.4
-joblib==1.3.2
-python-multipart==0.0.9
-pydantic==2.6.3
-pydantic[email]==2.6.3
-PyJWT==2.8.0
-passlib==1.7.4
-email-validator==2.1.1
-requests==2.31.0 
+# -------------------------------
+# FastAPI & ASGI Server
+# -------------------------------
+fastapi==0.110.0              # Main backend framework for APIs
+uvicorn==0.29.0               # ASGI server to run FastAPI apps
+
+# -------------------------------
+# Machine Learning & Data Handling
+# -------------------------------
+scikit-learn==1.4.0           # ML algorithms, used for crop price prediction
+pandas==2.2.0                 # Data handling and manipulation
+numpy==1.26.4                 # Numerical computing
+joblib==1.3.2                 # Model saving/loading
+
+# -------------------------------
+# Form/Data Handling
+# -------------------------------
+python-multipart==0.0.9       # Handling file uploads in FastAPI
+
+# -------------------------------
+# Data Validation & Serialization
+# -------------------------------
+pydantic==2.6.3               # Data validation for request/response models
+pydantic[email]==2.6.3        # Email validation in Pydantic models
+
+# -------------------------------
+# Authentication & Security
+# -------------------------------
+PyJWT==2.8.0                  # JWT token creation/verification
+passlib==1.7.4                # Password hashing
+email-validator==2.1.1        # Email format validation
+
+# -------------------------------
+# HTTP Requests
+# -------------------------------
+requests==2.31.0              # For calling external APIs (if needed)
+
+# -------------------------------
+# Optional / Dependency Fixes
+# -------------------------------
+typing-extensions>=4.15.0    # Required by FastAPI/Pydantic for typing support

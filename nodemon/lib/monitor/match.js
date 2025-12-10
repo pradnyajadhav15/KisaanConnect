@@ -7,281 +7,150 @@ const utils = require('../utils');
 module.exports = match;
 module.exports.rulesToMonitor = rulesToMonitor;
 
+/**
+ * Converts watch and ignore patterns into full monitoring rules.
+ */
 function rulesToMonitor(watch, ignore, config) {
-  var monitor = [];
+  watch = Array.isArray(watch) ? watch : watch ? [watch] : [];
+  ignore = Array.isArray(ignore) ? ignore : ignore ? [ignore] : [];
 
-  if (!Array.isArray(ignore)) {
-    if (ignore) {
-      ignore = [ignore];
-    } else {
-      ignore = [];
-    }
-  }
+  let monitor = [...watch];
 
-  if (!Array.isArray(watch)) {
-    if (watch) {
-      watch = [watch];
-    } else {
-      watch = [];
-    }
-  }
+  // Prefix ignore rules with "!"
+  monitor.push(...ignore.map(rule => '!' + rule));
 
-  if (watch && watch.length) {
-    monitor = utils.clone(watch);
-  }
+  const cwd = process.cwd();
 
-  if (ignore) {
-    [].push.apply(
-      monitor,
-      (ignore || []).map(function (rule) {
-        return '!' + rule;
-      })
-    );
-  }
+  monitor = monitor.map(rule => {
+    const isIgnore = rule.startsWith('!');
+    if (isIgnore) rule = rule.slice(1);
 
-  var cwd = process.cwd();
+    if (rule === '.' || rule === '.*') rule = '*.*';
 
-  // next check if the monitored paths are actual directories
-  // or just patterns - and expand the rule to include *.*
-  monitor = monitor.map(function (rule) {
-    var not = rule.slice(0, 1) === '!';
-
-    if (not) {
-      rule = rule.slice(1);
-    }
-
-    if (rule === '.' || rule === '.*') {
-      rule = '*.*';
-    }
-
-    var dir = path.resolve(cwd, rule);
+    const fullPath = path.resolve(cwd, rule);
 
     try {
-      var stat = fs.statSync(dir);
+      const stat = fs.statSync(fullPath);
       if (stat.isDirectory()) {
-        rule = dir;
-        if (rule.slice(-1) !== '/') {
-          rule += '/';
-        }
-        rule += '**/*';
-
-        // `!not` ... sorry.
-        if (!not) {
-          config.dirs.push(dir);
-        }
-      } else {
-        // ensures we end up in the check that tries to get a base directory
-        // and then adds it to the watch list
-        throw new Error();
+        rule = fullPath.endsWith('/') ? fullPath + '**/*' : fullPath + '/**/*';
+        if (!isIgnore) config.dirs.push(fullPath);
       }
     } catch (e) {
-      var base = tryBaseDir(dir);
-      if (!not && base) {
-        if (config.dirs.indexOf(base) === -1) {
-          config.dirs.push(base);
-        }
+      const base = tryBaseDir(fullPath);
+      if (!isIgnore && base && !config.dirs.includes(base)) {
+        config.dirs.push(base);
       }
     }
 
-    if (rule.slice(-1) === '/') {
-      // just slap on a * anyway
-      rule += '*';
-    }
+    if (rule.endsWith('/')) rule += '*';
+    if (rule.endsWith('*') && !rule.endsWith('**/*') && !rule.includes('*.*')) rule += '*/*';
 
-    // if the url ends with * but not **/* and not *.*
-    // then convert to **/* - somehow it was missed :-\
-    if (
-      rule.slice(-4) !== '**/*' &&
-      rule.slice(-1) === '*' &&
-      rule.indexOf('*.') === -1
-    ) {
-      if (rule.slice(-2) !== '**') {
-        rule += '*/*';
-      }
-    }
-
-    return (not ? '!' : '') + rule;
+    return isIgnore ? '!' + rule : rule;
   });
 
   return monitor;
 }
 
+/**
+ * Tries to get the base directory of a given path or pattern.
+ */
 function tryBaseDir(dir) {
-  var stat;
-  if (/[?*\{\[]+/.test(dir)) {
-    // if this is pattern, then try to find the base
-    try {
-      var base = path.dirname(dir.replace(/([?*\{\[]+.*$)/, 'foo'));
-      stat = fs.statSync(base);
-      if (stat.isDirectory()) {
-        return base;
-      }
-    } catch (error) {
-      // console.log(error);
+  try {
+    if (/[?*\{\[]+/.test(dir)) {
+      const base = path.dirname(dir.replace(/([?*\{\[]+.*$)/, 'foo'));
+      const stat = fs.statSync(base);
+      if (stat.isDirectory()) return base;
+    } else {
+      const stat = fs.statSync(dir);
+      if (stat.isFile() || stat.isDirectory()) return dir;
     }
-  } else {
-    try {
-      stat = fs.statSync(dir);
-      // if this path is actually a single file that exists, then just monitor
-      // that, *specifically*.
-      if (stat.isFile() || stat.isDirectory()) {
-        return dir;
-      }
-    } catch (e) {}
-  }
-
+  } catch (e) {}
   return false;
 }
 
+/**
+ * Matches files against monitoring rules and optional extensions.
+ */
 function match(files, monitor, ext) {
-  // sort the rules by highest specificity (based on number of slashes)
-  // ignore rules (!) get sorted highest as they take precedent
   const cwd = process.cwd();
-  var rules = monitor
-    .sort(function (a, b) {
-      var r = b.split(path.sep).length - a.split(path.sep).length;
-      var aIsIgnore = a.slice(0, 1) === '!';
-      var bIsIgnore = b.slice(0, 1) === '!';
+  const rules = monitor
+    .sort((a, b) => {
+      const aIgnore = a.startsWith('!');
+      const bIgnore = b.startsWith('!');
+      if (aIgnore) return -1;
+      if (bIgnore) return 1;
 
-      if (aIsIgnore || bIsIgnore) {
-        if (aIsIgnore) {
-          return -1;
-        }
-
-        return 1;
-      }
-
-      if (r === 0) {
-        return b.length - a.length;
-      }
-      return r;
+      const r = b.split(path.sep).length - a.split(path.sep).length;
+      return r === 0 ? b.length - a.length : r;
     })
-    .map(function (s) {
-      var prefix = s.slice(0, 1);
-
-      if (prefix === '!') {
-        if (s.indexOf('!' + cwd) === 0) {
-          return s;
-        }
-
-        // if it starts with a period, then let's get the relative path
-        if (s.indexOf('!.') === 0) {
-          return '!' + path.resolve(cwd, s.substring(1));
-        }
-
-        return '!**' + (prefix !== path.sep ? path.sep : '') + s.slice(1);
+    .map(rule => {
+      if (rule.startsWith('!')) {
+        if (rule.startsWith('!.')) return '!' + path.resolve(cwd, rule.slice(1));
+        return '!**/' + rule.slice(1);
       }
-
-      // if it starts with a period, then let's get the relative path
-      if (s.indexOf('.') === 0) {
-        return path.resolve(cwd, s);
-      }
-
-      if (s.indexOf(cwd) === 0) {
-        return s;
-      }
-
-      return '**' + (prefix !== path.sep ? path.sep : '') + s;
+      if (rule.startsWith('.')) return path.resolve(cwd, rule);
+      if (rule.startsWith(cwd)) return rule;
+      return '**/' + rule;
     });
 
   debug('rules', rules);
 
-  var good = [];
-  var whitelist = []; // files that we won't check against the extension
-  var ignored = 0;
-  var watched = 0;
-  var usedRules = [];
-  var minimatchOpts = {
-    dot: true,
-  };
+  let good = [];
+  let whitelist = [];
+  let ignored = 0;
+  let watched = 0;
+  const usedRules = [];
+  const minimatchOpts = { dot: true, nocase: utils.isWindows };
 
-  // enable case-insensitivity on Windows
-  if (utils.isWindows) {
-    minimatchOpts.nocase = true;
-  }
-
-  files.forEach(function (file) {
+  files.forEach(file => {
     file = path.resolve(cwd, file);
+    let matched = false;
 
-    var matched = false;
-    for (var i = 0; i < rules.length; i++) {
-      if (rules[i].slice(0, 1) === '!') {
-        if (!minimatch(file, rules[i], minimatchOpts)) {
-          debug('ignored', file, 'rule:', rules[i]);
+    for (const rule of rules) {
+      const isIgnore = rule.startsWith('!');
+      if (isIgnore) {
+        if (!minimatch(file, rule, minimatchOpts)) {
           ignored++;
           matched = true;
           break;
         }
-      } else {
-        debug('matched', file, 'rule:', rules[i]);
-        if (minimatch(file, rules[i], minimatchOpts)) {
-          watched++;
-
-          // don't repeat the output if a rule is matched
-          if (usedRules.indexOf(rules[i]) === -1) {
-            usedRules.push(rules[i]);
-            utils.log.detail('matched rule: ' + rules[i]);
-          }
-
-          // if the rule doesn't match the WATCH EVERYTHING
-          // but *does* match a rule that ends with *.*, then
-          // white list it - in that we don't run it through
-          // the extension check too.
-          if (
-            rules[i] !== '**' + path.sep + '*.*' &&
-            rules[i].slice(-3) === '*.*'
-          ) {
-            whitelist.push(file);
-          } else if (path.basename(file) === path.basename(rules[i])) {
-            // if the file matches the actual rule, then it's put on whitelist
-            whitelist.push(file);
-          } else {
-            good.push(file);
-          }
-          matched = true;
-        } else {
-          // utils.log.detail('no match: ' + rules[i], file);
+      } else if (minimatch(file, rule, minimatchOpts)) {
+        watched++;
+        if (!usedRules.includes(rule)) {
+          usedRules.push(rule);
+          utils.log.detail('matched rule: ' + rule);
         }
+
+        if (rule !== '**/*' && rule.endsWith('*.*')) {
+          whitelist.push(file);
+        } else if (path.basename(file) === path.basename(rule)) {
+          whitelist.push(file);
+        } else {
+          good.push(file);
+        }
+        matched = true;
       }
     }
-    if (!matched) {
-      ignored++;
-    }
+
+    if (!matched) ignored++;
   });
 
-  // finally check the good files against the extensions that we're monitoring
+  // Filter good files by extension
   if (ext) {
-    if (ext.indexOf(',') === -1) {
-      ext = '**/*.' + ext;
-    } else {
-      ext = '**/*.{' + ext + '}';
-    }
-
-    good = good.filter(function (file) {
-      // only compare the filename to the extension test
-      return minimatch(path.basename(file), ext, minimatchOpts);
-    });
+    ext = ext.includes(',') ? `**/*.{${ext}}` : `**/*.${ext}`;
+    good = good.filter(file => minimatch(path.basename(file), ext, minimatchOpts));
     debug('good (filtered by ext)', good);
   } else {
-    // else assume *.*
     debug('good', good);
   }
 
   if (whitelist.length) debug('whitelist', whitelist);
 
-  var result = good.concat(whitelist);
+  let result = good.concat(whitelist);
 
   if (utils.isWindows) {
-    // fix for windows testing - I *think* this is okay to do
-    result = result.map(function (file) {
-      return file.slice(0, 1).toLowerCase() + file.slice(1);
-    });
+    result = result.map(file => file.slice(0, 1).toLowerCase() + file.slice(1));
   }
 
-  return {
-    result: result,
-    ignored: ignored,
-    watched: watched,
-    total: files.length,
-  };
+  return { result, ignored, watched, total: files.length };
 }

@@ -1,89 +1,68 @@
 'use strict';
 
-var utils = require('../utils');
+const utils = require('../utils');
 
-// internal
-var reEscComments = /\\#/g;
-// note that '^^' is used in place of escaped comments
-var reUnescapeComments = /\^\^/g;
-var reComments = /#.*$/;
-var reEscapeChars = /[.|\-[\]()\\]/g;
-var reAsterisk = /\*/g;
+// Regex patterns used internally
+const reEscComments = /\\#/g;       // Escaped comments (like "\#")
+const reUnescapeComments = /\^\^/g; // Placeholder for escaped comments
+const reComments = /#.*$/;          // Standard comments
+const reEscapeChars = /[.|\-[\]()\\]/g; // Characters to escape in regex
+const reAsterisk = /\*/g;           // Asterisk wildcard
 
 module.exports = add;
 
 /**
- * Converts file patterns or regular expressions to nodemon
- * compatible RegExp matching rules. Note: the `rules` argument
- * object is modified to include the new rule and new RegExp
+ * Add a watch/ignore rule for nodemon.
  *
- * ### Example:
- *
- *     var rules = { watch: [], ignore: [] };
- *     add(rules, 'watch', '*.js');
- *     add(rules, 'ignore', '/public/');
- *     add(rules, 'watch', ':(\d)*\.js'); // note: string based regexp
- *     add(rules, 'watch', /\d*\.js/);
- *
- * @param {Object} rules containing `watch` and `ignore`. Also updated during
- *                       execution
- * @param {String} which must be either "watch" or "ignore"
- * @param {String|RegExp} rule the actual rule.
+ * @param {Object} rules - Object containing `watch` and `ignore` arrays.
+ * @param {String} which - Either "watch" or "ignore".
+ * @param {String|RegExp|Array} rule - File pattern or array of patterns.
  */
 function add(rules, which, rule) {
-  if (!{ ignore: 1, watch: 1}[which]) {
-    throw new Error('rules/index.js#add requires "ignore" or "watch" as the ' +
-      'first argument');
+  // Validate first argument
+  if (!{ ignore: 1, watch: 1 }[which]) {
+    throw new Error('rules/index.js#add requires "ignore" or "watch" as the first argument');
   }
 
+  // If rule is an array, recursively add each rule
   if (Array.isArray(rule)) {
-    rule.forEach(function (rule) {
-      add(rules, which, rule);
-    });
+    rule.forEach(r => add(rules, which, r));
     return;
   }
 
-  // support the rule being a RegExp, but reformat it to
-  // the custom :<regexp> format that we're working with.
+  // RegExp support is removed
   if (rule instanceof RegExp) {
-    // rule = ':' + rule.toString().replace(/^\/(.*?)\/$/g, '$1');
     utils.log.error('RegExp format no longer supported, but globs are.');
     return;
   }
 
-  // remove comments and trim lines
-  // this mess of replace methods is escaping "\#" to allow for emacs temp files
+  // Remove comments and trim
+  rule = (rule || '')
+    .replace(reEscComments, '^^')   // temporarily replace escaped #
+    .replace(reComments, '')        // remove actual comments
+    .replace(reUnescapeComments, '#') // restore escaped #
+    .trim();
 
-  // first up strip comments and remove blank head or tails
-  rule = (rule || '').replace(reEscComments, '^^')
-             .replace(reComments, '')
-             .replace(reUnescapeComments, '#').trim();
+  if (!rule) return; // ignore empty lines
 
-  var regexp = false;
+  let regexp = false;
 
-  if (typeof rule === 'string' && rule.substring(0, 1) === ':') {
+  // Old-style RegExp string support (deprecated)
+  if (rule.startsWith(':')) {
     rule = rule.substring(1);
     utils.log.error('RegExp no longer supported: ' + rule);
     regexp = true;
-  } else if (rule.length === 0) {
-    // blank line (or it was a comment)
-    return;
   }
 
-  if (regexp) {
-    // rules[which].push(rule);
-  } else {
-    // rule = rule.replace(reEscapeChars, '\\$&')
-    // .replace(reAsterisk, '.*');
-
+  if (!regexp) {
+    // Add the glob pattern
     rules[which].push(rule);
-    // compile a regexp of all the rules for this ignore or watch
-    var re = rules[which].map(function (rule) {
-      return rule.replace(reEscapeChars, '\\$&')
-                 .replace(reAsterisk, '.*');
-    }).join('|');
 
-    // used for the directory matching
+    // Compile a single RegExp for all rules
+    const re = rules[which]
+      .map(r => r.replace(reEscapeChars, '\\$&').replace(reAsterisk, '.*'))
+      .join('|');
+
     rules[which].re = new RegExp(re);
   }
 }

@@ -14,28 +14,28 @@ const HomePage = ({ onNavigate }) => {
   const products = [
     {
       id: 1,
-      name: 'strawberry',
+      name: 'Strawberry',
       price: 170,
       unit: 'kg',
       image: strawberryImg
     },
     {
       id: 2,
-      name: 'raddish',
+      name: 'Radish',
       price: 75,
       unit: 'kg',
       image: radishImg
     },
     {
       id: 3,
-      name: 'apple',
+      name: 'Apple',
       price: 125,
       unit: 'kg',
       image: appleImg
     },
     {
       id: 4,
-      name: 'carrot',
+      name: 'Carrot',
       price: 90,
       unit: 'kg',
       image: carrotImg
@@ -44,10 +44,13 @@ const HomePage = ({ onNavigate }) => {
 
   return (
     <div className="home-page">
-      <Hero />
-      <ProductSection products={products} />
+      {/* Hero Section */}
+      <Hero onNavigate={onNavigate} />
+
+      {/* Product Section */}
+      <ProductSection products={products} onNavigate={onNavigate} />
     </div>
   );
 };
 
-export default HomePage; 
+export default HomePage;

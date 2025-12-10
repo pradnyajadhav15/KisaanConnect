@@ -1,244 +1,176 @@
+const chokidar = require('chokidar');
+const path = require('path');
+const undefsafe = require('undefsafe');
+const debug = require('debug')('nodemon:watch');
+const debugRoot = require('debug')('nodemon');
+
+const config = require('../config');
+const utils = require('../utils');
+const bus = utils.bus;
+const match = require('./match');
+
+let watchers = [];
+let debouncedBus;
+let watchedFiles = [];
+
+// Export functions
 module.exports.watch = watch;
 module.exports.resetWatchers = resetWatchers;
 
-var debug = require('debug')('nodemon:watch');
-var debugRoot = require('debug')('nodemon');
-var chokidar = require('chokidar');
-var undefsafe = require('undefsafe');
-var config = require('../config');
-var path = require('path');
-var utils = require('../utils');
-var bus = utils.bus;
-var match = require('./match');
-var watchers = [];
-var debouncedBus;
-
+// Reset all watchers
 bus.on('reset', resetWatchers);
-
 function resetWatchers() {
   debugRoot('resetting watchers');
-  watchers.forEach(function (watcher) {
-    watcher.close();
-  });
+  watchers.forEach(watcher => watcher.close());
   watchers = [];
 }
 
+// Start watching directories/files
 function watch() {
   if (watchers.length) {
-    debug('early exit on watch, still watching (%s)', watchers.length);
+    debug('already watching %s paths', watchers.length);
     return;
   }
 
-  var dirs = [].slice.call(config.dirs);
+  const dirs = Array.from(config.dirs);
+  const rootIgnored = config.options.ignore || [];
 
   debugRoot('start watch on: %s', dirs.join(', '));
-  const rootIgnored = config.options.ignore;
   debugRoot('ignored', rootIgnored);
 
-  var watchedFiles = [];
+  watchedFiles = [];
 
-  const promise = new Promise(function (resolve) {
+  const promise = new Promise(resolve => {
     const dotFilePattern = /[/\\]\./;
-    var ignored = match.rulesToMonitor(
-      [], // not needed
-      Array.from(rootIgnored),
-      config
-    ).map(pattern => pattern.slice(1));
 
+    // Build ignore patterns
+    let ignored = match.rulesToMonitor([], rootIgnored, config)
+      .map(p => p.slice(1));
+
+    // Only ignore dotfiles if they are not explicitly watched
     const addDotFile = dirs.filter(dir => dir.match(dotFilePattern));
+    if (!addDotFile.length) ignored.push(dotFilePattern);
 
-    // don't ignore dotfiles if explicitly watched.
-    if (addDotFile.length === 0) {
-      ignored.push(dotFilePattern);
-    }
-
-    var watchOptions = {
+    const watchOptions = {
       ignorePermissionErrors: true,
-      ignored: ignored,
+      ignored,
       persistent: true,
       usePolling: config.options.legacyWatch || false,
       interval: config.options.pollingInterval,
-      // note to future developer: I've gone back and forth on adding `cwd`
-      // to the props and in some cases it fixes bugs but typically it causes
-      // bugs elsewhere (since nodemon is used is so many ways). the final
-      // decision is to *not* use it at all and work around it
-      // cwd: ...
     };
 
-    if (utils.isWindows) {
-      watchOptions.disableGlobbing = true;
-    }
+    if (utils.isWindows) watchOptions.disableGlobbing = true;
+    if (utils.isIBMi) watchOptions.usePolling = true;
+    if (process.env.TEST) watchOptions.useFsEvents = false;
 
-    if (utils.isIBMi) {
-      watchOptions.usePolling = true;
-    }
-
-    if (process.env.TEST) {
-      watchOptions.useFsEvents = false;
-    }
-
-    var watcher = chokidar.watch(
+    const watcher = chokidar.watch(
       dirs,
       Object.assign({}, watchOptions, config.options.watchOptions || {})
     );
 
     watcher.ready = false;
 
-    var total = 0;
-
     watcher.on('change', filterAndRestart);
     watcher.on('unlink', filterAndRestart);
-    watcher.on('add', function (file) {
-      if (watcher.ready) {
-        return filterAndRestart(file);
-      }
+    watcher.on('add', file => {
+      if (watcher.ready) return filterAndRestart(file);
 
       watchedFiles.push(file);
       bus.emit('watching', file);
       debug('chokidar watching: %s', file);
     });
-    watcher.on('ready', function () {
-      watchedFiles = Array.from(new Set(watchedFiles)); // ensure no dupes
-      total = watchedFiles.length;
+
+    watcher.on('ready', () => {
+      watchedFiles = Array.from(new Set(watchedFiles)); // remove duplicates
       watcher.ready = true;
-      resolve(total);
       debugRoot('watch is complete');
+      resolve(watchedFiles.length);
     });
 
-    watcher.on('error', function (error) {
+    watcher.on('error', error => {
       if (error.code === 'EINVAL') {
-        utils.log.error(
-          'Internal watch failed. Likely cause: too many ' +
-          'files being watched (perhaps from the root of a drive?\n' +
-          'See https://github.com/paulmillr/chokidar/issues/229 for details'
-        );
+        utils.log.error('Too many files being watched. Check https://github.com/paulmillr/chokidar/issues/229');
       } else {
         utils.log.error('Internal watch failed: ' + error.message);
-        process.exit(1);
       }
+      process.exit(1);
     });
 
     watchers.push(watcher);
   });
 
-  return promise.catch(e => {
-    // this is a core error and it should break nodemon - so I have to break
-    // out of a promise using the setTimeout
-    setTimeout(() => {
-      throw e;
+  return promise
+    .catch(e => setTimeout(() => { throw e; }))
+    .then(() => {
+      utils.log.detail(`watching ${watchedFiles.length} file${watchedFiles.length === 1 ? '' : 's'}`);
+      return watchedFiles;
     });
-  }).then(function () {
-    utils.log.detail(`watching ${watchedFiles.length} file${
-      watchedFiles.length === 1 ? '' : 's'}`);
-    return watchedFiles;
-  });
 }
 
+// Filter changed files and trigger restart if needed
 function filterAndRestart(files) {
-  if (!Array.isArray(files)) {
-    files = [files];
+  if (!Array.isArray(files)) files = [files];
+
+  if (!files.length) return;
+
+  const cwd = this?.options?.cwd || process.cwd();
+
+  utils.log.detail(
+    'files triggering change check: ' + files.map(f => path.relative(cwd, f)).join(', ')
+  );
+
+  files = files.filter(Boolean).map(f => path.relative(process.cwd(), path.relative(cwd, f)));
+
+  if (utils.isWindows) {
+    files = files.map(f => f.includes(':') ? f[0].toUpperCase() + f.slice(1) : f);
   }
 
-  if (files.length) {
-    var cwd = process.cwd();
-    if (this.options && this.options.cwd) {
-      cwd = this.options.cwd;
-    }
+  const matched = match(
+    files,
+    config.options.monitor,
+    undefsafe(config, 'options.execOptions.ext')
+  );
 
-    utils.log.detail(
-      'files triggering change check: ' +
-      files
-        .map(file => {
-          const res = path.relative(cwd, file);
-          return res;
-        })
-        .join(', ')
-    );
-
-    // make sure the path is right and drop an empty
-    // filenames (sometimes on windows)
-    files = files.filter(Boolean).map(file => {
-      return path.relative(process.cwd(), path.relative(cwd, file));
+  // Special case: check if running script changed
+  const script = undefsafe(config, 'options.execOptions.script');
+  if (matched.result.length === 0 && script) {
+    const scriptFile = path.resolve(script);
+    files.find(file => {
+      if (file.endsWith(scriptFile)) {
+        matched.result = [file];
+        matched.total = 1;
+        return true;
+      }
     });
+  }
 
-    if (utils.isWindows) {
-      // ensure the drive letter is in uppercase (c:\foo -> C:\foo)
-      files = files.map(f => {
-        if (f.indexOf(':') === -1) { return f; }
-        return f[0].toUpperCase() + f.slice(1);
-      });
-    }
+  utils.log.detail('changes after filters (before/after): ' + [files.length, matched.result.length].join('/'));
 
+  config.lastStarted = Date.now();
 
-    debug('filterAndRestart on', files);
-
-    var matched = match(
-      files,
-      config.options.monitor,
-      undefsafe(config, 'options.execOptions.ext')
-    );
-
-    debug('matched?', JSON.stringify(matched));
-
-    // if there's no matches, then test to see if the changed file is the
-    // running script, if so, let's allow a restart
-    if (config.options.execOptions && config.options.execOptions.script) {
-      const script = path.resolve(config.options.execOptions.script);
-      if (matched.result.length === 0 && script) {
-        const length = script.length;
-        files.find(file => {
-          if (file.substr(-length, length) === script) {
-            matched = {
-              result: [file],
-              total: 1,
-            };
-            return true;
-          }
-        });
-      }
-    }
-
-    utils.log.detail(
-      'changes after filters (before/after): ' +
-      [files.length, matched.result.length].join('/')
-    );
-
-    // reset the last check so we're only looking at recently modified files
-    config.lastStarted = Date.now();
-
-    if (matched.result.length) {
-      if (config.options.delay > 0) {
-        utils.log.detail('delaying restart for ' + config.options.delay + 'ms');
-        if (debouncedBus === undefined) {
-          debouncedBus = debounce(restartBus, config.options.delay);
-        }
-        debouncedBus(matched);
-      } else {
-        return restartBus(matched);
-      }
+  if (matched.result.length) {
+    if (config.options.delay > 0) {
+      if (!debouncedBus) debouncedBus = debounce(restartBus, config.options.delay);
+      debouncedBus(matched);
+    } else {
+      restartBus(matched);
     }
   }
 }
 
+// Emit restart event
 function restartBus(matched) {
   utils.log.status('restarting due to changes...');
-  matched.result.map(file => {
-    utils.log.detail(path.relative(process.cwd(), file));
-  });
-
-  if (config.options.verbose) {
-    utils.log._log('');
-  }
-
+  matched.result.forEach(file => utils.log.detail(path.relative(process.cwd(), file)));
+  if (config.options.verbose) utils.log._log('');
   bus.emit('restart', matched.result);
 }
 
+// Simple debounce helper
 function debounce(fn, delay) {
-  var timer = null;
+  let timer = null;
   return function () {
-    const context = this;
-    const args = arguments;
     clearTimeout(timer);
-    timer = setTimeout(() =>fn.apply(context, args), delay);
+    timer = setTimeout(() => fn.apply(this, arguments), delay);
   };
 }

@@ -7,20 +7,16 @@ module.exports = exec;
 module.exports.expandScript = expandScript;
 
 /**
- * Reads the cwd/package.json file and looks to see if it can load a script
- * and possibly an exec first from package.main, then package.start.
+ * Reads the cwd/package.json file and attempts to determine
+ * the default script or exec command.
  *
- * @return {Object} exec & script if found
+ * @returns {{exec?: string|null, script?: string}|null}
  */
 function execFromPackage() {
-  // doing a try/catch because we can't use the path.exist callback pattern
-  // or we could, but the code would get messy, so this will do exactly
-  // what we're after - if the file doesn't exist, it'll throw.
   try {
-    // note: this isn't nodemon's package, it's the user's cwd package
-    var pkg = require(path.join(process.cwd(), 'package.json'));
+    const pkg = require(path.join(process.cwd(), 'package.json'));
+
     if (pkg.main !== undefined) {
-      // no app found to run - so give them a tip and get the feck out
       return { exec: null, script: pkg.main };
     }
 
@@ -32,20 +28,20 @@ function execFromPackage() {
   return null;
 }
 
+/**
+ * Replaces {{variable}} placeholders in strings.
+ */
 function replace(map, str) {
-  var re = new RegExp('{{(' + Object.keys(map).join('|') + ')}}', 'g');
-  return str.replace(re, function (all, m) {
-    return map[m] || all || '';
-  });
+  const re = new RegExp(`{{(${Object.keys(map).join('|')})}}`, 'g');
+
+  return str.replace(re, (all, key) => map[key] || all || '');
 }
 
-function expandScript(script, ext) {
-  if (!ext) {
-    ext = '.js';
-  }
-  if (script.indexOf(ext) !== -1) {
-    return script;
-  }
+/**
+ * Expands a script name to include extension if needed.
+ */
+function expandScript(script, ext = '.js') {
+  if (script.includes(ext)) return script;
 
   if (existsSync(path.resolve(script))) {
     return script;
@@ -59,73 +55,57 @@ function expandScript(script, ext) {
 }
 
 /**
- * Discovers all the options required to run the script
- * and if a custom exec has been passed in, then it will
- * also try to work out what extensions to monitor and
- * whether there's a special way of running that script.
+ * Discovers execution settings and builds the final options.
  *
- * @param  {Object} nodemonOptions
- * @param  {Object} execMap
- * @return {Object} new and updated version of nodemonOptions
+ * @param {Object} nodemonOptions
+ * @param {Object} execMap
+ * @returns {Object}
  */
-function exec(nodemonOptions, execMap) {
-  if (!execMap) {
-    execMap = {};
-  }
+function exec(nodemonOptions, execMap = {}) {
+  const options = utils.clone(nodemonOptions || {});
+  let script;
 
-  var options = utils.clone(nodemonOptions || {});
-  var script;
-
-  // if there's no script passed, try to get it from the first argument
+  // Detect script from args if not explicitly set
   if (!options.script && (options.args || []).length) {
     script = expandScript(
       options.args[0],
       options.ext && '.' + (options.ext || 'js').split(',')[0]
     );
 
-    // if the script was found, shift it off our args
     if (script !== options.args[0]) {
       options.script = script;
       options.args.shift();
     }
   }
 
-  // if there's no exec found yet, then try to read it from the local
-  // package.json this logic used to sit in the cli/parse, but actually the cli
-  // should be parsed first, then the user options (via nodemon.json) then
-  // finally default down to pot shots at the directory via package.json
+  // Load exec/script from package.json if missing
   if (!options.exec && !options.script) {
-    var found = execFromPackage();
+    const found = execFromPackage();
+
     if (found !== null) {
-      if (found.exec) {
-        options.exec = found.exec;
-      }
-      if (!options.script) {
-        options.script = found.script;
-      }
+      if (found.exec) options.exec = found.exec;
+      if (!options.script) options.script = found.script;
+
       if (Array.isArray(options.args) && options.scriptPosition === null) {
         options.scriptPosition = options.args.length;
       }
     }
   }
 
-  // var options = utils.clone(nodemonOptions || {});
-  script = path.basename(options.script || '');
+  const baseScript = path.basename(options.script || '');
+  const scriptExt = path.extname(baseScript).slice(1);
 
-  var scriptExt = path.extname(script).slice(1);
+  let extension = options.ext;
 
-  var extension = options.ext;
   if (extension === undefined) {
-    var isJS = scriptExt === 'js' || scriptExt === 'mjs' || scriptExt === 'cjs';
+    const isJS = ['js', 'mjs', 'cjs'].includes(scriptExt);
     extension = isJS || !scriptExt ? 'js,mjs,cjs' : scriptExt;
-    extension += ',json'; // Always watch JSON files
+    extension += ',json';
   }
 
-  var execDefined = !!options.exec;
+  let execDefined = !!options.exec;
 
-  // allows the user to simplify cli usage:
-  // https://github.com/remy/nodemon/issues/195
-  // but always give preference to the user defined argument
+  // Map extension to custom exec
   if (!options.exec && execMap[scriptExt] !== undefined) {
     options.exec = execMap[scriptExt];
     execDefined = true;
@@ -138,77 +118,70 @@ function exec(nodemonOptions, execMap) {
     options.exec = options.execArgs.shift();
   }
 
+  // Default to node
   if (options.exec === undefined) {
     options.exec = 'node';
   } else {
-    // allow variable substitution for {{filename}} and {{pwd}}
-    var substitution = replace.bind(null, {
+    // Variable substitution
+    const substitution = replace.bind(null, {
       filename: options.script,
       pwd: process.cwd(),
     });
 
-    var newExec = substitution(options.exec);
-    if (
-      newExec !== options.exec &&
-      options.exec.indexOf('{{filename}}') !== -1
-    ) {
+    const newExec = substitution(options.exec);
+
+    if (newExec !== options.exec && options.exec.includes('{{filename}}')) {
       options.script = null;
     }
+
     options.exec = newExec;
 
-    var newExecArgs = options.execArgs.map(substitution);
+    const newExecArgs = options.execArgs.map(substitution);
+
     if (newExecArgs.join('') !== options.execArgs.join('')) {
       options.execArgs = newExecArgs;
       delete options.script;
     }
   }
 
-  if (options.exec === 'node' && options.nodeArgs && options.nodeArgs.length) {
+  // Merge node arguments
+  if (options.exec === 'node' && options.nodeArgs?.length) {
     options.execArgs = options.execArgs.concat(options.nodeArgs);
   }
 
-  // note: indexOf('coffee') handles both .coffee and .litcoffee
+  // CoffeeScript support
   if (
     !execDefined &&
     options.exec === 'node' &&
-    scriptExt.indexOf('coffee') !== -1
+    scriptExt.includes('coffee')
   ) {
     options.exec = 'coffee';
 
-    // we need to get execArgs set before the script
-    // for example, in `nodemon --debug my-script.coffee --my-flag`, debug is an
-    // execArg, while my-flag is a script arg
-    var leadingArgs = (options.args || []).splice(0, options.scriptPosition);
+    const leadingArgs = (options.args || []).splice(
+      0,
+      options.scriptPosition
+    );
+
     options.execArgs = options.execArgs.concat(leadingArgs);
     options.scriptPosition = 0;
 
     if (options.execArgs.length > 0) {
-      // because this is the coffee executable, we need to combine the exec args
-      // into a single argument after the nodejs flag
       options.execArgs = ['--nodejs', options.execArgs.join(' ')];
     }
   }
 
   if (options.exec === 'coffee') {
-    // don't override user specified extension tracking
     if (options.ext === undefined) {
-      if (extension) {
-        extension += ',';
-      }
+      if (extension) extension += ',';
       extension += 'coffee,litcoffee';
     }
 
-    // because windows can't find 'coffee', it needs the real file 'coffee.cmd'
     if (utils.isWindows) {
       options.exec += '.cmd';
     }
   }
 
-  // allow users to make a mistake on the extension to monitor
-  // converts .js, pug => js,pug
-  // BIG NOTE: user can't do this: nodemon -e *.js
-  // because the terminal will automatically expand the glob against
-  // the file system :(
+  // Normalize extensions (.js, pug → js,pug)
   extension = (extension.match(/[^,*\s]+/g) || [])
     .map((ext) => ext.replace(/^\./, ''))
     .join(',');
@@ -222,9 +195,10 @@ function exec(nodemonOptions, execMap) {
     );
   }
 
+  // Environment validation
   options.env = {};
-  // make sure it's an object (and since we don't have )
-  if ({}.toString.apply(nodemonOptions.env) === '[object Object]') {
+
+  if ({}.toString.call(nodemonOptions.env) === '[object Object]') {
     options.env = utils.clone(nodemonOptions.env);
   } else if (nodemonOptions.env !== undefined) {
     throw new Error('nodemon env values must be an object: { PORT: 8000 }');

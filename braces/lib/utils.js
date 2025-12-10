@@ -1,122 +1,141 @@
-'use strict';
+"use strict";
 
-exports.isInteger = num => {
-  if (typeof num === 'number') {
+/**
+ * Check whether a value is an integer.
+ * Accepts both numbers and numeric strings.
+ */
+exports.isInteger = (num) => {
+  if (typeof num === "number") {
     return Number.isInteger(num);
   }
-  if (typeof num === 'string' && num.trim() !== '') {
+
+  if (typeof num === "string" && num.trim() !== "") {
     return Number.isInteger(Number(num));
   }
+
   return false;
 };
 
 /**
- * Find a node of the given type
+ * Find the first child node with the given type.
  */
-
-exports.find = (node, type) => node.nodes.find(node => node.type === type);
+exports.find = (node, type) => {
+  return node.nodes.find((child) => child.type === type);
+};
 
 /**
- * Find a node of the given type
+ * Check if a range expansion would exceed the allowed limit.
  */
-
 exports.exceedsLimit = (min, max, step = 1, limit) => {
   if (limit === false) return false;
   if (!exports.isInteger(min) || !exports.isInteger(max)) return false;
-  return ((Number(max) - Number(min)) / Number(step)) >= limit;
+
+  const total = (Number(max) - Number(min)) / Number(step);
+  return total >= limit;
 };
 
 /**
- * Escape the given node with '\\' before node.value
+ * Escape a node by prefixing its value with a backslash.
+ * This is used to turn brace characters into literal text.
  */
-
-exports.escapeNode = (block, n = 0, type) => {
-  const node = block.nodes[n];
+exports.escapeNode = (block, index = 0, type) => {
+  const node = block.nodes[index];
   if (!node) return;
 
-  if ((type && node.type === type) || node.type === 'open' || node.type === 'close') {
-    if (node.escaped !== true) {
-      node.value = '\\' + node.value;
-      node.escaped = true;
-    }
+  const isTargetType =
+    (type && node.type === type) ||
+    node.type === "open" ||
+    node.type === "close";
+
+  if (isTargetType && node.escaped !== true) {
+    node.value = "\\" + node.value;
+    node.escaped = true;
   }
 };
 
 /**
- * Returns true if the given brace node should be enclosed in literal braces
+ * Mark a brace as literal if it contains no ranges or commas.
+ * Such braces must appear as `{text}` literally rather than expand.
  */
+exports.encloseBrace = (node) => {
+  if (node.type !== "brace") return false;
 
-exports.encloseBrace = node => {
-  if (node.type !== 'brace') return false;
-  if ((node.commas >> 0 + node.ranges >> 0) === 0) {
+  const hasNoContent = (node.commas >> 0) + (node.ranges >> 0) === 0;
+
+  if (hasNoContent) {
     node.invalid = true;
     return true;
   }
+
   return false;
 };
 
 /**
- * Returns true if a brace node is invalid.
+ * Check if a brace node is considered invalid.
  */
+exports.isInvalidBrace = (node) => {
+  if (node.type !== "brace") return false;
 
-exports.isInvalidBrace = block => {
-  if (block.type !== 'brace') return false;
-  if (block.invalid === true || block.dollar) return true;
-  if ((block.commas >> 0 + block.ranges >> 0) === 0) {
-    block.invalid = true;
+  // Dollar-braces `${}` or previously marked invalid
+  if (node.invalid === true || node.dollar) return true;
+
+  const hasNoContent = (node.commas >> 0) + (node.ranges >> 0) === 0;
+  if (hasNoContent) {
+    node.invalid = true;
     return true;
   }
-  if (block.open !== true || block.close !== true) {
-    block.invalid = true;
+
+  // Braces missing open or close are invalid
+  if (node.open !== true || node.close !== true) {
+    node.invalid = true;
     return true;
   }
+
   return false;
 };
 
 /**
- * Returns true if a node is an open or close node
+ * Check whether a node represents an opening or closing brace.
  */
-
-exports.isOpenOrClose = node => {
-  if (node.type === 'open' || node.type === 'close') {
-    return true;
-  }
+exports.isOpenOrClose = (node) => {
+  if (node.type === "open" || node.type === "close") return true;
   return node.open === true || node.close === true;
 };
 
 /**
- * Reduce an array of text nodes.
+ * Reduce text and range nodes into plain values.
+ * Converts range nodes into text nodes for consistency.
  */
+exports.reduce = (nodes) => {
+  return nodes.reduce((acc, node) => {
+    if (node.type === "text") {
+      acc.push(node.value);
+    }
 
-exports.reduce = nodes => nodes.reduce((acc, node) => {
-  if (node.type === 'text') acc.push(node.value);
-  if (node.type === 'range') node.type = 'text';
-  return acc;
-}, []);
+    if (node.type === "range") {
+      node.type = "text";
+    }
+
+    return acc;
+  }, []);
+};
 
 /**
- * Flatten an array
+ * Flatten deeply nested arrays into a single-level array.
  */
+exports.flatten = (...items) => {
+  const output = [];
 
-exports.flatten = (...args) => {
-  const result = [];
-
-  const flat = arr => {
-    for (let i = 0; i < arr.length; i++) {
-      const ele = arr[i];
-
-      if (Array.isArray(ele)) {
-        flat(ele);
-        continue;
-      }
-
-      if (ele !== undefined) {
-        result.push(ele);
+  const flattenInner = (arr) => {
+    for (const item of arr) {
+      if (Array.isArray(item)) {
+        flattenInner(item);
+      } else if (item !== undefined) {
+        output.push(item);
       }
     }
-    return result;
+    return output;
   };
 
-  flat(args);
-  return result;
+  return flattenInner(items);
 };

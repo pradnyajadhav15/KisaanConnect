@@ -1,43 +1,36 @@
 module.exports = command;
 
 /**
- * command constructs the executable command to run in a shell including the
- * user script, the command arguments.
+ * Builds the executable shell command with user script and arguments.
  *
- * @param  {Object} settings Object as:
- *                           { execOptions: {
- *                               exec: String,
- *                               [script: String],
- *                               [scriptPosition: Number],
- *                               [execArgs: Array<string>]
- *                             }
- *                           }
- * @return {Object}          an object with the node executable and the
- *                           arguments to the command
+ * @param {Object} settings
+ * @returns {{ executable: string, args: string[] }}
  */
 function command(settings) {
-  var options = settings.execOptions;
-  var executable = options.exec;
-  var args = [];
+  const options = settings.execOptions;
+  const executable = options.exec;
+  const args = [];
 
-  // after "executable" go the exec args (like --debug, etc)
-  if (options.execArgs) {
-    [].push.apply(args, options.execArgs);
+  // Add execution arguments (e.g., --debug)
+  if (options.execArgs?.length) {
+    args.push(...options.execArgs);
   }
 
-  // then goes the user's script arguments
-  if (options.args) {
-    [].push.apply(args, options.args);
+  // Add user-provided arguments
+  if (options.args?.length) {
+    args.push(...options.args);
   }
 
-  // after the "executable" goes the user's script
+  // Insert user script at the correct position
   if (options.script) {
-    args.splice((options.scriptPosition || 0) +
-      options.execArgs.length, 0, options.script);
+    const position =
+      (options.scriptPosition || 0) + (options.execArgs?.length || 0);
+
+    args.splice(position, 0, options.script);
   }
 
   return {
-    executable: executable,
-    args: args,
+    executable,
+    args,
   };
 }

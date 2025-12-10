@@ -1,9 +1,13 @@
-var colour = require('./colour');
-var bus = require('./bus');
-var required = false;
-var useColours = true;
+'use strict';
 
-var coding = {
+const colour = require('./colour');
+const bus = require('./bus');
+
+let required = false;   // whether logging is internal only (no console output)
+let useColours = true;  // enable coloured output in console
+
+// Mapping of log types to colours
+const coding = {
   log: 'black',
   info: 'yellow',
   status: 'green',
@@ -12,21 +16,25 @@ var coding = {
   error: 'red',
 };
 
+/**
+ * Core logging function
+ * @param {string} type - log type (info, error, status, etc.)
+ * @param {string} text - message to log
+ */
 function log(type, text) {
-  var msg = '[nodemon] ' + (text || '');
+  let msg = `[nodemon] ${text || ''}`;
 
+  // Apply colours if enabled
   if (useColours) {
     msg = colour(coding[type], msg);
   }
 
-  // always push the message through our bus, using nextTick
-  // to help testing and get _out of_ promises.
+  // Emit the log event through the bus asynchronously
   process.nextTick(() => {
-    bus.emit('log', { type: type, message: text, colour: msg });
+    bus.emit('log', { type, message: text, colour: msg });
   });
 
-  // but if we're running on the command line, also echo out
-  // question: should we actually just consume our own events?
+  // Echo to console if logging is not internal-only
   if (!required) {
     if (type === 'error') {
       console.error(msg);
@@ -36,33 +44,41 @@ function log(type, text) {
   }
 }
 
-var Logger = function (r) {
-  if (!(this instanceof Logger)) {
-    return new Logger(r);
-  }
+/**
+ * Logger constructor
+ * @param {boolean} r - whether logging is required/internal
+ */
+function Logger(r) {
+  if (!(this instanceof Logger)) return new Logger(r);
   this.required(r);
-  return this;
-};
+}
 
-Object.keys(coding).forEach(function (type) {
+// Add logging methods for each type dynamically
+Object.keys(coding).forEach((type) => {
   Logger.prototype[type] = log.bind(null, type);
 });
 
-// detail is for messages that are turned on during debug
+// 'detail' logs are only shown when debug is enabled
 Logger.prototype.detail = function (msg) {
-  if (this.debug) {
-    log('detail', msg);
-  }
+  if (this.debug) log('detail', msg);
 };
 
+/**
+ * Set whether this logger is required/internal
+ */
 Logger.prototype.required = function (val) {
   required = val;
 };
 
+// Default debug state
 Logger.prototype.debug = false;
+
+/**
+ * Internal logging method for direct output without type mapping
+ */
 Logger.prototype._log = function (type, msg) {
   if (required) {
-    bus.emit('log', { type: type, message: msg || '', colour: msg || '' });
+    bus.emit('log', { type, message: msg || '', colour: msg || '' });
   } else if (type === 'error') {
     console.error(msg);
   } else {
@@ -70,12 +86,13 @@ Logger.prototype._log = function (type, msg) {
   }
 };
 
+// Proxy property to control coloured output
 Object.defineProperty(Logger.prototype, 'useColours', {
-  set: function (val) {
-    useColours = val;
-  },
-  get: function () {
+  get() {
     return useColours;
+  },
+  set(val) {
+    useColours = val;
   },
 });
 

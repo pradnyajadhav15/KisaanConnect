@@ -1,35 +1,40 @@
 /*!
  * normalize-path <https://github.com/jonschlinkert/normalize-path>
  *
- * Copyright (c) 2014-2018, Jon Schlinkert.
- * Released under the MIT License.
+ * Converts Windows-style backslashes to POSIX-style forward slashes.
+ * Optionally strips trailing slashes.
+ * 
+ * MIT License
  */
 
-module.exports = function(path, stripTrailing) {
+module.exports = function normalizePath(path, stripTrailing = true) {
   if (typeof path !== 'string') {
     throw new TypeError('expected path to be a string');
   }
 
+  // Handle root paths
   if (path === '\\' || path === '/') return '/';
+  if (path.length <= 1) return path;
 
-  var len = path.length;
-  if (len <= 1) return path;
+  let prefix = '';
 
-  // ensure that win32 namespaces has two leading slashes, so that the path is
-  // handled properly by the win32 version of path.parse() after being normalized
-  // https://msdn.microsoft.com/library/windows/desktop/aa365247(v=vs.85).aspx#namespaces
-  var prefix = '';
-  if (len > 4 && path[3] === '\\') {
-    var ch = path[2];
-    if ((ch === '?' || ch === '.') && path.slice(0, 2) === '\\\\') {
-      path = path.slice(2);
-      prefix = '//';
+  // Handle Windows UNC and device paths (\\?\ or \\.\)
+  if (path.length > 4 && path[3] === '\\') {
+    const ch = path[2];
+    if ((ch === '?' || ch === '.') && path.startsWith('\\\\')) {
+      path = path.slice(2); // Remove leading slashes
+      prefix = '//';         // Keep correct UNC prefix
     }
   }
 
-  var segs = path.split(/[/\\]+/);
-  if (stripTrailing !== false && segs[segs.length - 1] === '') {
-    segs.pop();
+  // Split on both forward and backslashes
+  const segments = path.split(/[/\\]+/);
+
+  // Remove trailing empty segment unless stripTrailing is false
+  if (stripTrailing !== false && segments[segments.length - 1] === '') {
+    segments.pop();
   }
-  return prefix + segs.join('/');
+
+  // Join with POSIX forward slashes
+  return prefix + segments.join('/');
 };

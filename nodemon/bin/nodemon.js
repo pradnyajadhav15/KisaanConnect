@@ -1,16 +1,25 @@
 #!/usr/bin/env node
 
+const fs = require('fs');
 const cli = require('../lib/cli');
-const nodemon = require('../lib/');
+const nodemon = require('../lib');
+
+// ✅ TS-safe import
+const updateNotifier =
+  require('simple-update-notifier').default ||
+  require('simple-update-notifier');
+
 const options = cli.parse(process.argv);
 
+// Start nodemon
 nodemon(options);
 
-const fs = require('fs');
+// Read package.json
+const pkg = JSON.parse(
+  fs.readFileSync(__dirname + '/../package.json', 'utf-8')
+);
 
-// checks for available update and returns an instance
-const pkg = JSON.parse(fs.readFileSync(__dirname + '/../package.json'));
-
-if (pkg.version.indexOf('0.0.0') !== 0 && options.noUpdateNotifier !== true) {
-  require('simple-update-notifier')({ pkg });
+// Check for update safely
+if (!pkg.version.startsWith('0.0.0') && options.noUpdateNotifier !== true) {
+  updateNotifier({ pkg });
 }

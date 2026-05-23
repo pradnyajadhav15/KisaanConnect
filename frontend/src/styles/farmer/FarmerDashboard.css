@@ -1,0 +1,93 @@
+/* =========================================
+   FARMER DASHBOARD
+   ========================================= */
+
+.farmer-dashboard {
+  max-width: 1200px;
+  margin: 24px auto;
+  padding: 24px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard-title {
+  color: #2e8b57;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 26px;
+}
+
+/* ── Notification ── */
+.dashboard-notification {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  padding: 10px 16px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  text-align: center;
+  border-left: 4px solid #2e8b57;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Tabs ── */
+.dashboard-tabs {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #ddd;
+}
+
+.tab-button {
+  padding: 10px 16px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.tab-button:hover:not(.active) { background-color: #e0e0e0; }
+
+.tab-button.active {
+  background-color: #2e8b57;
+  color: #fff;
+}
+
+.tab-button:focus-visible {
+  outline: 2px solid #2e8b57;
+  outline-offset: 2px;
+}
+
+/* ── Content ── */
+.dashboard-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Loading ── */
+.loading-message {
+  text-align: center;
+  color: #777;
+  font-size: 15px;
+  padding: 30px 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .dashboard-tabs  { flex-direction: column; gap: 8px; }
+  .tab-button      { width: 100%; text-align: center; }
+}

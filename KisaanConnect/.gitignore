@@ -1,0 +1,46 @@
+# ===== SECRETS — NEVER COMMIT =====
+.env
+*.env
+backend/.env
+frontend/.env
+backend/.env.*
+!.env.example
+
+# ===== Node / React =====
+node_modules/
+**/node_modules/
+frontend/build/
+frontend/.cache/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ===== Python =====
+venv/
+**/venv/
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+.Python
+*.egg-info/
+
+# ===== Databases (local data, regenerated on run) =====
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+
+# ===== ML model artifacts (large, regenerated) =====
+*.joblib
+
+# ===== Editor / OS =====
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ===== Misc agent/lock files =====
+.agents/
+skills-lock.json

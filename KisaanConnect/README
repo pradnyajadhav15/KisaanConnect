@@ -1,0 +1,184 @@
+# 🌾 KisaanConnect
+
+**A farmer-to-consumer marketplace that removes middlemen, with AI-powered farming tools.**
+
+KisaanConnect lets farmers list their produce directly to consumers — no middlemen taking a cut. It includes AI features to help farmers (crop health analysis from a photo, a farming Q&A assistant, and an AI listing-description writer) and connects farmers to support NGOs.
+
+
+## Problem
+
+Small farmers in India often sell through a chain of middlemen, each taking a margin — so the farmer earns little and the consumer pays more. KisaanConnect is a direct farmer-to-consumer marketplace built for a single-district pilot, using only free tools and cash-on-delivery (no payment-gateway fees).
+
+---
+
+## Features
+
+### For Farmers
+- **Register / login** with a secure account (role: farmer).
+- **Add, edit, and delete crop listings** (name, quantity, unit, price, location, description, image link).
+- **AI description writer** — type a crop name and the AI writes a clean product description.
+- **Order management** — see incoming orders, accept/reject/mark-delivered.
+- **AI crop health analysis** — upload a photo of a crop; AI reports likely health issues and remedies.
+- **AI farming assistant** — a chatbot for farming questions (replies in the language asked: English / Hindi / Marathi).
+
+### For Consumers
+- **Browse the marketplace** of available crops.
+- **Add to cart and checkout** with delivery details (cash-on-delivery).
+- **View their orders** and order status.
+
+### Other
+- **NGO Support directory** — a curated list of real agricultural NGOs, with an application form link.
+
+---
+
+## Tech Stack
+
+| Layer        | Technology                                  |
+|--------------|---------------------------------------------|
+| Frontend     | React.js (Create React App), Bootstrap      |
+| Backend      | FastAPI (Python)                            |
+| Database     | SQLite (pilot)                              |
+| Auth         | JWT (stateless tokens, PyJWT)               |
+| Passwords    | PBKDF2-HMAC-SHA256, salted                  |
+| AI           | Groq API (LLaMA models — text + vision)     |
+| ML (price)   | scikit-learn (experimental — see below)     |
+
+---
+
+## Architecture
+
+```
+Frontend (React, :3000)
+        |
+        |  HTTP + JWT bearer token
+        v
+Backend (FastAPI, :8000)
+   ├── /auth        login, register, token
+   ├── /farmer      crops + farmer order management
+   ├── /consumer    marketplace, cart, orders
+   ├── /ai          crop-health (vision), ask (chatbot), describe (listings)
+   └── /price-prediction   experimental price model
+        |
+        v
+SQLite databases (users, crops, orders)
+```
+
+Orders are stored with a denormalized `farmer_id` on each order and order-item, so a farmer can see their orders without a cross-database join. Each order is limited to a single farmer.
+
+---
+
+## Getting Started
+
+### Prerequisites
+- Python 3.10+
+- Node.js 16+
+- A free [Groq API key](https://console.groq.com) (for the AI features)
+
+### Backend
+
+```bash
+cd backend
+python -m venv venv
+# Windows:
+venv\Scripts\activate
+# Mac/Linux:
+source venv/bin/activate
+
+pip install -r requirements.txt
+
+# Create a .env file (see Environment Variables below)
+
+# Run
+./run_app.bat        # Windows
+# or:
+uvicorn main:app --reload --port 8000
+```
+
+Backend runs at `http://localhost:8000`. Interactive API docs at `http://localhost:8000/docs`.
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+Frontend runs at `http://localhost:3000`.
+
+### Test accounts
+After first run, two test users are created automatically:
+- Farmer — username `farmer1`, password `password123`
+- Consumer — username `consumer1`, password `password123`
+
+---
+
+## Environment Variables
+
+Create `backend/.env` (this file must **never** be committed — it is gitignored):
+
+```
+JWT_SECRET=your_long_random_secret
+ALLOWED_ORIGINS=http://localhost:3000
+GROQ_API_KEY=your_groq_api_key
+```
+
+Generate a strong JWT secret with:
+```bash
+python -c "import secrets; print(secrets.token_hex(32))"
+```
+
+---
+
+## API Overview
+
+| Method | Endpoint                         | Purpose                          |
+|--------|----------------------------------|----------------------------------|
+| POST   | `/auth/register`                 | Create account                   |
+| POST   | `/auth/login/user`               | Log in, receive JWT              |
+| GET    | `/farmer/mine`                   | Farmer's own crops               |
+| POST   | `/farmer/`                       | Add a crop                       |
+| GET    | `/farmer/orders`                 | Farmer's incoming orders         |
+| PATCH  | `/farmer/orders/{id}/status`     | Update order status              |
+| GET    | `/consumer/marketplace`          | Browse all crops                 |
+| POST   | `/consumer/orders`               | Place an order                   |
+| GET    | `/consumer/orders/mine`          | Consumer's orders                |
+| POST   | `/ai/crop-health`                | Analyze crop photo               |
+| POST   | `/ai/ask`                        | Farming chatbot                  |
+| POST   | `/ai/describe`                   | Generate a crop description      |
+
+Full interactive docs at `/docs` when the backend is running.
+
+---
+
+## Security
+
+- **Passwords** are never stored in plain text — they use PBKDF2-HMAC-SHA256 with a per-user random salt and a constant-time comparison.
+- **Authentication** uses stateless JWT tokens. The user's role and ID are derived from the token on the server — the client cannot claim to be someone else.
+- **Authorization** is enforced server-side: a farmer can only edit their own crops; a consumer can only see their own orders.
+- **API keys and secrets** live only in `backend/.env`, never in frontend code (which would expose them to the browser), and `.env` is gitignored.
+
+---
+
+## Honest Limitations & Future Work
+
+This project was built for a single-district pilot. In the spirit of transparency, here is what is **production-ready**, what is a **demo placeholder**, and what is **planned**:
+
+**Working and trustworthy**
+- Auth, crop listings, cart, the full order flow, farmer order management, and all three AI features (crop health, chatbot, description writer) are fully functional.
+
+**Demo / experimental — not production-ready**
+- **Price prediction** is trained on *synthetic* data, not real market prices. It should be treated as a proof-of-concept only, not as advice farmers should rely on. A real version would pull live mandi prices from a public source such as Agmarknet / data.gov.in.
+- **Image handling** uses pasted image URLs, not file upload. Real file upload would use free storage (e.g. Cloudinary or Supabase Storage).
+
+**Planned for production**
+- **Database:** the pilot uses SQLite. For real deployment, migrate to PostgreSQL (a Neon free-tier database is already provisioned) so data survives server restarts on free hosting.
+- **Deployment:** frontend to Vercel/Netlify, backend to Render — pending the PostgreSQL migration.
+- **Payments:** the pilot uses cash-on-delivery to avoid payment-gateway fees. Online payments would require a gateway (~2% per transaction).
+- **Notifications:** SMS/OTP order updates (not free; deferred).
+
+---
+
+## License
+
+Educational project. Not affiliated with any of the NGOs listed in the app.

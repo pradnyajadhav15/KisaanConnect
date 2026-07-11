@@ -1,0 +1,44 @@
+# -------------------------------
+# FastAPI & ASGI Server
+# -------------------------------
+fastapi>=0.136.0
+uvicorn>=0.46.0
+
+# -------------------------------
+# Machine Learning & Data Handling
+# (loosened from == to >= so free-tier hosts can use prebuilt wheels;
+#  re-pin scikit-learn to your trained version before production)
+# -------------------------------
+scikit-learn>=1.5.0
+pandas>=2.2.0
+numpy>=1.26.0
+joblib>=1.4.0
+
+# -------------------------------
+# Form/Data Handling
+# -------------------------------
+python-multipart>=0.0.9
+
+# -------------------------------
+# Data Validation & Serialization
+# -------------------------------
+pydantic[email]>=2.8.0
+
+# -------------------------------
+# Authentication & Security
+# -------------------------------
+PyJWT>=2.8.0
+email-validator>=2.1.1
+# passlib removed — you use stdlib hashlib (PBKDF2), not passlib
+
+# -------------------------------
+# HTTP Requests
+# -------------------------------
+requests>=2.31.0
+
+# -------------------------------
+# Typing & Database & Config
+# -------------------------------
+typing-extensions>=4.12.0
+psycopg2-binary>=2.9.9
+python-dotenv>=1.0.0

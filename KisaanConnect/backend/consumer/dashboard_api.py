@@ -5,6 +5,7 @@ import uuid
 
 from auth.auth_api import get_current_user_full
 from database import get_db
+from notifications import send_order_confirmation
 
 router = APIRouter()
 
@@ -143,6 +144,14 @@ async def create_order(order: Order, user=Depends(get_current_user_full)):
         if order.cart_id:
             cur.execute('DELETE FROM cart_items WHERE cart_id = %s', (order.cart_id,))
 
+    send_order_confirmation(
+        user.get('email'),
+        order_id,
+        round(computed_total, 2),
+        [{'crop_name': v[4], 'quantity': v[2], 'unit_price': v[3]} for v in validated],
+        order.shipping_address
+    )
+
     return {'order_id': order_id, 'total_amount': round(computed_total, 2), 'status': 'Order placed successfully'}
 
 
@@ -187,3 +196,4 @@ async def get_order(order_id: int, user=Depends(get_current_user_full)):
         cur.execute('SELECT * FROM order_items WHERE order_id = %s', (order_id,))
         items = cur.fetchall()
     return {'order': dict(order), 'items': [dict(i) for i in items]}
+

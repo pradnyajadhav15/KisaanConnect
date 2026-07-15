@@ -1,10 +1,8 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import '../../styles/consumer/Checkout.css';
+import * as paymentApi from '../../services/api/paymentApi';
 
-// --------------------------------------------------
-// VALIDATION RULES
-// --------------------------------------------------
 const validate = (formData) => {
   const errors = {};
   if (!formData.name.trim())    errors.name    = 'Name is required';
@@ -29,21 +27,17 @@ const INITIAL_FORM = {
   pincode: '', phone: '', email: '', paymentMethod: 'cod'
 };
 
-// Tolerate backend cart field names (unit_price/quantity/crop_id/crop_name)
-// as well as a pre-mapped frontend shape (total/productId/name).
 const lineTotal = (item) =>
   item.total ?? ((item.unit_price ?? 0) * (item.quantity ?? 0));
 const lineKey  = (item, i) => item.productId ?? item.crop_id ?? item.id ?? i;
 const lineName = (item) => item.name ?? item.crop_name ?? 'Item';
 
 
-// --------------------------------------------------
-// COMPONENT
-// --------------------------------------------------
 const Checkout = ({ cartItems = [], onPlaceOrder, onBack }) => {
   const [formData, setFormData] = useState(INITIAL_FORM);
   const [errors, setErrors]     = useState({});
   const [loading, setLoading]   = useState(false);
+  const [paymentError, setPaymentError] = useState('');
 
   const totalAmount = useMemo(
     () => cartItems.reduce((sum, item) => sum + lineTotal(item), 0),
@@ -56,7 +50,6 @@ const Checkout = ({ cartItems = [], onPlaceOrder, onBack }) => {
     setErrors(prev => ({ ...prev, [name]: '' }));
   }, []);
 
-  // Allow only digits for phone & pincode
   const handleDigitsOnly = useCallback((e) => {
     const { name, value } = e.target;
     if (/^\d*$/.test(value)) {
@@ -64,6 +57,54 @@ const Checkout = ({ cartItems = [], onPlaceOrder, onBack }) => {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
   }, []);
+
+  const handleRazorpayPayment = useCallback(async (orderId) => {
+    try {
+      const paymentOrder = await paymentApi.createPaymentOrder(orderId);
+
+      const options = {
+        key: paymentOrder.key_id,
+        amount: paymentOrder.amount,
+        currency: paymentOrder.currency,
+        name: 'KisaanConnect',
+        description: 'Order #' + orderId,
+        order_id: paymentOrder.razorpay_order_id,
+        handler: async function (response) {
+          try {
+            await paymentApi.verifyPayment({
+              order_id: orderId,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            });
+            window.location.reload();
+          } catch (err) {
+            setPaymentError('Payment verification failed. Please contact support with your payment ID.');
+          }
+        },
+        prefill: {
+          name: formData.name,
+          contact: formData.phone,
+          email: formData.email,
+        },
+        theme: {
+          color: '#2e7d32',
+        },
+        modal: {
+          ondismiss: function () {
+            setPaymentError('Payment cancelled. Your order is saved but unpaid - you can retry from My Orders.');
+            setLoading(false);
+          },
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (err) {
+      setPaymentError((err && err.message) || 'Could not start payment. Please try again.');
+      setLoading(false);
+    }
+  }, [formData]);
 
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
@@ -74,25 +115,28 @@ const Checkout = ({ cartItems = [], onPlaceOrder, onBack }) => {
     }
 
     setLoading(true);
+    setPaymentError('');
     try {
-      const fullAddress = `${formData.address}, ${formData.city}, ${formData.state} - ${formData.pincode}`;
-      // NOTE: backend /consumer/orders currently accepts only shipping_address,
-      // cart_id, items. name/phone/email/paymentMethod are passed up here but
-      // will NOT be stored unless the backend orders table gains those columns.
-      // For a COD pilot, phone is important — add a `phone` column to orders
-      // and accept it server-side so farmers can coordinate delivery.
-      await onPlaceOrder({
+      const fullAddress = formData.address + ', ' + formData.city + ', ' + formData.state + ' - ' + formData.pincode;
+
+      const result = await onPlaceOrder({
         name:          formData.name,
-        shipping_address: fullAddress,   // matches backend field name
-        address:       fullAddress,      // kept for any existing frontend use
+        shipping_address: fullAddress,
+        address:       fullAddress,
         phone:         formData.phone,
         email:         formData.email,
         paymentMethod: formData.paymentMethod,
       });
-    } finally {
+
+      if (formData.paymentMethod === 'online' && result && result.order_id) {
+        await handleRazorpayPayment(result.order_id);
+      } else {
+        setLoading(false);
+      }
+    } catch (err) {
       setLoading(false);
     }
-  }, [formData, onPlaceOrder]);
+  }, [formData, onPlaceOrder, handleRazorpayPayment]);
 
   const fieldError = (name) =>
     errors[name] ? <span className="error-message" role="alert">{errors[name]}</span> : null;
@@ -111,9 +155,10 @@ const Checkout = ({ cartItems = [], onPlaceOrder, onBack }) => {
       <button className="back-button" onClick={onBack}>&larr; Back to Cart</button>
       <h2>Checkout</h2>
 
+      {paymentError && <div className="form-error" role="alert">{paymentError}</div>}
+
       <div className="checkout-container">
 
-        {/* Order Summary */}
         <div className="order-summary">
           <h3>Order Summary</h3>
           <div className="order-items">
@@ -121,19 +166,18 @@ const Checkout = ({ cartItems = [], onPlaceOrder, onBack }) => {
               <div key={lineKey(item, i)} className="order-item">
                 <div className="order-item-info">
                   <span className="order-item-name">{lineName(item)}</span>
-                  <span className="order-item-quantity">x{item.quantity}</span>
+                  <span className="order-item-quantity">{'x' + item.quantity}</span>
                 </div>
-                <span className="order-item-price">₹{lineTotal(item).toFixed(2)}</span>
+                <span className="order-item-price">{'Rs. ' + lineTotal(item).toFixed(2)}</span>
               </div>
             ))}
           </div>
           <div className="order-total">
             <span className="total-label">Total Amount:</span>
-            <span className="total-value">₹{totalAmount.toFixed(2)}</span>
+            <span className="total-value">{'Rs. ' + totalAmount.toFixed(2)}</span>
           </div>
         </div>
 
-        {/* Checkout Form */}
         <div className="checkout-form-container">
           <h3>Delivery Information</h3>
           <form className="checkout-form" onSubmit={handleSubmit} noValidate>
@@ -206,11 +250,19 @@ const Checkout = ({ cartItems = [], onPlaceOrder, onBack }) => {
                     onChange={handleChange} disabled={loading} />
                   <label htmlFor="cod">Cash on Delivery</label>
                 </div>
+                <div className="payment-option">
+                  <input type="radio" id="online" name="paymentMethod"
+                    value="online" checked={formData.paymentMethod === 'online'}
+                    onChange={handleChange} disabled={loading} />
+                  <label htmlFor="online">Pay Online (UPI / Card / Netbanking)</label>
+                </div>
               </div>
             </div>
 
             <button type="submit" className="place-order-button" disabled={loading}>
-              {loading ? 'Placing Order...' : `Place Order — ₹${totalAmount.toFixed(2)}`}
+              {loading
+                ? (formData.paymentMethod === 'online' ? 'Opening payment...' : 'Placing Order...')
+                : ('Place Order - Rs. ' + totalAmount.toFixed(2))}
             </button>
 
           </form>

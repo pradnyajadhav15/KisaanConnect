@@ -177,10 +177,16 @@ const ConsumerDashboard = () => {
       }]);
 
       await refreshCart();
-      setActiveTab('myOrders');
-      notify('Order placed successfully!');
+
+      if (orderDetails.paymentMethod !== 'online') {
+        setActiveTab('myOrders');
+        notify('Order placed successfully!');
+      }
+
+      return { order_id: response.order_id, total_amount: totalAmount };
     } catch (err) {
       notify((err && err.message) || 'Failed to place order. Please try again.');
+      throw err;
     }
   }, [cart, cartId, refreshCart, notify]);
 
@@ -268,3 +274,4 @@ const ConsumerDashboard = () => {
 };
 
 export default ConsumerDashboard;
+

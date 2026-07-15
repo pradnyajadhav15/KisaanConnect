@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './styles/App.css';
-
 import Navbar          from './components/Navbar';
 import HomePage        from './components/HomePage';
 import FarmerDashboard from './components/farmer/FarmerDashboard';
@@ -13,23 +12,20 @@ import Register        from './components/auth/Register';
 import ProtectedRoute  from './components/auth/ProtectedRoute';
 import AdoptFarm       from './components/AdoptFarm';
 import FarmerDetail    from './components/FarmerDetail';
-
+import AdminDashboard  from './components/admin/AdminDashboard';
 const Unauthorized = () => (
   <div className="coming-soon">
     <h2>Access Denied</h2>
     <p>You don't have permission to view this page.</p>
   </div>
 );
-
 function App() {
   return (
     <Router>
       <div className="App">
         <Navbar />
-
         <main className="main-content">
           <Routes>
-            {/* Public */}
             <Route path="/"         element={<HomePage />} />
             <Route path="/login"    element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -37,25 +33,21 @@ function App() {
             <Route path="/adopt-farm"     element={<AdoptFarm />} />
             <Route path="/adopt-farm/:id" element={<FarmerDetail />} />
             <Route path="/unauthorized"   element={<Unauthorized />} />
-
-            {/* Protected */}
             <Route element={<ProtectedRoute requiredRole="farmer" />}>
               <Route path="/farmer" element={<FarmerDashboard />} />
             </Route>
-
             <Route element={<ProtectedRoute requiredRole="consumer" />}>
               <Route path="/consumer" element={<ConsumerDashboard />} />
             </Route>
-
-            {/* Fallback */}
+            <Route element={<ProtectedRoute requiredRole="admin" />}>
+              <Route path="/admin" element={<AdminDashboard />} />
+            </Route>
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
-
         <Chatbot />
       </div>
     </Router>
   );
 }
-
 export default App;

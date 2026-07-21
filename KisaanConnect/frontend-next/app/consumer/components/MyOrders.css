@@ -1,0 +1,43 @@
+.my-orders { padding: 20px 0; }
+.my-orders h2 { margin: 0 0 20px; color: #333; font-size: 24px; }
+.no-orders-message { text-align: center; padding: 40px 0; color: #777; font-size: 15px; }
+.orders-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+.orders-table th, .orders-table td { padding: 13px 15px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px; }
+.orders-table th { background-color: #f5f5f5; font-weight: 600; color: #333; }
+.order-row:hover { background-color: #f9f9f9; }
+.status-badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.status-pending { background-color: #fff9c4; color: #f9a825; }
+.status-confirmed { background-color: #e3f2fd; color: #1565c0; }
+.status-shipped { background-color: #e8f5e9; color: #2e7d32; }
+.status-delivered { background-color: #c8e6c9; color: #1b5e20; }
+.status-cancelled { background-color: #ffebee; color: #c62828; }
+.view-details-button { background-color: #2e8b57; color: #fff; border: none; padding: 6px 14px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 500; }
+.view-details-button:hover { background-color: #236b43; }
+.back-button { background: none; border: none; color: #2e8b57; font-size: 15px; font-weight: 500; cursor: pointer; padding: 0; margin-bottom: 20px; display: flex; align-items: center; gap: 4px; }
+.back-button:hover { text-decoration: underline; }
+.order-details-header { display: flex; justify-content: space-between; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
+.order-info h3 { margin: 0 0 8px; color: #333; font-size: 20px; }
+.order-date, .order-status { margin: 4px 0; color: #666; font-size: 14px; }
+.order-total { text-align: right; }
+.order-details-content { display: flex; flex-direction: column; gap: 24px; }
+.order-items-list, .order-delivery-info, .order-tracking { background-color: #f9f9f9; padding: 20px; border-radius: 8px; }
+.order-items-list h4, .order-delivery-info h4, .order-tracking h4 { margin: 0 0 14px; color: #333; font-size: 16px; }
+.order-items-table { width: 100%; border-collapse: collapse; }
+.order-items-table th, .order-items-table td { padding: 10px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px; }
+.order-items-table th { font-weight: 600; color: #333; }
+.order-item-row:last-child td { border-bottom: none; }
+.order-delivery-info p { margin: 8px 0; color: #555; font-size: 14px; }
+.tracking-timeline { display: flex; align-items: center; margin-top: 16px; }
+.tracking-step { display: flex; flex-direction: column; align-items: center; flex: 1; }
+.step-icon { width: 32px; height: 32px; background-color: #ddd; color: #888; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; margin-bottom: 8px; }
+.tracking-step.active .step-icon { background-color: #2e8b57; color: #fff; }
+.step-label { font-size: 13px; color: #777; text-align: center; }
+.tracking-step.active .step-label { color: #2e8b57; font-weight: 600; }
+.tracking-connector { flex: 1; height: 2px; background-color: #ddd; margin: 0 4px 20px; }
+@media (max-width: 768px) {
+  .orders-table, .order-items-table { display: block; overflow-x: auto; }
+  .order-details-header { flex-direction: column; gap: 12px; }
+  .order-total { text-align: left; }
+  .tracking-timeline { flex-direction: column; gap: 16px; }
+  .tracking-connector { width: 2px; height: 20px; margin: 4px 0 0; }
+}

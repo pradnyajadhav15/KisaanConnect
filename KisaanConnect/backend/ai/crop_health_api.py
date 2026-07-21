@@ -9,7 +9,7 @@ router = APIRouter()
 
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-GROQ_VISION_MODEL = "meta-llama/llama-4-scout-17b-16e-instruct"
+GROQ_VISION_MODEL = "qwen/qwen3.6-27b"
 
 PROMPT = (
     "You are an agricultural expert AI. Analyze this crop image and provide:\n"

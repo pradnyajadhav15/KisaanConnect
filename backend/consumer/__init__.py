@@ -1,1 +1,0 @@
-# Consumer module initialization 

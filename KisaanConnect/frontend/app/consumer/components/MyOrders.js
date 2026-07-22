@@ -127,7 +127,7 @@ export default function MyOrders({ orders }) {
       <h2>My Orders</h2>
 
       {sortedOrders.length === 0 ? (
-        <p className="no-orders-message">You haven't placed any orders yet.</p>
+        <p className="no-orders-message">You haven&apos;t placed any orders yet.</p>
       ) : (
         <table className="orders-table">
           <thead>
@@ -158,3 +158,4 @@ export default function MyOrders({ orders }) {
     </div>
   );
 }
+

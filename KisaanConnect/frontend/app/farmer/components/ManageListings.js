@@ -85,7 +85,7 @@ export default function ManageListings({ crops, onEditCrop, onDeleteCrop }) {
       )}
 
       {list.length === 0 ? (
-        <p className="no-crops-message">You haven't added any crops yet.</p>
+        <p className="no-crops-message">You haven&apos;t added any crops yet.</p>
       ) : (
         <div className="crop-list">
           {list.map((crop) => (
@@ -168,3 +168,4 @@ export default function ManageListings({ crops, onEditCrop, onDeleteCrop }) {
     </div>
   );
 }
+

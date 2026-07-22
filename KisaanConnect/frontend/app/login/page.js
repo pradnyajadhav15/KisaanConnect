@@ -110,8 +110,9 @@ export default function LoginPage() {
       </form>
 
       <p style={{ marginTop: 16 }}>
-        Don't have an account? <Link href="/register">Register</Link>
+        Don&apos;t have an account? <Link href="/register">Register</Link>
       </p>
     </div>
   );
 }
+

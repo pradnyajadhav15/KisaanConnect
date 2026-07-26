@@ -20,28 +20,21 @@ MODEL_DIR = BASE_DIR / "models"
 model_path           = MODEL_DIR / "crop_price_model.joblib"
 feature_columns_path = MODEL_DIR / "feature_columns.joblib"
 
-sys.path.append(str(BASE_DIR))
-
-model = None
-feature_columns = None
-
 ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
+
+try:
+    model = joblib.load(model_path)
+    feature_columns = joblib.load(feature_columns_path)
+    print("Model loaded successfully")
+except Exception as e:
+    print(f"Model load failed: {e}")
+    model = None
+    feature_columns = None
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global model, feature_columns
-    try:
-        model = joblib.load(model_path)
-        feature_columns = joblib.load(feature_columns_path)
-        print("Model loaded successfully")
-    except Exception as e:
-        print(f"Model load failed: {e}")
-        model = None
-        feature_columns = None
     yield
-    model = None
-    feature_columns = None
 
 
 app = FastAPI(
@@ -69,7 +62,7 @@ class CropPriceInput(BaseModel):
     season:       str   = Field(..., description="Kharif / Rabi / Zaid")
     region:       str   = Field(..., description="Region where crop is grown")
     rain_fall:    Optional[float] = Field(None, description="Rainfall in mm")
-    temperature:  Optional[float] = Field(None, description="Temperature in °C")
+    temperature:  Optional[float] = Field(None, description="Temperature in Â°C")
     soil_quality: Optional[str]   = Field(None, description="High / Medium / Low")
 
 
@@ -101,8 +94,8 @@ def _data_completeness(rain_fall, temperature, soil_quality) -> str:
 def _range_from_model(price: float, completeness: str):
     """
     Range width. NOTE: this is a heuristic band, not a statistically
-    derived prediction interval. See chat — a quantile/interval model
-    is the real fix. Wider band when inputs are sparse, as a hedge.
+    derived prediction interval. Wider band when inputs are sparse,
+    as a hedge.
     """
     margin = {"High": 0.10, "Medium": 0.15, "Low": 0.22}.get(completeness, 0.15)
     return round(price * (1 - margin), 2), round(price * (1 + margin), 2)
@@ -174,7 +167,6 @@ async def predict_price(crop_input: CropPriceInput):
     except HTTPException:
         raise
     except Exception:
-        # Don't leak internals to the client; log server-side instead.
         raise HTTPException(500, "Prediction failed. Please check your inputs and try again.")
 
 

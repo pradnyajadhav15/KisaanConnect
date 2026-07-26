@@ -173,9 +173,7 @@ async def predict_price(crop_input: CropPriceInput):
     except HTTPException:
         raise
     except Exception as e:
-        import traceback
-        traceback.print_exc()
-        raise HTTPException(500, f"Prediction failed: {e}")
+        raise HTTPException(500, "Prediction failed. Please check your inputs and try again.")
 
 
 if __name__ == "__main__":

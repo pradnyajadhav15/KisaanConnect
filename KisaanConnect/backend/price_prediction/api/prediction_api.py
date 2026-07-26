@@ -124,14 +124,18 @@ async def predict_price(crop_input: CropPriceInput):
         raise HTTPException(503, "Model not loaded")
 
     try:
+        from datetime import datetime
+
         input_data = pd.DataFrame([{
-            "crop_name":    crop_input.crop_name,
-            "quantity":     crop_input.quantity,
-            "season":       crop_input.season,
-            "region":       crop_input.region,
-            "rain_fall":    crop_input.rain_fall   if crop_input.rain_fall   is not None else 0,
-            "temperature":  crop_input.temperature if crop_input.temperature is not None else 0,
-            "soil_quality": crop_input.soil_quality or "Medium",
+            "crop":        crop_input.crop_name,
+            "state":       crop_input.region,
+            "season":      crop_input.season,
+            "area":        crop_input.quantity,
+            "production":  crop_input.quantity,
+            "rainfall":    crop_input.rain_fall   if crop_input.rain_fall   is not None else 500.0,
+            "temperature": crop_input.temperature if crop_input.temperature is not None else 25.0,
+            "humidity":    60.0,
+            "year":        datetime.now().year,
         }])
 
         predicted_price = float(model.predict(input_data)[0])
@@ -166,8 +170,10 @@ async def predict_price(crop_input: CropPriceInput):
 
     except HTTPException:
         raise
-    except Exception:
-        raise HTTPException(500, "Prediction failed. Please check your inputs and try again.")
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(500, f"Prediction failed: {e}")
 
 
 if __name__ == "__main__":

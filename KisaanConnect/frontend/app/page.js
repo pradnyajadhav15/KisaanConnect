@@ -2,8 +2,14 @@ import Hero from '../components/Hero';
 import StatsBar from '../components/StatsBar';
 import PriceTicker from '../components/PriceTicker';
 import HowItWorks from '../components/HowItWorks';
+import SeasonalCalendar from '../components/SeasonalCalendar';
+import FarmersStrip from '../components/FarmersStrip';
+import CoverageArea from '../components/CoverageArea';
 import PricePredictorTeaser from '../components/PricePredictorTeaser';
+import TrustStrip from '../components/TrustStrip';
 import ProductSection from '../components/ProductSection';
+import FaqAccordion from '../components/FaqAccordion';
+import NewsletterSignup from '../components/NewsletterSignup';
 import Testimonials from '../components/Testimonials';
 
 export const metadata = {
@@ -25,8 +31,14 @@ export default function HomePage() {
       <StatsBar />
       <PriceTicker />
       <HowItWorks />
+      <SeasonalCalendar />
+      <FarmersStrip />
+      <CoverageArea />
       <PricePredictorTeaser />
+      <TrustStrip />
       <ProductSection products={FALLBACK_PRODUCTS} />
+      <FaqAccordion />
+      <NewsletterSignup />
       <Testimonials />
     </div>
   );

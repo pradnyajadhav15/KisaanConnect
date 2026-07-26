@@ -68,3 +68,24 @@ export const getFarmerStats = () => call('/dashboard/stats');
 
 export const getFarmerOrders = () => call('/orders').then(function(d) { return { orders: (d && d.orders) || [], total: (d && d.total) || 0 }; }).catch(function() { return { orders: [], total: 0 }; });
 export const updateOrderStatus = (orderId, status) => call('/orders/' + orderId + '/status', { method: 'PATCH', body: JSON.stringify({ status: status }) });
+
+export const bulkUploadCrops = async (file) => {
+  const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const response = await fetch(BASE + '/bulk-upload', {
+    method: 'POST',
+    headers: {
+      ...(token ? { Authorization: 'Bearer ' + token } : {}),
+    },
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(text || 'Upload failed (' + response.status + ')');
+  }
+
+  return response.json();
+};

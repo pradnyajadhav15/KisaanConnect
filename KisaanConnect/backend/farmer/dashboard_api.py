@@ -117,3 +117,89 @@ async def farmer_dashboard_stats(user=Depends(get_current_user_full)):
         crops_by_type = [dict(r) for r in cur.fetchall()]
     return {'total_crops': total_crops, 'total_quantity': round(total_quantity, 2),
             'total_value': round(total_value, 2), 'crops_by_type': crops_by_type}
+
+
+import csv
+import io
+from fastapi import UploadFile, File
+
+
+REQUIRED_CSV_COLUMNS = {"name", "quantity", "unit", "price_per_unit"}
+OPTIONAL_CSV_COLUMNS = {"description", "location", "available", "image_url"}
+
+
+@router.post('/bulk-upload')
+async def bulk_upload_crops(file: UploadFile = File(...), user=Depends(get_current_user_full)):
+    _require_farmer(user)
+
+    if not file.filename.lower().endswith('.csv'):
+        raise HTTPException(400, 'Please upload a .csv file')
+
+    raw = await file.read()
+    try:
+        text = raw.decode('utf-8-sig')
+    except UnicodeDecodeError:
+        raise HTTPException(400, 'Could not read file. Please save it as UTF-8 CSV and try again.')
+
+    reader = csv.DictReader(io.StringIO(text))
+    if reader.fieldnames is None:
+        raise HTTPException(400, 'CSV appears to be empty')
+
+    headers = {h.strip() for h in reader.fieldnames}
+    missing = REQUIRED_CSV_COLUMNS - headers
+    if missing:
+        raise HTTPException(400, f"Missing required columns: {', '.join(sorted(missing))}")
+
+    succeeded = []
+    failed = []
+
+    with get_db() as conn:
+        cur = conn.cursor()
+        for i, row in enumerate(reader, start=2):  # row 2 = first data row (row 1 is header)
+            try:
+                name = (row.get('name') or '').strip()
+                quantity_raw = (row.get('quantity') or '').strip()
+                unit = (row.get('unit') or '').strip()
+                price_raw = (row.get('price_per_unit') or '').strip()
+
+                if not name:
+                    raise ValueError('name is required')
+                if not unit:
+                    raise ValueError('unit is required')
+
+                quantity = float(quantity_raw)
+                if quantity <= 0:
+                    raise ValueError('quantity must be greater than 0')
+
+                price_per_unit = float(price_raw)
+                if price_per_unit <= 0:
+                    raise ValueError('price_per_unit must be greater than 0')
+
+                description = (row.get('description') or '').strip() or None
+                location = (row.get('location') or '').strip() or None
+                image_url = (row.get('image_url') or '').strip() or None
+                available_raw = (row.get('available') or 'true').strip().lower()
+                available = available_raw not in ('false', '0', 'no')
+
+                cur.execute('''
+                    INSERT INTO crops (name, quantity, unit, price_per_unit, description, location, available, farmer_id, image_url)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s) RETURNING id, name
+                ''', (name, quantity, unit, price_per_unit, description, location, available, user['id'], image_url))
+
+                result = cur.fetchone()
+                succeeded.append({'row': i, 'id': result['id'], 'name': result['name']})
+
+            except ValueError as e:
+                failed.append({'row': i, 'name': row.get('name', ''), 'error': str(e)})
+            except Exception as e:
+                failed.append({'row': i, 'name': row.get('name', ''), 'error': 'Unexpected error, please check this row'})
+
+        conn.commit()
+
+    return {
+        'total_rows': len(succeeded) + len(failed),
+        'succeeded_count': len(succeeded),
+        'failed_count': len(failed),
+        'succeeded': succeeded,
+        'failed': failed,
+    }

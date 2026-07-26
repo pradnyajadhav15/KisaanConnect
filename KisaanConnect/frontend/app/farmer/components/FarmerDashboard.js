@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
 import AddCropForm from './AddCropForm';
+import BulkCropUpload from './BulkCropUpload';
 import ManageListings from './ManageListings';
 import PricePrediction from './PricePrediction';
 import OrderManagement from './OrderManagement';
@@ -11,6 +12,7 @@ import './FarmerDashboard.css';
 
 const TABS = [
   { key: 'addCrop', label: 'Add New Crop' },
+{ key: 'bulkUpload', label: 'Bulk Upload' },
   { key: 'manageListings', label: 'Manage Listings' },
   { key: 'pricePrediction', label: 'Price Prediction' },
   { key: 'orderManagement', label: 'Order Management' },
@@ -81,6 +83,16 @@ export default function FarmerDashboard() {
     }
   }, [notify]);
 
+const handleBulkUploadComplete = useCallback(async () => {
+  try {
+    const data = await farmerApi.getMyCrops();
+    setCrops(data || []);
+    notify('Crop list refreshed after bulk upload.');
+  } catch {
+    notify('Bulk upload finished, but refreshing the list failed. Please reload the page.');
+  }
+}, [notify]);
+
   const handleDeleteCrop = useCallback(async (cropId) => {
     try {
       await farmerApi.deleteCrop(cropId);
@@ -115,6 +127,7 @@ export default function FarmerDashboard() {
         {loading && <p className="loading-message">Loading...</p>}
 
         {activeTab === 'addCrop' && <AddCropForm onAddCrop={handleAddCrop} />}
+{activeTab === 'bulkUpload' && <BulkCropUpload onComplete={handleBulkUploadComplete} />}
 
         {activeTab === 'manageListings' && (
           <ManageListings crops={crops} onEditCrop={handleEditCrop} onDeleteCrop={handleDeleteCrop} />

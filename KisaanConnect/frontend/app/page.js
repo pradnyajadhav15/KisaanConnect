@@ -1,5 +1,10 @@
 import Hero from '../components/Hero';
+import StatsBar from '../components/StatsBar';
+import PriceTicker from '../components/PriceTicker';
+import HowItWorks from '../components/HowItWorks';
+import PricePredictorTeaser from '../components/PricePredictorTeaser';
 import ProductSection from '../components/ProductSection';
+import Testimonials from '../components/Testimonials';
 
 export const metadata = {
   title: 'KisaanConnect - Fresh Produce Direct from Farmers',
@@ -17,7 +22,12 @@ export default function HomePage() {
   return (
     <div>
       <Hero />
+      <StatsBar />
+      <PriceTicker />
+      <HowItWorks />
+      <PricePredictorTeaser />
       <ProductSection products={FALLBACK_PRODUCTS} />
+      <Testimonials />
     </div>
   );
 }

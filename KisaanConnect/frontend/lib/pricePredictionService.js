@@ -17,7 +17,6 @@ export const predictCropPrice = async (cropData) => {
     },
     body: JSON.stringify(cropData),
   });
-
   if (!response.ok) {
     let message = 'Failed to predict price';
     try {
@@ -26,7 +25,6 @@ export const predictCropPrice = async (cropData) => {
     } catch {}
     throw new Error(message);
   }
-
   return response.json();
 };
 
@@ -39,43 +37,6 @@ export const checkPricePredictionApiHealth = async () => {
   } catch {
     return false;
   }
-};
-
-const getCurrentSeason = () => {
-  const month = new Date().getMonth() + 1; // 1-12
-  if (month >= 6 && month <= 10) return 'Kharif';
-  if (month >= 11 || month <= 3) return 'Rabi';
-  return 'Zaid';
-};
-
-export const getMarketRatesSnapshot = async (region = 'Maharashtra') => {
-  const cropsRes = await fetch(API_BASE_URL + '/crops');
-  if (!cropsRes.ok) throw new Error('Failed to fetch crop list');
-  const { crops } = await cropsRes.json();
-  const season = getCurrentSeason();
-
-  const results = await Promise.allSettled(
-    crops.map((crop_name) =>
-      predictCropPrice({
-        crop_name,
-        quantity: 100,
-        season,
-        region,
-      })
-    )
-  );
-
-  return crops
-    .map((crop_name, i) => {
-      const r = results[i];
-      if (r.status !== 'fulfilled') return null;
-      return {
-        crop: crop_name,
-        price: Math.round(r.value.price_per_kg),
-        unit: 'kg',
-      };
-    })
-    .filter(Boolean);
 };
 
 export const getPriceOptions = async () => {

@@ -89,3 +89,7 @@ export const bulkUploadCrops = async (file) => {
 
   return response.json();
 };
+
+export const getSalesSummary = async () => {
+  return call('/sales-summary');
+};

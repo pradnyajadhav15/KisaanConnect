@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import AddCropForm from './AddCropForm';
 import BulkCropUpload from './BulkCropUpload';
+import SalesDashboard from './SalesDashboard';
 import ManageListings from './ManageListings';
 import PricePrediction from './PricePrediction';
 import OrderManagement from './OrderManagement';
@@ -13,6 +14,7 @@ import './FarmerDashboard.css';
 const TABS = [
   { key: 'addCrop', label: 'Add New Crop' },
 { key: 'bulkUpload', label: 'Bulk Upload' },
+  { key: 'salesDashboard', label: 'Sales Dashboard' },
   { key: 'manageListings', label: 'Manage Listings' },
   { key: 'pricePrediction', label: 'Price Prediction' },
   { key: 'orderManagement', label: 'Order Management' },
@@ -128,6 +130,7 @@ const handleBulkUploadComplete = useCallback(async () => {
 
         {activeTab === 'addCrop' && <AddCropForm onAddCrop={handleAddCrop} />}
 {activeTab === 'bulkUpload' && <BulkCropUpload onComplete={handleBulkUploadComplete} />}
+        {activeTab === 'salesDashboard' && <SalesDashboard />}
 
         {activeTab === 'manageListings' && (
           <ManageListings crops={crops} onEditCrop={handleEditCrop} onDeleteCrop={handleDeleteCrop} />

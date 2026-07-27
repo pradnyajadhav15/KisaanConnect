@@ -1,4 +1,7 @@
-from fastapi import APIRouter, HTTPException, Depends
+import csv
+import io
+
+from fastapi import APIRouter, HTTPException, Depends, UploadFile, File
 from pydantic import BaseModel, Field
 from typing import List, Optional
 
@@ -23,10 +26,18 @@ class CropListing(CropInput):
     farmer_id: int
 
 
+REQUIRED_CSV_COLUMNS = {"name", "quantity", "unit", "price_per_unit"}
+OPTIONAL_CSV_COLUMNS = {"description", "location", "available", "image_url"}
+
+
 def _require_farmer(user):
     if user['role'] != 'farmer':
         raise HTTPException(403, 'Only farmers can manage crop listings')
 
+
+# --------------------------------------------------
+# FIXED-PATH ROUTES FIRST (must come before /{crop_id})
+# --------------------------------------------------
 
 @router.get('/mine', response_model=List[CropListing])
 async def get_my_crops(user=Depends(get_current_user_full)):
@@ -45,17 +56,6 @@ async def get_all_crops():
         return [dict(r) for r in cur.fetchall()]
 
 
-@router.get('/{crop_id}', response_model=CropListing)
-async def get_crop(crop_id: int):
-    with get_db() as conn:
-        cur = conn.cursor()
-        cur.execute('SELECT * FROM crops WHERE id = %s', (crop_id,))
-        crop = cur.fetchone()
-    if not crop:
-        raise HTTPException(404, 'Crop not found')
-    return dict(crop)
-
-
 @router.post('/', response_model=CropListing)
 async def create_crop(crop: CropInput, user=Depends(get_current_user_full)):
     _require_farmer(user)
@@ -69,36 +69,6 @@ async def create_crop(crop: CropInput, user=Depends(get_current_user_full)):
         crop_id = cur.fetchone()['id']
         cur.execute('SELECT * FROM crops WHERE id = %s', (crop_id,))
         return dict(cur.fetchone())
-
-
-@router.put('/{crop_id}', response_model=CropListing)
-async def update_crop(crop_id: int, crop: CropInput, user=Depends(get_current_user_full)):
-    _require_farmer(user)
-    with get_db() as conn:
-        cur = conn.cursor()
-        cur.execute('SELECT id FROM crops WHERE id = %s AND farmer_id = %s', (crop_id, user['id']))
-        if not cur.fetchone():
-            raise HTTPException(404, 'Crop not found or not yours')
-        cur.execute('''
-            UPDATE crops SET name=%s, quantity=%s, unit=%s, price_per_unit=%s,
-                description=%s, location=%s, available=%s, image_url=%s
-            WHERE id = %s
-        ''', (crop.name, crop.quantity, crop.unit, crop.price_per_unit, crop.description,
-              crop.location, crop.available, crop.image_url, crop_id))
-        cur.execute('SELECT * FROM crops WHERE id = %s', (crop_id,))
-        return dict(cur.fetchone())
-
-
-@router.delete('/{crop_id}')
-async def delete_crop(crop_id: int, user=Depends(get_current_user_full)):
-    _require_farmer(user)
-    with get_db() as conn:
-        cur = conn.cursor()
-        cur.execute('SELECT id FROM crops WHERE id = %s AND farmer_id = %s', (crop_id, user['id']))
-        if not cur.fetchone():
-            raise HTTPException(404, 'Crop not found or not yours')
-        cur.execute('DELETE FROM crops WHERE id = %s', (crop_id,))
-    return {'message': 'Crop deleted successfully'}
 
 
 @router.get('/dashboard/stats')
@@ -117,15 +87,6 @@ async def farmer_dashboard_stats(user=Depends(get_current_user_full)):
         crops_by_type = [dict(r) for r in cur.fetchall()]
     return {'total_crops': total_crops, 'total_quantity': round(total_quantity, 2),
             'total_value': round(total_value, 2), 'crops_by_type': crops_by_type}
-
-
-import csv
-import io
-from fastapi import UploadFile, File
-
-
-REQUIRED_CSV_COLUMNS = {"name", "quantity", "unit", "price_per_unit"}
-OPTIONAL_CSV_COLUMNS = {"description", "location", "available", "image_url"}
 
 
 @router.post('/bulk-upload')
@@ -155,7 +116,7 @@ async def bulk_upload_crops(file: UploadFile = File(...), user=Depends(get_curre
 
     with get_db() as conn:
         cur = conn.cursor()
-        for i, row in enumerate(reader, start=2):  # row 2 = first data row (row 1 is header)
+        for i, row in enumerate(reader, start=2):
             try:
                 name = (row.get('name') or '').strip()
                 quantity_raw = (row.get('quantity') or '').strip()
@@ -191,7 +152,7 @@ async def bulk_upload_crops(file: UploadFile = File(...), user=Depends(get_curre
 
             except ValueError as e:
                 failed.append({'row': i, 'name': row.get('name', ''), 'error': str(e)})
-            except Exception as e:
+            except Exception:
                 failed.append({'row': i, 'name': row.get('name', ''), 'error': 'Unexpected error, please check this row'})
 
         conn.commit()
@@ -203,3 +164,116 @@ async def bulk_upload_crops(file: UploadFile = File(...), user=Depends(get_curre
         'succeeded': succeeded,
         'failed': failed,
     }
+
+
+@router.get('/sales-summary')
+async def farmer_sales_summary(user=Depends(get_current_user_full)):
+    _require_farmer(user)
+    farmer_id = user['id']
+
+    with get_db() as conn:
+        cur = conn.cursor()
+
+        cur.execute('''
+            SELECT
+                DATE_TRUNC('week', created_at)::date AS week_start,
+                SUM(total_amount) AS revenue,
+                COUNT(*) AS order_count
+            FROM orders
+            WHERE farmer_id = %s
+              AND created_at >= NOW() - INTERVAL '8 weeks'
+              AND status != 'cancelled'
+            GROUP BY week_start
+            ORDER BY week_start ASC
+        ''', (farmer_id,))
+        weekly = [
+            {
+                'week_start': row['week_start'].isoformat(),
+                'revenue': round(float(row['revenue'] or 0), 2),
+                'order_count': row['order_count'],
+            }
+            for row in cur.fetchall()
+        ]
+
+        cur.execute('''
+            SELECT
+                oi.crop_name,
+                SUM(oi.quantity * oi.unit_price) AS revenue,
+                SUM(oi.quantity) AS total_quantity
+            FROM order_items oi
+            JOIN orders o ON o.id = oi.order_id
+            WHERE oi.farmer_id = %s
+              AND o.status != 'cancelled'
+            GROUP BY oi.crop_name
+            ORDER BY revenue DESC
+            LIMIT 10
+        ''', (farmer_id,))
+        top_crops = [
+            {
+                'crop_name': row['crop_name'],
+                'revenue': round(float(row['revenue'] or 0), 2),
+                'total_quantity': float(row['total_quantity'] or 0),
+            }
+            for row in cur.fetchall()
+        ]
+
+        cur.execute('''
+            SELECT
+                SUM(total_amount) AS total_revenue,
+                COUNT(*) AS total_orders
+            FROM orders
+            WHERE farmer_id = %s AND status != 'cancelled'
+        ''', (farmer_id,))
+        totals_row = cur.fetchone()
+
+    return {
+        'weekly_revenue': weekly,
+        'top_crops': top_crops,
+        'total_revenue': round(float(totals_row['total_revenue'] or 0), 2),
+        'total_orders': totals_row['total_orders'] or 0,
+    }
+
+
+# --------------------------------------------------
+# DYNAMIC /{crop_id} ROUTES LAST
+# --------------------------------------------------
+
+@router.get('/{crop_id}', response_model=CropListing)
+async def get_crop(crop_id: int):
+    with get_db() as conn:
+        cur = conn.cursor()
+        cur.execute('SELECT * FROM crops WHERE id = %s', (crop_id,))
+        crop = cur.fetchone()
+    if not crop:
+        raise HTTPException(404, 'Crop not found')
+    return dict(crop)
+
+
+@router.put('/{crop_id}', response_model=CropListing)
+async def update_crop(crop_id: int, crop: CropInput, user=Depends(get_current_user_full)):
+    _require_farmer(user)
+    with get_db() as conn:
+        cur = conn.cursor()
+        cur.execute('SELECT id FROM crops WHERE id = %s AND farmer_id = %s', (crop_id, user['id']))
+        if not cur.fetchone():
+            raise HTTPException(404, 'Crop not found or not yours')
+        cur.execute('''
+            UPDATE crops SET name=%s, quantity=%s, unit=%s, price_per_unit=%s,
+                description=%s, location=%s, available=%s, image_url=%s
+            WHERE id = %s
+        ''', (crop.name, crop.quantity, crop.unit, crop.price_per_unit, crop.description,
+              crop.location, crop.available, crop.image_url, crop_id))
+        cur.execute('SELECT * FROM crops WHERE id = %s', (crop_id,))
+        return dict(cur.fetchone())
+
+
+@router.delete('/{crop_id}')
+async def delete_crop(crop_id: int, user=Depends(get_current_user_full)):
+    _require_farmer(user)
+    with get_db() as conn:
+        cur = conn.cursor()
+        cur.execute('SELECT id FROM crops WHERE id = %s AND farmer_id = %s', (crop_id, user['id']))
+        if not cur.fetchone():
+            raise HTTPException(404, 'Crop not found or not yours')
+        cur.execute('DELETE FROM crops WHERE id = %s', (crop_id,))
+    return {'message': 'Crop deleted successfully'}

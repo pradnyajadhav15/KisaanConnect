@@ -2,8 +2,16 @@
 import { useState, useCallback } from 'react';
 import './ManageListings.css';
 
-const FALLBACK_IMAGE = '/images/placeholder-crop.png';
+const FALLBACK_IMAGE = '/images/placeholder-crop.svg';
 const UNITS = ['kg', 'g', 'quintal', 'ton', 'piece', 'dozen'];
+const LOW_STOCK_THRESHOLD = 10;
+
+const getStockLevel = (crop) => {
+  const qty = Number(crop.quantity || 0);
+  if (qty <= 0) return 'out';
+  if (qty < LOW_STOCK_THRESHOLD) return 'low';
+  return 'ok';
+};
 
 const INITIAL_EDIT = {
   id: null, name: '', quantity: '', unit: 'kg',
@@ -12,6 +20,8 @@ const INITIAL_EDIT = {
 
 export default function ManageListings({ crops, onEditCrop, onDeleteCrop }) {
   const list = crops || [];
+  const outOfStockCount = list.filter((c) => getStockLevel(c) === 'out').length;
+  const lowStockCount = list.filter((c) => getStockLevel(c) === 'low').length;
   const [editingId, setEditingId] = useState(null);
   const [editForm, setEditForm] = useState(INITIAL_EDIT);
   const [editError, setEditError] = useState('');
@@ -84,10 +94,24 @@ export default function ManageListings({ crops, onEditCrop, onDeleteCrop }) {
         </div>
       )}
 
+   
+
+
+{(outOfStockCount > 0 || lowStockCount > 0) && (
+        <div style={{ background: "#fff4e0", border: "1px solid #E8A33D", borderRadius: 8, padding: "12px 16px", marginBottom: 16, fontSize: 14, color: "#5a3d0a" }}>
+          {outOfStockCount > 0 && (outOfStockCount + " crop" + (outOfStockCount > 1 ? "s" : "") + " out of stock. ")}
+          {lowStockCount > 0 && (lowStockCount + " crop" + (lowStockCount > 1 ? "s" : "") + " running low. ")}
+          Consider restocking soon.
+        </div>
+      )}
       {list.length === 0 ? (
         <p className="no-crops-message">You haven&apos;t added any crops yet.</p>
       ) : (
         <div className="crop-list">
+
+
+
+
           {list.map((crop) => (
             <div key={crop.id} className="crop-item">
               {editingId === crop.id ? (
@@ -143,11 +167,23 @@ export default function ManageListings({ crops, onEditCrop, onDeleteCrop }) {
                     <img
                       src={crop.image || FALLBACK_IMAGE}
                       alt={crop.name}
-                      onError={(e) => { e.target.src = FALLBACK_IMAGE; }}
+                      onError={(e) => { e.target.onerror = null; e.target.src = FALLBACK_IMAGE; }}
                     />
                   </div>
                   <div className="crop-details">
-                    <h3>{crop.name}</h3>
+                    <h3>
+                      {crop.name}
+                      {getStockLevel(crop) === 'out' && (
+                        <span style={{ marginLeft: 8, fontSize: 11, fontWeight: 600, padding: '2px 8px', borderRadius: 12, background: '#fdecea', color: '#c1622d' }}>
+                          Out of Stock
+                        </span>
+                      )}
+                      {getStockLevel(crop) === 'low' && (
+                        <span style={{ marginLeft: 8, fontSize: 11, fontWeight: 600, padding: '2px 8px', borderRadius: 12, background: '#fff4e0', color: '#a8720a' }}>
+                          Low Stock
+                        </span>
+                      )}
+                    </h3>
                     <p><strong>Quantity:</strong> {crop.quantity + ' ' + crop.unit}</p>
                     <p><strong>Price:</strong> {'Rs. ' + (crop.price_per_unit != null ? crop.price_per_unit : crop.price) + ' per ' + crop.unit}</p>
                     <p><strong>Location:</strong> {crop.location}</p>

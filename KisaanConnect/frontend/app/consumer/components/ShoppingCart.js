@@ -2,7 +2,7 @@
 import { useMemo, useCallback } from 'react';
 import './ShoppingCart.css';
 
-const FALLBACK_IMAGE = '/images/placeholder-crop.png';
+const FALLBACK_IMAGE = '/images/placeholder-crop.svg';
 
 export default function ShoppingCart({ cartItems, onUpdateQuantity, onRemoveItem, onCheckout }) {
   const items = cartItems || [];
@@ -60,7 +60,7 @@ export default function ShoppingCart({ cartItems, onUpdateQuantity, onRemoveItem
                           src={item.image || FALLBACK_IMAGE}
                           alt={item.name}
                           className="cart-product-image"
-                          onError={(e) => { e.target.src = FALLBACK_IMAGE; }}
+                          onError={(e) => { e.target.onerror = null; e.target.src = FALLBACK_IMAGE; }}
                         />
                         <span className="cart-product-name">{item.name}</span>
                       </div>

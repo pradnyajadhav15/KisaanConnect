@@ -2,7 +2,7 @@
 import { useState, useMemo, useCallback } from 'react';
 import './ProductDetails.css';
 
-const FALLBACK_IMAGE = '/images/placeholder-crop.png';
+const FALLBACK_IMAGE = '/images/placeholder-crop.svg';
 
 export default function ProductDetails({ product, onAddToCart, onBack }) {
   const [quantity, setQuantity] = useState(1);
@@ -35,7 +35,7 @@ export default function ProductDetails({ product, onAddToCart, onBack }) {
           <img
             src={product.image || FALLBACK_IMAGE}
             alt={product.name}
-            onError={(e) => { e.target.src = FALLBACK_IMAGE; }}
+            onError={(e) => { e.target.onerror = null; e.target.src = FALLBACK_IMAGE; }}
           />
         </div>
 

@@ -19,6 +19,7 @@ from upload import router as upload_router
 from admin.admin_api import router as admin_router
 from payment import router as payment_router
 from subscribe import router as subscribe_router
+from wishlist import router as wishlist_router
 from price_prediction.api.prediction_api import app as price_prediction_app
 
 farmer_router = None
@@ -73,6 +74,7 @@ app.include_router(upload_router, prefix='/upload', tags=['Upload'])
 app.include_router(admin_router, prefix='/admin', tags=['Admin'])
 app.include_router(payment_router, prefix='/payment', tags=['Payment'])
 app.include_router(subscribe_router, prefix='/newsletter', tags=['Newsletter'])
+app.include_router(wishlist_router, prefix='/wishlist', tags=['Wishlist'])
 app.mount('/price-prediction', price_prediction_app)
 
 if farmer_router:

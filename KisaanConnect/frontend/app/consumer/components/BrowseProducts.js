@@ -1,8 +1,10 @@
 'use client';
 import { useState, useMemo, useCallback, useRef } from 'react';
 import './BrowseProducts.css';
+import { useEffect } from 'react';
+import { getWishlistIds, addToWishlist, removeFromWishlist } from '../../../lib/wishlistApi';
 
-const FALLBACK_IMAGE = '/images/placeholder-crop.png';
+const FALLBACK_IMAGE = '/images/placeholder-crop.svg';
 const INITIAL_FILTERS = { minPrice: '', maxPrice: '', location: '' };
 
 const getPrice = (p) => Number(p.price_per_unit != null ? p.price_per_unit : (p.price || 0));
@@ -14,7 +16,31 @@ export default function BrowseProducts({ products, onViewProduct, onAddToCart })
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState(INITIAL_FILTERS);
   const [displaySearch, setDisplaySearch] = useState('');
+  const [wishlistIds, setWishlistIds] = useState(new Set());
   const debounceRef = useRef(null);
+  useEffect(() => {
+    getWishlistIds()
+      .then((data) => setWishlistIds(new Set(data.crop_ids || [])))
+      .catch(() => {});
+  }, []);
+
+  const toggleWishlist = async (cropId) => {
+    const isSaved = wishlistIds.has(cropId);
+    setWishlistIds((prev) => {
+      const next = new Set(prev);
+      if (isSaved) next.delete(cropId); else next.add(cropId);
+      return next;
+    });
+    try {
+      if (isSaved) await removeFromWishlist(cropId); else await addToWishlist(cropId);
+    } catch {
+      setWishlistIds((prev) => {
+        const revert = new Set(prev);
+        if (isSaved) revert.add(cropId); else revert.delete(cropId);
+        return revert;
+      });
+    }
+  };
 
   const handleSearchChange = (e) => {
     const val = e.target.value;
@@ -116,13 +142,20 @@ export default function BrowseProducts({ products, onViewProduct, onAddToCart })
               const farmer = getFarmer(product);
               return (
                 <div key={product.id} className="product-card">
-                  <div className="product-image-container">
+                  <div className="product-image-container" style={{ position: "relative" }}>
                     <img
                       src={getImage(product)}
                       alt={product.name}
                       className="product-image"
-                      onError={(e) => { e.target.src = FALLBACK_IMAGE; }}
+                      onError={(e) => { e.target.onerror = null; e.target.src = FALLBACK_IMAGE; }}
                     />
+                    <button
+                      onClick={() => toggleWishlist(product.id)}
+                      aria-label={wishlistIds.has(product.id) ? "Remove from wishlist" : "Save for later"}
+                      style={{ position: "absolute", top: 8, right: 8, background: "rgba(255,255,255,0.9)", border: "none", borderRadius: "50%", width: 34, height: 34, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", fontSize: 18, color: wishlistIds.has(product.id) ? "#c1622d" : "#999" }}
+                    >
+                      {wishlistIds.has(product.id) ? "\u2665" : "\u2661"}
+                    </button>
                   </div>
 
                   <div className="product-info">

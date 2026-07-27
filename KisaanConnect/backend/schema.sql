@@ -59,3 +59,13 @@ CREATE TABLE IF NOT EXISTS order_items (
     crop_name TEXT
 );
 CREATE INDEX IF NOT EXISTS idx_orderitems_order ON order_items(order_id);
+
+CREATE TABLE IF NOT EXISTS wishlist_items (
+    id SERIAL PRIMARY KEY,
+    consumer_id INTEGER NOT NULL REFERENCES users(id),
+    crop_id INTEGER NOT NULL REFERENCES crops(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(consumer_id, crop_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_wishlist_consumer ON wishlist_items(consumer_id);

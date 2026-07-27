@@ -5,15 +5,15 @@ import './MyOrders.css';
 const STATUS_CLASSES = {
   pending: 'status-pending',
   confirmed: 'status-confirmed',
-  shipped: 'status-shipped',
+  dispatched: 'status-shipped',
   delivered: 'status-delivered',
   cancelled: 'status-cancelled',
 };
 
 const TRACKING_STEPS = [
-  { label: 'Order Placed', statuses: ['pending', 'confirmed', 'shipped', 'delivered'] },
-  { label: 'Confirmed', statuses: ['confirmed', 'shipped', 'delivered'] },
-  { label: 'Shipped', statuses: ['shipped', 'delivered'] },
+  { label: 'Order Placed', statuses: ['pending', 'confirmed', 'dispatched', 'delivered'] },
+  { label: 'Confirmed', statuses: ['confirmed', 'dispatched', 'delivered'] },
+  { label: 'Dispatched', statuses: ['dispatched', 'delivered'] },
   { label: 'Delivered', statuses: ['delivered'] },
 ];
 

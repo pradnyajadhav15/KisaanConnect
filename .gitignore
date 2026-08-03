@@ -33,7 +33,8 @@ __pycache__/
 *.sqlite3
 
 # ===== ML model artifacts (large, regenerated) =====
-*.joblib
+# *.joblib  - model artifacts are needed at runtime on Railway
+!KisaanConnect/backend/price_prediction/models/*.joblib
 
 # ===== Editor / OS =====
 .vscode/

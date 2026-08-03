@@ -10,14 +10,14 @@
 
 .adopt-farm-title {
   text-align: center;
-  color: #2a6049;
+  color: #00303A;
   margin-bottom: 10px;
   font-size: 28px;
 }
 
 .adopt-farm-description {
   text-align: center;
-  color: #6c757d;
+  color: #5C7A80;
   max-width: 800px;
   margin: 0 auto 40px;
   line-height: 1.6;
@@ -27,7 +27,7 @@
 /* ── States ── */
 .loading-message {
   text-align: center;
-  color: #777;
+  color: #5C7A80;
   font-size: 15px;
   padding: 40px 0;
 }
@@ -69,7 +69,7 @@
 }
 
 .farmer-card:focus-visible {
-  outline: 2px solid #2a6049;
+  outline: 2px solid #00303A;
   outline-offset: 3px;
 }
 
@@ -93,7 +93,7 @@
 
 .farmer-info h3 {
   margin: 0 0 8px;
-  color: #2a6049;
+  color: #00303A;
   font-size: 1.1rem;
 }
 
@@ -102,7 +102,7 @@
   align-items: center;
   gap: 4px;
   margin-bottom: 8px;
-  color: #6c757d;
+  color: #5C7A80;
   font-size: 0.875rem;
 }
 
@@ -119,7 +119,7 @@
 }
 
 .rating-value {
-  color: #495057;
+  color: #164A55;
   font-weight: 500;
   font-size: 14px;
 }

@@ -41,15 +41,15 @@ const TRUST_POINTS = [
 
 export default function TrustStrip() {
   return (
-    <div className="bg-[#EEF2E7] py-10 border-y border-[#241F1A]/10">
+    <div className="bg-[#EEF2E7] py-10 border-y border-[var(--kc-ink)]/10">
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {TRUST_POINTS.map((t) => (
             <div key={t.title} className="flex items-start gap-3">
-              <div className="text-[#2E7D32] shrink-0 mt-0.5">{t.icon}</div>
+              <div className="text-[var(--kc-forest)] shrink-0 mt-0.5">{t.icon}</div>
               <div>
-                <div className="text-sm font-medium text-[#241F1A]">{t.title}</div>
-                <div className="text-xs text-[#241F1A]/60 mt-0.5 leading-relaxed">{t.body}</div>
+                <div className="text-sm font-medium text-[var(--kc-ink)]">{t.title}</div>
+                <div className="text-xs text-[var(--kc-ink)]/60 mt-0.5 leading-relaxed">{t.body}</div>
               </div>
             </div>
           ))}

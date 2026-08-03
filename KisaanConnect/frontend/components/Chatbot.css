@@ -14,7 +14,7 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background-color: #2e8b57;
+  background-color: #167208;
   color: #fff;
   border: none;
   cursor: pointer;
@@ -56,7 +56,7 @@
 
 /* ── Header ── */
 .chatbot-header {
-  background-color: #2e8b57;
+  background-color: #167208;
   color: #fff;
   padding: 14px 16px;
   display: flex;
@@ -111,14 +111,14 @@
 }
 
 .message.bot {
-  background-color: #f0f0f0;
-  color: #333;
+  background-color: #EDF7E4;
+  color: #00303A;
   align-self: flex-start;
   border-bottom-left-radius: 4px;
 }
 
 .message.user {
-  background-color: #2e8b57;
+  background-color: #167208;
   color: #fff;
   align-self: flex-end;
   border-bottom-right-radius: 4px;
@@ -163,7 +163,7 @@
 /* ── Input ── */
 .input-container {
   padding: 12px 14px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #D8E8CC;
   display: flex;
   gap: 8px;
   flex-shrink: 0;
@@ -172,23 +172,23 @@
 .message-input {
   flex: 1;
   padding: 9px 14px;
-  border: 1px solid #ddd;
+  border: 1px solid #D8E8CC;
   border-radius: 20px;
   font-size: 14px;
   outline: none;
   transition: border-color 0.2s;
 }
 
-.message-input:focus { border-color: #2e8b57; }
+.message-input:focus { border-color: #167208; }
 
 .message-input:disabled {
-  background-color: #f5f5f5;
+  background-color: #F4FFEC;
   cursor: not-allowed;
 }
 
 /* ── Send button ── */
 .send-button {
-  background-color: #2e8b57;
+  background-color: #167208;
   color: #fff;
   border: none;
   padding: 9px 18px;
@@ -200,15 +200,15 @@
   white-space: nowrap;
 }
 
-.send-button:hover:not(:disabled) { background-color: #236b43; }
+.send-button:hover:not(:disabled) { background-color: #0F5205; }
 
 .send-button:focus-visible {
-  outline: 2px solid #2e8b57;
+  outline: 2px solid #167208;
   outline-offset: 2px;
 }
 
 .send-button:disabled {
-  background-color: #a5d6a7;
+  background-color: #7EDE56;
   cursor: not-allowed;
 }
 

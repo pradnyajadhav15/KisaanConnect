@@ -11,6 +11,7 @@ import ProductSection from '../components/ProductSection';
 import FaqAccordion from '../components/FaqAccordion';
 import NewsletterSignup from '../components/NewsletterSignup';
 import Testimonials from '../components/Testimonials';
+import Reveal from '../components/Reveal';
 
 export const metadata = {
   title: 'KisaanConnect - Fresh Produce Direct from Farmers',
@@ -30,16 +31,16 @@ export default function HomePage() {
       <Hero />
       <StatsBar />
       <PriceTicker />
-      <HowItWorks />
-      <SeasonalCalendar />
-      <FarmersStrip />
-      <CoverageArea />
-      <PricePredictorTeaser />
-      <TrustStrip />
-      <ProductSection products={FALLBACK_PRODUCTS} />
-      <FaqAccordion />
-      <NewsletterSignup />
-      <Testimonials />
+      <Reveal><HowItWorks /></Reveal>
+      <Reveal><SeasonalCalendar /></Reveal>
+      <Reveal><FarmersStrip /></Reveal>
+      <Reveal><CoverageArea /></Reveal>
+      <Reveal><PricePredictorTeaser /></Reveal>
+      <Reveal><TrustStrip /></Reveal>
+      <Reveal><ProductSection products={FALLBACK_PRODUCTS} /></Reveal>
+      <Reveal><FaqAccordion /></Reveal>
+      <Reveal><NewsletterSignup /></Reveal>
+      <Reveal><Testimonials /></Reveal>
     </div>
   );
 }

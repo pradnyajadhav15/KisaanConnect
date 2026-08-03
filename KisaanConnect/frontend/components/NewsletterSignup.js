@@ -29,20 +29,20 @@ export default function NewsletterSignup() {
   };
 
   return (
-    <div className="bg-[#241F1A] py-16">
+    <div className="bg-[var(--kc-ink)] py-16">
       <div className="max-w-2xl mx-auto px-6 text-center">
-        <span className="text-[11px] tracking-[0.2em] uppercase text-[#E8A33D] font-mono">
+        <span className="text-[11px] tracking-[0.2em] uppercase text-[var(--kc-sprout)] font-mono">
           Stay in the loop
         </span>
-        <h2 className="font-serif text-3xl text-[#FAF6ED] mt-2 mb-3">
+        <h2 className="font-serif text-3xl text-[var(--kc-mint)] mt-2 mb-3">
           Get price alerts & new harvest updates
         </h2>
-        <p className="text-[#FAF6ED]/70 text-sm mb-8 max-w-md mx-auto">
+        <p className="text-[var(--kc-mint)]/70 text-sm mb-8 max-w-md mx-auto">
           Drop your email or WhatsApp number — we&apos;ll let you know when prices move or fresh crops land near you.
         </p>
 
         {status === 'success' || status === 'already' ? (
-          <div className="bg-[#2E7D32]/20 border border-[#2E7D32] text-[#7FCF88] text-sm py-3 px-4 rounded-sm max-w-md mx-auto">
+          <div className="bg-[var(--kc-forest)]/20 border border-[var(--kc-forest)] text-[var(--kc-sprout)] text-sm py-3 px-4 rounded-sm max-w-md mx-auto">
             {status === 'already'
               ? "You're already on the list \u2014 we've got you covered."
               : "You're in! We'll be in touch."}
@@ -54,12 +54,12 @@ export default function NewsletterSignup() {
               value={value}
               onChange={(e) => setValue(e.target.value)}
               placeholder="Email or WhatsApp number"
-              className="flex-1 px-4 py-2.5 rounded-sm bg-[#FAF6ED] text-[#241F1A] text-sm placeholder:text-[#241F1A]/40 outline-none"
+              className="flex-1 px-4 py-2.5 rounded-sm bg-[var(--kc-mint)] text-[var(--kc-ink)] text-sm placeholder:text-[var(--kc-ink)]/40 outline-none"
             />
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="bg-[#2E7D32] text-white text-sm font-medium px-6 py-2.5 rounded-sm hover:bg-[#256428] transition disabled:opacity-60 whitespace-nowrap"
+              className="bg-[var(--kc-forest)] text-white text-sm font-medium px-6 py-2.5 rounded-sm hover:bg-[#256428] transition disabled:opacity-60 whitespace-nowrap"
             >
               {status === 'loading' ? 'Joining…' : 'Notify me'}
             </button>
@@ -67,7 +67,7 @@ export default function NewsletterSignup() {
         )}
 
         {status === 'error' && (
-          <p className="text-xs text-[#E8A33D] mt-3">{error}</p>
+          <p className="text-xs text-[var(--kc-sprout)] mt-3">{error}</p>
         )}
       </div>
     </div>

@@ -1,30 +1,71 @@
-﻿.language-translator {
+.language-translator {
   position: relative;
 }
 
 .translator-toggle-btn {
   background: transparent;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  padding: 0.35rem 0.7rem;
+  border: 1px solid rgba(216, 232, 204, 0.3);
+  border-radius: 7px;
+  padding: 0.45rem 0.95rem;
   font-size: 0.85rem;
+  font-family: inherit;
+  color: var(--kc-line);
   cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 150ms ease, color 150ms ease;
+}
+
+.translator-toggle-btn:hover {
+  border-color: var(--kc-sprout);
+  color: var(--kc-sprout);
 }
 
 .translator-dropdown {
   display: none;
   position: absolute;
-  top: 110%;
+  top: 130%;
   right: 0;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 6px;
-  padding: 0.5rem;
-  min-width: 180px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  z-index: 50;
+  background: var(--kc-card);
+  border: 1px solid var(--kc-line);
+  border-radius: 10px;
+  padding: 0.75rem;
+  min-width: 200px;
+  box-shadow: 0 8px 24px rgba(0, 35, 43, 0.18);
+  z-index: 200;
 }
 
 .translator-dropdown.visible {
   display: block;
+}
+
+/* Google injects its own markup - force it to match */
+.translator-dropdown .goog-te-combo {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--kc-line);
+  border-radius: 7px;
+  background: var(--kc-mint);
+  color: var(--kc-ink);
+  font-family: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.translator-dropdown .goog-logo-link,
+.translator-dropdown .goog-te-gadget span {
+  display: none !important;
+}
+
+.translator-dropdown .goog-te-gadget {
+  color: transparent !important;
+  font-size: 0 !important;
+}
+
+/* Google's top banner shifts the whole page down - hide it */
+.skiptranslate iframe.goog-te-banner-frame {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
 }

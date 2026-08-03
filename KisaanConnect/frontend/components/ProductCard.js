@@ -1,21 +1,28 @@
+'use client';
+
 export default function ProductCard({ product }) {
-  const name = product.name;
-  const price = product.price;
-  const unit = product.unit;
-  const image = product.image;
+  const { name, price, unit, image } = product;
 
   return (
-    <div style={{ border: '1px solid #e0e0e0', borderRadius: 8, overflow: 'hidden' }}>
-      <img
-        src={image || '/images/placeholder-crop.svg'}
-        alt={name}
-        style={{ width: '100%', height: 160, objectFit: 'cover' }}
-        loading="lazy"
-      />
-      <div style={{ padding: 12 }}>
-        <h3 style={{ margin: '0 0 6px 0', fontSize: 16 }}>{name}</h3>
-        <p style={{ margin: 0, color: '#2e7d32', fontWeight: 700 }}>
-          {'Rs. ' + price + ' / ' + unit}
+    <div className="group cursor-pointer overflow-hidden rounded-xl border border-[var(--kc-line)] bg-[var(--kc-card)] transition-all duration-300 hover:-translate-y-1 hover:border-[var(--kc-forest)] hover:shadow-[0_10px_28px_rgba(0,48,58,0.10)]">
+      <div className="overflow-hidden bg-[var(--kc-sprout-soft)]">
+        <img
+          src={image || '/images/placeholder-crop.svg'}
+          alt={name}
+          className="h-40 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          loading="lazy"
+          onError={(e) => {
+            if (!e.currentTarget.dataset.fallback) {
+              e.currentTarget.dataset.fallback = '1';
+              e.currentTarget.src = '/images/placeholder-crop.svg';
+            }
+          }}
+        />
+      </div>
+      <div className="p-3.5">
+        <h3 className="mb-1.5 text-base text-[var(--kc-ink)]">{name}</h3>
+        <p className="m-0 font-semibold text-[var(--kc-forest)]">
+          Rs. {price} <span className="font-normal text-[var(--kc-ink-muted)]">/ {unit}</span>
         </p>
       </div>
     </div>

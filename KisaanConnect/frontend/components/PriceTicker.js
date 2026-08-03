@@ -23,9 +23,7 @@ export default function PriceTicker() {
           setIsLive(true);
         }
       })
-      .catch(() => {
-        // silently keep FALLBACK_RATES
-      });
+      .catch(() => {});
     return () => {
       cancelled = true;
     };
@@ -34,23 +32,23 @@ export default function PriceTicker() {
   const loop = [...rates, ...rates];
 
   return (
-    <div className="bg-[#1a1611] border-y-4 border-[#E8A33D] overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6 pt-3 pb-1 flex items-center gap-2">
-        <span className="text-[10px] tracking-[0.2em] uppercase text-[#E8A33D]/80 font-mono">
+    <div className="bg-[var(--kc-ink)] border-b border-[var(--kc-sprout)]/25 overflow-hidden">
+      <div className="max-w-6xl mx-auto px-6 pt-3.5 pb-1 flex items-center gap-2">
+        <span className="text-[10px] tracking-[0.2em] uppercase text-[var(--kc-sprout)]/80">
           {isLive ? "Today's Predicted Mandi Rates" : 'Sample Mandi Rates'}
         </span>
         {isLive && (
-          <span className="w-1.5 h-1.5 rounded-full bg-[#7FCF88] animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[var(--kc-sprout)] animate-pulse" />
         )}
       </div>
       <div className="relative py-3">
         <div className="flex gap-10 animate-[ticker_28s_linear_infinite] whitespace-nowrap w-max">
           {loop.map((r, i) => (
-            <div key={i} className="flex items-baseline gap-2 font-mono text-sm">
-              <span className="text-[#FAF6ED]/90">{r.crop}</span>
-              <span className="text-[#7FCF88]">
+            <div key={i} className="flex items-baseline gap-2 text-sm">
+              <span className="text-[var(--kc-line)]/90">{r.crop}</span>
+              <span className="text-[var(--kc-sprout)]">
                 ₹{r.price}
-                <span className="text-[#FAF6ED]/50">/{r.unit}</span>
+                <span className="text-[var(--kc-line)]/50">/{r.unit}</span>
               </span>
             </div>
           ))}

@@ -20,16 +20,16 @@ export default function Testimonials() {
   return (
     <div className="bg-[#EEF2E7] py-16">
       <div className="max-w-6xl mx-auto px-6">
-        <h2 className="font-serif text-3xl text-[#241F1A] mb-10">From the field and the kitchen</h2>
+        <h2 className="font-serif text-3xl text-[var(--kc-ink)] mb-10">From the field and the kitchen</h2>
         <div className="grid md:grid-cols-3 gap-6">
           {notes.map((t) => (
             <div
               key={t.name}
-              className="bg-[#FAF6ED] p-6 rounded-sm shadow-sm border-t-4 border-[#E8A33D]"
+              className="bg-[var(--kc-mint)] p-6 rounded-sm shadow-sm border-t-4 border-[var(--kc-sprout)]"
             >
-              <p className="text-[#241F1A]/80 text-sm leading-relaxed mb-4">&ldquo;{t.quote}&rdquo;</p>
-              <div className="text-sm font-semibold text-[#241F1A]">{t.name}</div>
-              <div className="text-xs text-[#241F1A]/60">{t.role}</div>
+              <p className="text-[var(--kc-ink)]/80 text-sm leading-relaxed mb-4">&ldquo;{t.quote}&rdquo;</p>
+              <div className="text-sm font-semibold text-[var(--kc-ink)]">{t.name}</div>
+              <div className="text-xs text-[var(--kc-ink)]/60">{t.role}</div>
             </div>
           ))}
         </div>

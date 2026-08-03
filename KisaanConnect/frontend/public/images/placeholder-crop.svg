@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <rect width="400" height="300" fill="#DFF6D0"/>
+  <g fill="none" stroke="#167208" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.45">
+    <path d="M200 190c0-40 26-70 62-70 0 40-26 70-62 70z"/>
+    <path d="M200 190c0-40-26-70-62-70 0 40 26 70 62 70z"/>
+    <path d="M200 190v40"/>
+  </g>
+  <text x="200" y="262" font-family="system-ui, sans-serif" font-size="15" fill="#5C7A80" text-anchor="middle">Image coming soon</text>
+</svg>

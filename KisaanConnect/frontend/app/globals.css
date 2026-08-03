@@ -1,29 +1,59 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --kc-ink: #00303A;
+  --kc-ink-deep: #00232B;
+  --kc-ink-soft: #164A55;
+  --kc-ink-muted: #5C7A80;
+  --kc-forest: #167208;
+  --kc-forest-dark: #0F5205;
+  --kc-sprout: #7EDE56;
+  --kc-sprout-soft: #DFF6D0;
+  --kc-mint: #F4FFEC;
+  --kc-mint-2: #EDF7E4;
+  --kc-card: #FFFFFF;
+  --kc-line: #D8E8CC;
+
+  --background: var(--kc-mint);
+  --foreground: var(--kc-ink);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-ink: var(--kc-ink);
+  --color-ink-soft: var(--kc-ink-soft);
+  --color-ink-muted: var(--kc-ink-muted);
+  --color-forest: var(--kc-forest);
+  --color-forest-dark: var(--kc-forest-dark);
+  --color-sprout: var(--kc-sprout);
+  --color-sprout-soft: var(--kc-sprout-soft);
+  --color-mint: var(--kc-mint);
+  --color-line: var(--kc-line);
+  --font-sans: var(--font-body), var(--font-deva), system-ui, sans-serif;
+  --font-display: var(--font-display), Georgia, serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--kc-mint);
+  color: var(--kc-ink);
+  font-family: var(--font-body), var(--font-deva), system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display), var(--font-deva), Georgia, serif;
+  color: inherit;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); }
+h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); }
+h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
 
 @keyframes ticker {
   from { transform: translateX(0); }

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
@@ -14,6 +14,7 @@ const Navbar = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const [user,          setUser]          = useState(null);
   const [menuOpen,      setMenuOpen]      = useState(false);
+  const [logoOk,        setLogoOk]        = useState(true);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -52,12 +53,16 @@ const Navbar = () => {
       <div className="navbar-container">
         <div className="logo-container">
           <Link href="/" aria-label="KisaanConnect Home">
-            <img
-              src="/images/logo.png"
-              alt="KisaanConnect Logo"
-              className="logo"
-              onError={e => { e.target.style.display = 'none'; }}
-            />
+            {logoOk ? (
+              <img
+                src="/images/logo-icon.png"
+                alt=""
+                className="logo"
+                onError={() => setLogoOk(false)}
+              />
+            ) : (
+              <span className="logo-mark" aria-hidden="true">K</span>
+            )}
             <h1 className="brand-name">KisaanConnect</h1>
           </Link>
         </div>
@@ -79,8 +84,8 @@ const Navbar = () => {
           )}
           {!authenticated && (
             <>
-              <Link href="/farmer"   className="nav-link">Farmer Dashboard</Link>
-              <Link href="/consumer" className="nav-link">Consumer Dashboard</Link>
+              <Link href="/farmer"   className="nav-link">Farmer</Link>
+              <Link href="/consumer" className="nav-link">Consumer</Link>
             </>
           )}
           <Link href="/adopt-farm" className="nav-link adopt-farm-link">Adopt a Farm</Link>
@@ -118,4 +123,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

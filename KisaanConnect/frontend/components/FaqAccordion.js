@@ -34,14 +34,14 @@ export default function FaqAccordion() {
   const toggle = (i) => setOpenIndex(openIndex === i ? -1 : i);
 
   return (
-    <div className="bg-[#FAF6ED] py-16">
+    <div className="bg-[var(--kc-mint)] py-16">
       <div className="max-w-3xl mx-auto px-6">
-        <span className="text-[11px] tracking-[0.2em] uppercase text-[#C1622D] font-mono">
+        <span className="text-[11px] tracking-[0.2em] uppercase text-[var(--kc-forest)] font-mono">
           Common questions
         </span>
-        <h2 className="font-serif text-3xl text-[#241F1A] mt-2 mb-10">Frequently asked</h2>
+        <h2 className="font-serif text-3xl text-[var(--kc-ink)] mt-2 mb-10">Frequently asked</h2>
 
-        <div className="divide-y divide-[#241F1A]/10 border-t border-b border-[#241F1A]/10">
+        <div className="divide-y divide-[var(--kc-ink)]/10 border-t border-b border-[var(--kc-ink)]/10">
           {FAQS.map((item, i) => {
             const isOpen = openIndex === i;
             return (
@@ -50,11 +50,11 @@ export default function FaqAccordion() {
                   onClick={() => toggle(i)}
                   className="w-full flex items-center justify-between py-4 text-left"
                 >
-                  <span className="text-sm md:text-base font-medium text-[#241F1A] pr-4">
+                  <span className="text-sm md:text-base font-medium text-[var(--kc-ink)] pr-4">
                     {item.q}
                   </span>
                   <span
-                    className={`shrink-0 text-[#2E7D32] font-mono text-lg transition-transform ${isOpen ? 'rotate-45' : ''}`}
+                    className={`shrink-0 text-[var(--kc-forest)] font-mono text-lg transition-transform ${isOpen ? 'rotate-45' : ''}`}
                   >
                     +
                   </span>
@@ -62,7 +62,7 @@ export default function FaqAccordion() {
                 <div
                   className={`overflow-hidden transition-all duration-200 ${isOpen ? 'max-h-40 pb-4' : 'max-h-0'}`}
                 >
-                  <p className="text-sm text-[#241F1A]/70 leading-relaxed pr-8">
+                  <p className="text-sm text-[var(--kc-ink)]/70 leading-relaxed pr-8">
                     {item.a}
                   </p>
                 </div>

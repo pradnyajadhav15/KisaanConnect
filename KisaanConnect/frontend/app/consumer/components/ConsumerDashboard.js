@@ -187,11 +187,28 @@ export default function ConsumerDashboard() {
       throw err;
     }
   }, [cart, cartId, refreshCart, notify]);
-
   const handleViewProduct = useCallback((product) => {
     setSelectedProduct(product);
     setActiveTab('productDetails');
   }, []);
+
+  const handleRepeatOrder = useCallback(async (order) => {
+    const items = Array.isArray(order.items) ? order.items : [];
+    if (items.length === 0) return notify('No items found in this order.');
+    let addedCount = 0;
+    for (const item of items) {
+      try {
+        await consumerApi.addToCart({ crop_id: item.crop_id, quantity: item.quantity, cart_id: cartId });
+        addedCount++;
+      } catch {
+        // skip items that fail (e.g. no longer available)
+      }
+    }
+    await refreshCart();
+    if (addedCount === 0) notify('Could not add any items \u2014 they may no longer be available.');
+    else if (addedCount < items.length) notify(addedCount + ' of ' + items.length + ' items added to cart.');
+    else notify('Order items added to cart!');
+  }, [cartId, refreshCart, notify]);
 
   const handleBackToBrowse = useCallback(() => {
     setSelectedProduct(null);
@@ -249,7 +266,7 @@ export default function ConsumerDashboard() {
           <Checkout cartItems={cart} onPlaceOrder={handlePlaceOrder} onBack={() => setActiveTab('cart')} />
         )}
 
-        {activeTab === 'myOrders' && <MyOrders orders={orders} />}
+        {activeTab === 'myOrders' && <MyOrders orders={orders} onRepeatOrder={handleRepeatOrder} />}
       </div>
     </div>
   );

@@ -29,6 +29,7 @@ class UserCreate(UserBase):
     role: str = Field(..., pattern='^(farmer|consumer)$')
     name: Optional[str] = None
     email: Optional[EmailStr] = None
+    referral_code: Optional[str] = None
 
 class UserLogin(BaseModel):
     username: str
@@ -82,9 +83,18 @@ async def register_user(user: UserCreate):
     with get_db() as conn:
         cur = conn.cursor()
         cur.execute(
-            'INSERT INTO users (username, password_hash, role, name, email) VALUES (%s,%s,%s,%s,%s)',
+            'INSERT INTO users (username, password_hash, role, name, email) VALUES (%s,%s,%s,%s,%s) RETURNING id',
             (user.username, hash_password(user.password), user.role, user.name, user.email)
         )
+        new_user_id = cur.fetchone()['id']
+
+    if user.referral_code:
+        from referrals import link_referral
+        try:
+            link_referral(new_user_id, user.referral_code)
+        except HTTPException:
+            pass  # invalid referral code shouldn't block registration
+
     token = create_access_token(user.username, user.role)
     return {'access_token': token, 'token_type': 'bearer', 'role': user.role, 'username': user.username}
 

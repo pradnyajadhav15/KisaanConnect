@@ -6,6 +6,7 @@ import uuid
 from auth.auth_api import get_current_user_full
 from database import get_db
 from notifications import send_order_confirmation
+from referrals import get_referred_discount, mark_referral_discount_used
 
 router = APIRouter()
 
@@ -124,14 +125,17 @@ async def create_order(order: Order, user=Depends(get_current_user_full)):
             farmer_ids.add(crop['farmer_id'])
             validated.append((it.crop_id, crop['farmer_id'], it.quantity, crop['price_per_unit'], crop_name))
 
+
         if len(farmer_ids) > 1:
             raise HTTPException(400, 'An order can contain crops from only one farmer. Please order separately per farmer.')
         order_farmer_id = farmer_ids.pop()
+        discount = get_referred_discount(consumer_id)
+        final_total = max(0, round(computed_total, 2) - discount)
 
         cur.execute('''
             INSERT INTO orders (consumer_id, farmer_id, total_amount, status, shipping_address, phone, consumer_name)
             VALUES (%s,%s,%s,'pending',%s,%s,%s) RETURNING id
-        ''', (consumer_id, order_farmer_id, round(computed_total, 2), order.shipping_address, order.phone,
+        ''', (consumer_id, order_farmer_id, final_total, order.shipping_address, order.phone,
               user.get('name') or user['username']))
         order_id = cur.fetchone()['id']
 
@@ -144,6 +148,8 @@ async def create_order(order: Order, user=Depends(get_current_user_full)):
         if order.cart_id:
             cur.execute('DELETE FROM cart_items WHERE cart_id = %s', (order.cart_id,))
 
+        if discount > 0:
+            mark_referral_discount_used(consumer_id)
     send_order_confirmation(
         user.get('email'),
         order_id,

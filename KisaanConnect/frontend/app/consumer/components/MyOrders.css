@@ -41,3 +41,6 @@
   .tracking-timeline { flex-direction: column; gap: 16px; }
   .tracking-connector { width: 2px; height: 20px; margin: 4px 0 0; }
 }
+
+.repeat-order-button { background-color: #C1622D; color: #fff; border: none; padding: 6px 14px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 500; }
+.repeat-order-button:hover { background-color: #a3521f; }

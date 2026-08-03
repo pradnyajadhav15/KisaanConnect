@@ -1,6 +1,7 @@
 'use client';
 import { useState, useMemo, useCallback } from 'react';
 import './ProductDetails.css';
+import ProductReviews from './ProductReviews';
 
 const FALLBACK_IMAGE = '/images/placeholder-crop.svg';
 
@@ -92,6 +93,7 @@ export default function ProductDetails({ product, onAddToCart, onBack }) {
           </button>
         </div>
       </div>
+      <ProductReviews cropId={product.id} />
     </div>
   );
 }

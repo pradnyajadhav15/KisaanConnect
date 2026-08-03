@@ -109,7 +109,7 @@ function OrderDetail({ order, onBack }) {
   );
 }
 
-export default function MyOrders({ orders }) {
+export default function MyOrders({ orders, onRepeatOrder }) {
   const list = orders || [];
   const [selectedOrder, setSelectedOrder] = useState(null);
 
@@ -148,6 +148,9 @@ export default function MyOrders({ orders }) {
                 <td>
                   <button className="view-details-button" onClick={() => setSelectedOrder(order)}>
                     View Details
+                  </button>
+                  <button className="repeat-order-button" onClick={() => onRepeatOrder && onRepeatOrder(order)} style={{ marginLeft: 8 }}>
+                    Repeat Order
                   </button>
                 </td>
               </tr>

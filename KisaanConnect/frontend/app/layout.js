@@ -1,6 +1,7 @@
 import './globals.css';
 import './globals-legacy.css';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import Script from 'next/script';
 import { Fraunces, Plus_Jakarta_Sans, Noto_Sans_Devanagari } from 'next/font/google';
 
@@ -33,6 +34,7 @@ export default function RootLayout({ children }) {
       <body>
         <Navbar />
         {children}
+        <Footer />
         <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
       </body>
     </html>

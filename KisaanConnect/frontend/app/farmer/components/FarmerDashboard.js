@@ -8,6 +8,7 @@ import PricePrediction from './PricePrediction';
 import OrderManagement from './OrderManagement';
 import CropHealthAnalysis from './CropHealthAnalysis';
 import AIChatbot from './AIChatbot';
+import ManagePlots from './ManagePlots';
 import * as farmerApi from '../../../lib/farmerApi';
 import './FarmerDashboard.css';
 
@@ -18,6 +19,7 @@ const TABS = [
   { key: 'manageListings', label: 'Manage Listings' },
   { key: 'pricePrediction', label: 'Price Prediction' },
   { key: 'orderManagement', label: 'Order Management' },
+  { key: 'adoptPlots', label: 'Adopt-a-Farm Plots' },
   { key: 'cropHealth', label: 'AI Crop Health Analysis' },
   { key: 'aiAssistant', label: 'Ask AI' },
 ];
@@ -140,6 +142,7 @@ const handleBulkUploadComplete = useCallback(async () => {
         {activeTab === 'orderManagement' && (
           <OrderManagement orders={orders} onUpdateStatus={handleUpdateStatus} />
         )}
+        {activeTab === 'adoptPlots' && <ManagePlots />}
         {activeTab === 'cropHealth' && <CropHealthAnalysis />}
         {activeTab === 'aiAssistant' && <AIChatbot />}
       </div>

@@ -79,6 +79,10 @@ app.include_router(subscribe_router, prefix='/newsletter', tags=['Newsletter'])
 app.include_router(wishlist_router, prefix='/wishlist', tags=['Wishlist'])
 app.include_router(reviews_router, prefix='/reviews', tags=['Reviews'])
 app.include_router(referrals_router, prefix='/referrals', tags=['Referrals'])
+from adopt_farm import router as adopt_farm_router
+from ngo import router as ngo_router
+app.include_router(adopt_farm_router, prefix='/adopt-farm', tags=['Adopt a Farm'])
+app.include_router(ngo_router, prefix='/ngo', tags=['NGO Support'])
 app.mount('/price-prediction', price_prediction_app)
 
 if farmer_router:

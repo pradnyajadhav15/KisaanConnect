@@ -84,7 +84,7 @@
 
 .farmer-rating-large .star-rating {
   font-size: 1.2rem;
-  color: #ffc107;
+  color: var(--kc-sprout);
 }
 
 .farmer-rating-large .rating-value {
@@ -166,7 +166,7 @@
   color: #fff;
   border: none;
   padding: 11px 24px;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
   margin-top: 14px;
@@ -187,7 +187,7 @@
   background-color: #d4edda;
   color: #167208;
   padding: 8px 16px;
-  border-radius: 4px;
+  border-radius: 8px;
   margin-top: 14px;
   font-weight: 500;
 }
@@ -342,7 +342,7 @@
   color: #5C7A80;
   border: 1px solid #D8E8CC;
   padding: 10px 16px;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: 500;
   transition: background-color 0.2s, color 0.2s;
@@ -361,7 +361,7 @@
   color: #fff;
   border: none;
   padding: 10px 16px;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
   transition: background-color 0.2s;

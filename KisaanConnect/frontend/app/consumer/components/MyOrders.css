@@ -11,7 +11,7 @@
 .status-shipped { background-color: #DFF6D0; color: #167208; }
 .status-delivered { background-color: #c8e6c9; color: #1b5e20; }
 .status-cancelled { background-color: #ffebee; color: #c62828; }
-.view-details-button { background-color: #167208; color: #fff; border: none; padding: 6px 14px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 500; }
+.view-details-button { background-color: #167208; color: #fff; border: none; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 500; }
 .view-details-button:hover { background-color: #0F5205; }
 .back-button { background: none; border: none; color: #167208; font-size: 15px; font-weight: 500; cursor: pointer; padding: 0; margin-bottom: 20px; display: flex; align-items: center; gap: 4px; }
 .back-button:hover { text-decoration: underline; }
@@ -42,5 +42,5 @@
   .tracking-connector { width: 2px; height: 20px; margin: 4px 0 0; }
 }
 
-.repeat-order-button { background-color: #C1622D; color: #fff; border: none; padding: 6px 14px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 500; }
+.repeat-order-button { background-color: #C1622D; color: #fff; border: none; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 500; }
 .repeat-order-button:hover { background-color: #a3521f; }

@@ -123,29 +123,6 @@ tr:hover td {
   background: var(--kc-sprout-soft);
 }
 
-.tab-button {
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid transparent;
-  border-radius: 0;
-  padding: 0.7rem 1.1rem;
-  font-size: 0.9rem;
-  color: var(--kc-ink-muted);
-}
-
-.tab-button.active {
-  color: var(--kc-forest);
-  border-bottom-color: var(--kc-forest);
-  font-weight: 500;
-}
-
-.dashboard-tabs {
-  display: flex;
-  gap: 0.25rem;
-  border-bottom: 1px solid var(--kc-line);
-  margin-bottom: 1.75rem;
-  overflow-x: auto;
-}
 
 .back-button {
   background: transparent;

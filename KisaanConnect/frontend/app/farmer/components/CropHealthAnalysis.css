@@ -4,17 +4,17 @@
 .upload-section { display: flex; flex-direction: column; align-items: center; gap: 20px; }
 .file-input-container { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .file-input { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
-.file-input-label { display: inline-block; background-color: #00303A; color: #fff; padding: 12px 24px; border-radius: 4px; cursor: pointer; font-weight: 500; }
+.file-input-label { display: inline-block; background-color: #00303A; color: #fff; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: 500; }
 .file-input-label:hover { background-color: #00232B; }
 .upload-instruction { text-align: center; color: #5C7A80; font-size: 14px; margin: 10px 0; }
 .error-message { color: #dc3545; text-align: center; font-size: 14px; margin-top: 6px; }
 .image-preview { width: 100%; max-width: 500px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
 .image-preview img { width: 100%; max-height: 300px; object-fit: contain; border-radius: 8px; border: 1px solid #D8E8CC; }
 .preview-actions { display: flex; gap: 12px; justify-content: center; width: 100%; }
-.analyze-button { background-color: #00303A; color: #fff; border: none; padding: 10px 22px; border-radius: 4px; cursor: pointer; font-weight: 500; font-size: 14px; }
+.analyze-button { background-color: #00303A; color: #fff; border: none; padding: 10px 22px; border-radius: 8px; cursor: pointer; font-weight: 500; font-size: 14px; }
 .analyze-button:hover:not(:disabled) { background-color: #00232B; }
 .analyze-button:disabled { background-color: #5C7A80; cursor: not-allowed; }
-.reset-button { background-color: #F4FFEC; color: #5C7A80; border: 1px solid #D8E8CC; padding: 10px 22px; border-radius: 4px; cursor: pointer; font-weight: 500; font-size: 14px; }
+.reset-button { background-color: #F4FFEC; color: #5C7A80; border: 1px solid #D8E8CC; padding: 10px 22px; border-radius: 8px; cursor: pointer; font-weight: 500; font-size: 14px; }
 .reset-button:hover { background-color: #e9ecef; color: #164A55; }
 .loading-container { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 24px; }
 .loading-spinner { width: 40px; height: 40px; border: 4px solid rgba(0, 0, 0, 0.08); border-radius: 50%; border-top-color: #00303A; animation: spin 0.9s linear infinite; }
@@ -27,18 +27,18 @@
 .status-icon { font-size: 14px; font-weight: 700; }
 .healthy-result h4 { color: #167208; margin: 0; }
 .unhealthy-result h4 { color: #dc3545; margin: 0; }
-.healthy-characteristics { background-color: #fff; border-radius: 6px; padding: 16px; margin: 14px 0; }
+.healthy-characteristics { background-color: #fff; border-radius: 10px; padding: 16px; margin: 14px 0; }
 .healthy-characteristics h5 { color: #167208; margin-bottom: 8px; }
 .healthy-characteristics ul { padding-left: 20px; }
 .healthy-characteristics li { margin-bottom: 5px; font-size: 14px; }
 .recommendation { font-weight: 500; margin-top: 14px; color: #167208; font-size: 14px; }
 .problems-list { display: flex; flex-direction: column; gap: 16px; margin: 16px 0; }
-.problem-item { background-color: #fff; border-radius: 6px; padding: 16px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08); }
+.problem-item { background-color: #fff; border-radius: 10px; padding: 16px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08); }
 .problem-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
 .problem-icon { font-size: 12px; font-weight: 700; color: #dc3545; }
 .problem-item h5 { color: #dc3545; margin: 0; font-size: 15px; }
 .problem-description { margin-bottom: 12px; color: #164A55; font-size: 14px; }
-.solution { background-color: #F4FFEC; border-radius: 4px; padding: 12px; }
+.solution { background-color: #F4FFEC; border-radius: 8px; padding: 12px; }
 .solution h6 { color: #00303A; margin-bottom: 6px; font-size: 13px; }
 .solution p { margin: 0; color: #00303A; font-size: 14px; }
 .seek-advice { font-style: italic; color: #5C7A80; text-align: center; margin-top: 16px; font-size: 13px; }

@@ -10,21 +10,21 @@
 .product-availability { margin-bottom: 18px; }
 .availability-label { font-weight: 500; color: #164A55; }
 .availability-value { margin-left: 5px; }
-.availability-value.in-stock { color: #4caf50; }
-.availability-value.out-of-stock { color: #f44336; }
+.availability-value.in-stock { color: var(--kc-forest); }
+.availability-value.out-of-stock { color: #B3261E; }
 .product-description, .farmer-info { margin-bottom: 18px; }
 .product-description h3, .farmer-info h3, .quantity-selector h3, .total-price h3 { font-size: 16px; color: #00303A; margin-bottom: 8px; }
 .product-description p, .farmer-info p { color: #164A55; line-height: 1.6; font-size: 14px; }
 .quantity-selector { margin-bottom: 18px; }
 .quantity-input-group { display: flex; align-items: center; max-width: 150px; }
 .quantity-button { width: 38px; height: 38px; background-color: #EDF7E4; border: 1px solid #D8E8CC; font-size: 18px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-.quantity-button:first-child { border-radius: 4px 0 0 4px; }
+.quantity-button:first-child { border-radius: 8px 0 0 4px; }
 .quantity-button:last-child { border-radius: 0 4px 4px 0; }
 .quantity-button:disabled { background-color: #F4FFEC; color: #ccc; cursor: not-allowed; }
 .quantity-input { width: 60px; height: 38px; border: 1px solid #D8E8CC; border-left: none; border-right: none; text-align: center; font-size: 15px; }
 .total-price { margin-bottom: 20px; }
 .total-amount { font-size: 24px; color: #167208; font-weight: 700; }
-.add-to-cart-large { background-color: #167208; color: #fff; border: none; padding: 12px 20px; border-radius: 4px; font-size: 16px; font-weight: 600; cursor: pointer; width: 100%; max-width: 300px; }
+.add-to-cart-large { background-color: #167208; color: #fff; border: none; padding: 12px 20px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; width: 100%; max-width: 300px; }
 .add-to-cart-large:hover:not(:disabled) { background-color: #0F5205; }
 .add-to-cart-large:disabled { background-color: #7EDE56; cursor: not-allowed; }
 @media (max-width: 768px) {

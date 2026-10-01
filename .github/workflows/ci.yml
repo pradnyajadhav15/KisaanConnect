@@ -8,6 +8,7 @@ on:
 
 jobs:
   backend:
+    name: Backend tests
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -19,18 +20,22 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: |
+            KisaanConnect/backend/requirements.txt
+            KisaanConnect/backend/requirements-dev.txt
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirements-dev.txt
 
-      - name: Check syntax and imports
-        run: |
-          python -m py_compile main.py database.py upload.py payment.py notifications.py
-          python -m py_compile admin/admin_api.py auth/auth_api.py auth/db_setup.py
-          python -m py_compile farmer/dashboard_api.py consumer/dashboard_api.py
-          python -m py_compile ai/crop_health_api.py ai/assistant_api.py
+      - name: Check syntax of every backend file
+        run: python -m compileall -q .
+
+      - name: Run tests (price API, features, data cleaning)
+        run: pytest -q
 
   frontend:
+    name: Frontend build
     runs-on: ubuntu-latest
     defaults:
       run:

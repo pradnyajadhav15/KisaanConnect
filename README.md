@@ -1,5 +1,7 @@
 # 🌾 KisaanConnect
 
+[![CI](https://github.com/pradnyajadhav15/KisaanConnect/actions/workflows/ci.yml/badge.svg)](https://github.com/pradnyajadhav15/KisaanConnect/actions/workflows/ci.yml)
+
 **A farmer-to-consumer marketplace for India, with a mandi price forecaster and AI farming tools.**
 
 Farmers list produce and sell directly to consumers, see a one-week-ahead price forecast built from
@@ -21,6 +23,7 @@ Final-year B.Tech CSE team project, BIGCE Solapur.
 - [Price forecaster: model card](#price-forecaster-model-card)
 - [Run it locally](#run-it-locally)
 - [Retrain and evaluate the model](#retrain-and-evaluate-the-model)
+- [Tests](#tests)
 - [Deployment](#deployment)
 - [API overview](#api-overview)
 - [Project structure](#project-structure)
@@ -185,6 +188,22 @@ The 2024-25 Kaggle file must be downloaded by hand into `price_prediction/data/r
 (see [`SOURCES.md`](KisaanConnect/backend/price_prediction/data/SOURCES.md)). Without it the
 build still works, using the 2026 data only. Training fails on purpose if Maharashtra has fewer than
 20 crops with enough reports.
+
+## Tests
+
+From `KisaanConnect/backend`, with the venv active:
+
+```powershell
+pip install -r requirements-dev.txt
+pytest -q
+```
+
+35 tests cover the price API (valid forecasts, refused inputs, the fallback for stale data, a
+sanity check that forecasts stay near last week's price), the no-look-ahead rule in the features,
+and the data-cleaning rules. They need no database or API keys.
+
+GitHub Actions ([`ci.yml`](.github/workflows/ci.yml)) runs on every push and pull request to `main`:
+it checks every backend file compiles, runs the tests, and builds the frontend.
 
 ## Deployment
 

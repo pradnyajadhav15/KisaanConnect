@@ -49,3 +49,4 @@ skills-lock.json
 # Raw mandi price downloads (100+ MB). Rebuild with build_dataset.py, see data/SOURCES.md
 KisaanConnect/backend/price_prediction/data/raw/
 *.part
+.pytest_cache/

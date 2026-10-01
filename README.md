@@ -12,7 +12,7 @@ farm plot for a season, or donate to farmer-support NGOs.
 **API docs:** https://kisaanconnect-jabb.onrender.com/docs
 (The backend runs on a free plan that sleeps when idle, so the first request can take about a minute.)
 
-Final-year B.Tech CSE team project, BIGCE Solapur.
+Final-year B.Tech CSE project.
 
 ---
 
@@ -29,7 +29,6 @@ Final-year B.Tech CSE team project, BIGCE Solapur.
 - [Project structure](#project-structure)
 - [Security](#security)
 - [Data sources and licences](#data-sources-and-licences)
-- [Team](#team)
 
 ---
 
@@ -305,9 +304,3 @@ KisaanConnect/
 - The cleaned dataset `mandi_history.csv.gz` includes the Kaggle data, so it is shared under **CC BY-SA 4.0**. Details: [`SOURCES.md`](KisaanConnect/backend/price_prediction/data/SOURCES.md).
 - The NGOs in `setup_database.sql` are sample data for the demo.
 
-## Team
-
-Pradnya Jadhav, Sakshi Gangurde, Pooja Shinde, Shantanu Sawant, Vaishnavi Patil
-Guide: Prof. C. M. Jadhav, BIGCE Solapur
-
-Educational project.

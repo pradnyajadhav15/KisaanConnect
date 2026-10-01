@@ -63,12 +63,18 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+# Request IDs, logging, security headers, Sentry. Added before CORS so that CORS
+# headers are also set on error responses.
+import observability
+observability.setup(app)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=['*'],
     allow_headers=['*'],
+    expose_headers=['X-Request-ID'],
 )
 
 app.include_router(auth_router, prefix='/auth', tags=['Authentication'])

@@ -171,6 +171,7 @@ App: http://localhost:3000
 | `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET` | Payments, farm adoption, donations |
 | `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` | Image upload |
 | `SENDGRID_API_KEY`, `SENDER_EMAIL` | Emails |
+| `SENTRY_DSN` | Optional: error alerts in [Sentry](https://sentry.io) |
 
 `frontend/.env.local`: `NEXT_PUBLIC_API_URL=http://localhost:8000`
 
@@ -206,14 +207,15 @@ pip install -r requirements-dev.txt
 pytest -q
 ```
 
-59 tests in two groups:
+70 tests in two groups:
 
-- **No database needed (35):** the price API (valid forecasts, refused inputs, the fallback for stale
-  data, forecasts staying near last week's price), the no-look-ahead rule in the features, and the
-  data-cleaning rules.
-- **Needs a throwaway PostgreSQL (24):** sign-up and login, crop listings and who may edit them, cart
-  stock limits, placing orders (stock goes down, one farmer per order, order privacy), and the farmer's
-  order flow (accept, reject puts stock back, deliver). They are skipped unless `TEST_DATABASE_URL` is
+- **No database needed (41):** the price API (valid forecasts, refused inputs, the fallback for stale
+  data, forecasts staying near last week's price), the no-look-ahead rule in the features, the
+  data-cleaning rules, and the login brute-force limiter.
+- **Needs a throwaway PostgreSQL (29):** sign-up and login (including lockout after repeated failures),
+  crop listings and who may edit them, cart stock limits, placing orders (stock goes down, one farmer
+  per order, order privacy), the farmer's order flow (accept, reject puts stock back, deliver), and
+  request IDs, security headers and safe error responses. They are skipped unless `TEST_DATABASE_URL` is
   set, and they refuse to run against a database that isn't on your machine, because they wipe it.
 
 ```powershell
@@ -236,6 +238,14 @@ frontend and builds it.
 
 Both Vercel and Render redeploy automatically on every push to `main`. `NEXT_PUBLIC_API_URL` is
 read at build time, so redeploy the frontend after changing it.
+
+## Monitoring
+
+Every request is logged on Render with an ID and its duration, e.g.
+`request_id=3f9a1c2b7e10 POST /consumer/orders 200 84ms`. The same ID comes back in the
+`X-Request-ID` header, and in the JSON body of any unexpected error, so a user's error can be matched to
+its log line and full traceback. Set `SENTRY_DSN` (free at sentry.io) on Render to also get an alert
+for every crash. Request bodies and user details are never sent to Sentry.
 
 ## API overview
 
@@ -280,6 +290,11 @@ KisaanConnect/
 - Farmers can only change their own crops and plots; consumers only see their own orders.
 - Razorpay payments are verified on the server by signature before an order is confirmed.
 - Secrets live only in `backend/.env` and the hosting dashboards, never in frontend code.
+- Repeated failed logins are blocked for 15 minutes (5 per username, 20 per IP), and logins for
+  unknown usernames take as long as wrong passwords, so attackers can't discover usernames.
+- Every API response has security headers (`nosniff`, `X-Frame-Options`, HSTS) and an `X-Request-ID`.
+- Known gap: the login token is kept in the browser's `localStorage`. Moving it to an httpOnly
+  cookie needs the frontend and API on the same site (e.g. a Vercel rewrite), and is planned.
 
 ## Data sources and licences
 

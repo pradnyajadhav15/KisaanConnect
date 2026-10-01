@@ -274,3 +274,66 @@ def test_sold_out_listing_still_loads(api, farmer, consumer):
     assert mine.status_code == 200
     assert {c["id"]: c["quantity"] for c in mine.json()}[crop["id"]] == 0
     assert crop["id"] not in [c["id"] for c in api.get("/consumer/marketplace").json()]
+
+
+# ---------- security and monitoring ----------
+
+def test_repeated_failed_logins_are_blocked(api):
+    from auth import login_limiter
+
+    login_limiter.reset()
+    api.post("/auth/register", json={"username": "kiran", "password": "secret123", "role": "farmer"})
+    login = lambda pw: api.post("/auth/login/user", json={"username": "kiran", "password": pw})
+
+    for _ in range(login_limiter.MAX_FAILURES_PER_USERNAME):
+        assert login("wrong-pass").status_code == 401
+    blocked = login("secret123")                     # even the right password waits
+    assert blocked.status_code == 429
+    assert "Retry-After" in blocked.headers
+    login_limiter.reset()
+
+
+def test_a_successful_login_resets_the_count(api):
+    from auth import login_limiter
+
+    login_limiter.reset()
+    api.post("/auth/register", json={"username": "neha", "password": "secret123", "role": "consumer"})
+    login = lambda pw: api.post("/auth/login/user", json={"username": "neha", "password": pw})
+
+    for _ in range(login_limiter.MAX_FAILURES_PER_USERNAME - 1):
+        login("wrong-pass")
+    assert login("secret123").status_code == 200
+    for _ in range(login_limiter.MAX_FAILURES_PER_USERNAME - 1):
+        assert login("wrong-pass").status_code == 401
+    login_limiter.reset()
+
+
+def test_unknown_usernames_still_run_a_full_password_check(api, monkeypatch):
+    """Without this, 'no such user' answers instantly and reveals which usernames exist."""
+    from auth import auth_api
+
+    seen = []
+    real = auth_api.verify_password
+    monkeypatch.setattr(auth_api, "verify_password", lambda pw, h: seen.append(h) or real(pw, h))
+    assert auth_api.authenticate_user("no-such-user", "whatever") is False
+    assert seen == [auth_api.DUMMY_HASH] and ":" in auth_api.DUMMY_HASH
+
+
+def test_responses_carry_request_id_and_security_headers(api):
+    r = api.get("/health")
+    assert len(r.headers["X-Request-ID"]) >= 8
+    assert r.headers["X-Content-Type-Options"] == "nosniff"
+    assert r.headers["X-Frame-Options"] == "DENY"
+    assert api.get("/health", headers={"X-Request-ID": "trace-123"}).headers["X-Request-ID"] == "trace-123"
+
+
+def test_unexpected_errors_return_a_request_id(api):
+    def boom():
+        raise RuntimeError("simulated bug")
+
+    api.app.add_api_route("/__test_boom", boom)
+    r = api.get("/__test_boom")
+    assert r.status_code == 500
+    body = r.json()
+    assert body["request_id"] == r.headers["X-Request-ID"]
+    assert "simulated bug" not in r.text                  # internals are logged, not shown

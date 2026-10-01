@@ -2,12 +2,13 @@ import os
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 
-from fastapi import APIRouter, HTTPException, Depends, status
+from fastapi import APIRouter, HTTPException, Depends, Request, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel, Field, EmailStr
 import jwt
 from jwt import PyJWTError as JWTError
 
+from auth import login_limiter
 from auth.db_setup import hash_password, verify_password
 from database import get_db
 
@@ -19,6 +20,10 @@ if not SECRET_KEY:
     raise RuntimeError('JWT_SECRET environment variable is not set.')
 ALGORITHM = 'HS256'
 TOKEN_EXPIRE_DAYS = 1
+
+# A real PBKDF2 hash, so a login for an unknown username takes as long as a wrong
+# password. Otherwise response time would reveal which usernames exist.
+DUMMY_HASH = hash_password('not-a-real-password')
 
 
 class UserBase(BaseModel):
@@ -60,7 +65,7 @@ def get_user_by_email(email: str):
 def authenticate_user(username: str, password: str):
     user = get_user(username)
     if not user:
-        verify_password(password, '$2b$12$' + 'x' * 53)
+        verify_password(password, DUMMY_HASH)
         return False
     if not verify_password(password, user['password_hash']):
         return False
@@ -99,22 +104,26 @@ async def register_user(user: UserCreate):
     return {'access_token': token, 'token_type': 'bearer', 'role': user.role, 'username': user.username}
 
 
-@router.post('/login', response_model=Token)
-async def login_user(form_data: OAuth2PasswordRequestForm = Depends()):
-    user = authenticate_user(form_data.username, form_data.password)
+def _login(request: Request, username: str, password: str) -> dict:
+    """Check the password, with brute-force limits (see auth/login_limiter.py)."""
+    login_limiter.check(request, username)
+    user = authenticate_user(username, password)
     if not user:
+        login_limiter.record_failure(request, username)
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, 'Incorrect username or password', headers={'WWW-Authenticate': 'Bearer'})
+    login_limiter.record_success(request, username)
     token = create_access_token(user['username'], user['role'])
     return {'access_token': token, 'token_type': 'bearer', 'role': user['role'], 'username': user['username']}
 
 
+@router.post('/login', response_model=Token)
+async def login_user(request: Request, form_data: OAuth2PasswordRequestForm = Depends()):
+    return _login(request, form_data.username, form_data.password)
+
+
 @router.post('/login/user', response_model=Token)
-async def login_user_json(user: UserLogin):
-    auth_user = authenticate_user(user.username, user.password)
-    if not auth_user:
-        raise HTTPException(status.HTTP_401_UNAUTHORIZED, 'Incorrect username or password', headers={'WWW-Authenticate': 'Bearer'})
-    token = create_access_token(auth_user['username'], auth_user['role'])
-    return {'access_token': token, 'token_type': 'bearer', 'role': auth_user['role'], 'username': auth_user['username']}
+async def login_user_json(request: Request, user: UserLogin):
+    return _login(request, user.username, user.password)
 
 
 async def get_current_user(token: str = Depends(oauth2_scheme)):

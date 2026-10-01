@@ -46,3 +46,8 @@ cloudinary>=1.40.0
 
 razorpay>=1.4.0
 sendgrid>=6.11.0
+
+# -------------------------------
+# Error reporting (only active when SENTRY_DSN is set)
+# -------------------------------
+sentry-sdk[fastapi]>=2.0

@@ -38,6 +38,9 @@ const normalizeCartItem = (row) => ({
   total: Number(row.unit_price || 0) * Number(row.quantity || 0),
 });
 
+const toCartItems = (data) =>
+  (Array.isArray(data && data.items) ? data.items : []).map(normalizeCartItem);
+
 export default function ConsumerDashboard() {
   const [activeTab, setActiveTab] = useState('browse');
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -46,11 +49,8 @@ export default function ConsumerDashboard() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
   const [notification, setNotification] = useState('');
-  const [cartId, setCartId] = useState(null);
-
-  useEffect(() => {
-    setCartId(getOrCreateCartId());
-  }, []);
+  // This dashboard only renders in the browser (after the login check), so localStorage is available.
+  const [cartId] = useState(() => (typeof window === 'undefined' ? null : getOrCreateCartId()));
 
   const notify = useCallback((msg) => {
     setNotification(msg);
@@ -87,17 +87,20 @@ export default function ConsumerDashboard() {
   const refreshCart = useCallback(async () => {
     if (!cartId) return;
     try {
-      const data = await consumerApi.getCart(cartId);
-      const items = Array.isArray(data && data.items) ? data.items : [];
-      setCart(items.map(normalizeCartItem));
+      setCart(toCartItems(await consumerApi.getCart(cartId)));
     } catch {
       setCart([]);
     }
   }, [cartId]);
 
   useEffect(() => {
-    if (cartId) refreshCart();
-  }, [cartId, refreshCart]);
+    if (!cartId) return;
+    let cancelled = false;
+    consumerApi.getCart(cartId)
+      .then((data) => { if (!cancelled) setCart(toCartItems(data)); })
+      .catch(() => { if (!cancelled) setCart([]); });
+    return () => { cancelled = true; };
+  }, [cartId]);
 
   const handleAddToCart = useCallback(async (product, quantity) => {
     const qty = quantity || 1;

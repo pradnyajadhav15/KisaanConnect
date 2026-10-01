@@ -23,6 +23,9 @@ const StarRow = ({ rating, onSelect, size }) => (
   </span>
 );
 
+const fetchReviews = (cropId) =>
+  Promise.all([getCropReviews(cropId), canReview(cropId).catch(() => null)]);
+
 export default function ProductReviews({ cropId }) {
   const [data, setData] = useState(null);
   const [eligibility, setEligibility] = useState(null);
@@ -32,9 +35,10 @@ export default function ProductReviews({ cropId }) {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
 
+  // Reload after a review is submitted.
   const load = () => {
     setLoading(true);
-    Promise.all([getCropReviews(cropId), canReview(cropId).catch(() => null)])
+    fetchReviews(cropId)
       .then(([reviewData, eligData]) => {
         setData(reviewData);
         setEligibility(eligData);
@@ -44,8 +48,16 @@ export default function ProductReviews({ cropId }) {
   };
 
   useEffect(() => {
-    load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    let cancelled = false;
+    fetchReviews(cropId)
+      .then(([reviewData, eligData]) => {
+        if (cancelled) return;
+        setData(reviewData);
+        setEligibility(eligData);
+      })
+      .catch(() => { if (!cancelled) setError('Could not load reviews.'); })
+      .finally(() => { if (!cancelled) setLoading(false); });
+    return () => { cancelled = true; };
   }, [cropId]);
 
   const handleSubmit = async () => {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback, useMemo, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import '../styles/Navbar.css';
@@ -10,31 +10,32 @@ import {
   hasRole, AUTH_EVENT
 } from '../services/authService';
 
+// The login lives in localStorage; re-read it whenever it changes (this tab or another).
+function subscribeToAuth(onChange) {
+  window.addEventListener('storage', onChange);
+  window.addEventListener(AUTH_EVENT, onChange);
+  return () => {
+    window.removeEventListener('storage', onChange);
+    window.removeEventListener(AUTH_EVENT, onChange);
+  };
+}
+const readAuth = () => (isAuthenticated() ? JSON.stringify(getCurrentUser()) : '');
+
 const Navbar = () => {
-  const [authenticated, setAuthenticated] = useState(false);
-  const [user,          setUser]          = useState(null);
+  const authSnapshot = useSyncExternalStore(subscribeToAuth, readAuth, () => '');
+  const authenticated = authSnapshot !== '';
+  const user = useMemo(() => (authSnapshot ? JSON.parse(authSnapshot) : null), [authSnapshot]);
   const [menuOpen,      setMenuOpen]      = useState(false);
   const [logoOk,        setLogoOk]        = useState(true);
   const router = useRouter();
   const pathname = usePathname();
 
-  useEffect(() => { setMenuOpen(false); }, [pathname]);
-
-  const checkAuth = useCallback(() => {
-    const auth = isAuthenticated();
-    setAuthenticated(auth);
-    setUser(auth ? getCurrentUser() : null);
-  }, []);
-
-  useEffect(() => {
-    checkAuth();
-    window.addEventListener('storage',  checkAuth);
-    window.addEventListener(AUTH_EVENT, checkAuth);
-    return () => {
-      window.removeEventListener('storage',  checkAuth);
-      window.removeEventListener(AUTH_EVENT, checkAuth);
-    };
-  }, [checkAuth]);
+  // Close the mobile menu when the page changes.
+  const [menuPath, setMenuPath] = useState(pathname);
+  if (menuPath !== pathname) {
+    setMenuPath(pathname);
+    setMenuOpen(false);
+  }
 
   const handleLogout = useCallback(() => {
     logoutUser();

@@ -9,22 +9,13 @@ export default function AdminDashboard() {
   const [users, setUsers] = useState([]);
   const [crops, setCrops] = useState([]);
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [notification, setNotification] = useState('');
 
   const notify = useCallback((msg) => {
     setNotification(msg);
     setTimeout(() => setNotification(''), 3000);
   }, []);
-
-  const loadStats = useCallback(async () => {
-    try {
-      const data = await adminApi.getAdminStats();
-      setStats(data);
-    } catch (err) {
-      notify((err && err.message) || 'Failed to load stats');
-    }
-  }, [notify]);
 
   const loadUsers = useCallback(async () => {
     try {
@@ -54,15 +45,21 @@ export default function AdminDashboard() {
   }, [notify]);
 
   useEffect(() => {
-    setLoading(true);
-    loadStats().finally(() => setLoading(false));
-  }, [loadStats]);
+    let cancelled = false;
+    adminApi.getAdminStats()
+      .then((data) => { if (!cancelled) setStats(data); })
+      .catch((err) => { if (!cancelled) notify((err && err.message) || 'Failed to load stats'); })
+      .finally(() => { if (!cancelled) setLoading(false); });
+    return () => { cancelled = true; };
+  }, [notify]);
 
-  useEffect(() => {
-    if (activeTab === 'users') loadUsers();
-    if (activeTab === 'crops') loadCrops();
-    if (activeTab === 'orders') loadOrders();
-  }, [activeTab, loadUsers, loadCrops, loadOrders]);
+  // Load a tab's data when the tab is opened.
+  const switchTab = (tab) => {
+    setActiveTab(tab);
+    if (tab === 'users') loadUsers();
+    if (tab === 'crops') loadCrops();
+    if (tab === 'orders') loadOrders();
+  };
 
   const handleDeleteUser = async (userId, username) => {
     if (!window.confirm('Delete user "' + username + '"? This cannot be undone.')) return;
@@ -124,7 +121,7 @@ export default function AdminDashboard() {
           <button
             key={tab.key}
             className={'tab-button ' + (activeTab === tab.key ? 'active' : '')}
-            onClick={() => setActiveTab(tab.key)}
+            onClick={() => switchTab(tab.key)}
           >
             {tab.label}
           </button>

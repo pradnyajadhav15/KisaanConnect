@@ -164,7 +164,7 @@ const FarmerDetail = () => {
             {subscribed ? (
               <div className="subscribed-badge">
                 <span className="check-icon">✓</span>
-                <span>You've adopted this farm!</span>
+                <span>You&apos;ve adopted this farm!</span>
               </div>
             ) : (
               <button className="subscribe-button" onClick={() => setShowModal(true)}>
@@ -188,7 +188,7 @@ const FarmerDetail = () => {
             <button className="close-modal" onClick={() => setShowModal(false)}
               aria-label="Close modal">&times;</button>
 
-            <h2 id="modal-title">Adopt {farmer.name}'s Farm</h2>
+            <h2 id="modal-title">Adopt {farmer.name}&apos;s Farm</h2>
 
             <div className="subscription-details">
               <p>You are about to subscribe to:</p>

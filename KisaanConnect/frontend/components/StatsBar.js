@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import usePrefersReducedMotion from '../lib/usePrefersReducedMotion';
 
 const STATS = [
   { label: 'Farmers onboard', value: '2,400+' },
@@ -21,14 +22,10 @@ function parse(raw) {
 function CountUp({ raw, active }) {
   const { prefix, target, suffix } = parse(raw);
   const [n, setN] = useState(0);
+  const reducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
-    if (!active) return;
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setN(target);
-      return;
-    }
+    if (!active || reducedMotion) return;
 
     const duration = 1400;
     const start = performance.now();
@@ -43,12 +40,14 @@ function CountUp({ raw, active }) {
 
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [active, target]);
+  }, [active, target, reducedMotion]);
+
+  const value = active && reducedMotion ? target : n;
 
   return (
     <span>
       {prefix}
-      {n.toLocaleString('en-IN')}
+      {value.toLocaleString('en-IN')}
       {suffix}
     </span>
   );

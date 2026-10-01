@@ -203,7 +203,7 @@ sanity check that forecasts stay near last week's price), the no-look-ahead rule
 and the data-cleaning rules. They need no database or API keys.
 
 GitHub Actions ([`ci.yml`](.github/workflows/ci.yml)) runs on every push and pull request to `main`:
-it checks every backend file compiles, runs the tests, and builds the frontend.
+it checks every backend file compiles, runs the tests, lints the frontend and builds it.
 
 ## Deployment
 

@@ -1,23 +1,21 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import usePrefersReducedMotion from '../lib/usePrefersReducedMotion';
 
 export default function Reveal({ children, delay = 0 }) {
   const ref = useRef(null);
-  const [shown, setShown] = useState(false);
+  const [inView, setInView] = useState(false);
+  const reducedMotion = usePrefersReducedMotion();
+  const shown = inView || reducedMotion;
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setShown(true);
-      return;
-    }
+    if (!el || reducedMotion) return;
 
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setShown(true);
+          setInView(true);
           obs.disconnect();
         }
       },
@@ -26,7 +24,7 @@ export default function Reveal({ children, delay = 0 }) {
 
     obs.observe(el);
     return () => obs.disconnect();
-  }, []);
+  }, [reducedMotion]);
 
   return (
     <div

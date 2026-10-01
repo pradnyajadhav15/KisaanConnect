@@ -53,6 +53,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Lint (fails on errors, not warnings)
+        run: npm run lint
+
       - name: Build
         run: npm run build
         env:

@@ -35,7 +35,9 @@ export default function PriceTicker() {
     <div className="bg-[var(--kc-ink)] border-b border-[var(--kc-sprout)]/25 overflow-hidden">
       <div className="max-w-6xl mx-auto px-6 pt-3.5 pb-1 flex items-center gap-2">
         <span className="text-[10px] tracking-[0.2em] uppercase text-[var(--kc-sprout)]/80">
-          {isLive ? "Today's Predicted Mandi Rates" : 'Sample Mandi Rates'}
+          {isLive
+            ? `Predicted Mandi Rates${rates[0]?.state ? ' · ' + rates[0].state : ''}`
+            : 'Sample Mandi Rates'}
         </span>
         {isLive && (
           <span className="w-1.5 h-1.5 rounded-full bg-[var(--kc-sprout)] animate-pulse" />

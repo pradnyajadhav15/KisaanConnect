@@ -5,3 +5,7 @@ __pycache__/
 .env
 *.jpg
 *.png
+
+# Training data is not needed to serve predictions
+price_prediction/data/raw/
+price_prediction/data/*.csv.gz

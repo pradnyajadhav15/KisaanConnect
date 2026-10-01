@@ -1,54 +1,65 @@
+"""
+Crop price prediction API (mounted at /price-prediction in main.py).
+
+The model only knows the state / crop / variety combinations listed in
+models/model_meta.json. Anything else gets a clear 422 instead of a guess.
+"""
+import json
 import os
-import sys
+from pathlib import Path
+from typing import Any, Dict, List, Optional
+
 import joblib
 import numpy as np
 import pandas as pd
-from pathlib import Path
-from contextlib import asynccontextmanager
-from typing import Optional, Dict, Any, List
-
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 # --------------------------------------------------
-# PATH SETUP
+# PATHS + ARTIFACTS
 # --------------------------------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 MODEL_DIR = BASE_DIR / "models"
-DATA_PATH = BASE_DIR / "data" / "real_mandi_data.csv"
-
-model_path           = MODEL_DIR / "crop_price_model.joblib"
-feature_columns_path = MODEL_DIR / "feature_columns.joblib"
+MODEL_PATH = MODEL_DIR / "crop_price_model.joblib"
+META_PATH = MODEL_DIR / "model_meta.json"
 
 ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
 
-try:
-    model = joblib.load(model_path)
-    feature_columns = joblib.load(feature_columns_path)
-    print("Model loaded successfully")
-except Exception as e:
-    print(f"Model load failed: {e}")
-    model = None
-    feature_columns = None
-
-try:
-    _reference_df = pd.read_csv(DATA_PATH)
-except Exception as e:
-    print(f"Reference data load failed: {e}")
-    _reference_df = pd.DataFrame(columns=["State", "Commodity", "Variety", "Modal_x0020_Price"])
+# Confidence comes from how many real mandi reports back this exact combination.
+HIGH_CONFIDENCE_ROWS = 100
+MEDIUM_CONFIDENCE_ROWS = 20
 
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    yield
+def _load_model():
+    try:
+        m = joblib.load(MODEL_PATH)
+        print("Price model loaded")
+        return m
+    except Exception as e:
+        print(f"Price model load failed: {e}")
+        return None
+
+
+def _load_meta() -> Dict[str, Any]:
+    try:
+        return json.loads(META_PATH.read_text(encoding="utf-8"))
+    except Exception as e:
+        print(f"Model metadata load failed: {e}")
+        return {"states": {}, "crop_rank": [], "features": ["state", "commodity", "variety"]}
+
+
+model = _load_model()
+meta = _load_meta()
+COVERAGE: Dict[str, Dict[str, Dict[str, Dict[str, float]]]] = meta.get("states", {})
+CROP_RANK = {c: i for i, c in enumerate(meta.get("crop_rank", []))}
+FEATURES: List[str] = meta.get("features", ["state", "commodity", "variety"])
 
 
 app = FastAPI(
     title="Crop Price Prediction API",
-    description="ML-based crop price prediction for KisaanConnect, trained on real AGMARKNET mandi data",
-    version="2.0.0",
-    lifespan=lifespan
+    description="Crop price estimates for KisaanConnect, trained on AGMARKNET mandi prices",
+    version="3.0.0",
 )
 
 app.add_middleware(
@@ -64,41 +75,92 @@ app.add_middleware(
 # SCHEMAS
 # --------------------------------------------------
 class CropPriceInput(BaseModel):
-    state:     str            = Field(..., description="e.g. Gujarat, Punjab")
-    commodity: str            = Field(..., description="e.g. Tomato, Onion, Potato")
-    variety:   Optional[str]  = Field(None, description="Optional — defaults to most common variety for this commodity")
-    quantity:  float          = Field(100, gt=0, description="Quantity in kg, used only to scale the total value shown")
+    state:     str           = Field(..., min_length=1, description="e.g. Maharashtra, Gujarat")
+    commodity: str           = Field(..., min_length=1, description="e.g. Onion, Tomato, Potato")
+    variety:   Optional[str] = Field(None, description="Optional; defaults to the most reported variety in that state")
+    quantity:  float         = Field(100, gt=0, description="Quantity in kg, only used for the total value shown")
 
 
 class PricePredictionResponse(BaseModel):
     predicted_price_per_quintal: float
-    price_per_kg:    float
+    price_per_kg:     float
     min_price_per_kg: float
     max_price_per_kg: float
-    confidence:      str
-    disclaimer:      str
-    factors:         Dict[str, Any]
+    confidence:       str
+    disclaimer:       str
+    factors:          Dict[str, Any]
 
 
 # --------------------------------------------------
 # HELPERS
 # --------------------------------------------------
-def _default_variety(commodity: str) -> str:
-    subset = _reference_df[_reference_df["Commodity"] == commodity]
-    if subset.empty:
-        return "Other"
-    return subset["Variety"].mode().iloc[0]
+def _match(name: str, options) -> Optional[str]:
+    """Case- and space-insensitive lookup that returns the canonical spelling."""
+    wanted = " ".join(name.split()).casefold()
+    for option in options:
+        if option.casefold() == wanted:
+            return option
+    return None
 
 
-def _sample_size_confidence(commodity: str, state: str) -> str:
-    n = len(_reference_df[
-        (_reference_df["Commodity"] == commodity) & (_reference_df["State"] == state)
-    ])
-    if n >= 5:
+def _crops_for(state: str) -> List[str]:
+    crops = COVERAGE.get(state, {})
+    return sorted(crops, key=lambda c: (CROP_RANK.get(c, len(CROP_RANK)), c))
+
+
+def _varieties_for(state: Optional[str], commodity: str) -> List[str]:
+    """Most reported variety first."""
+    counts: Dict[str, int] = {}
+    states = [state] if state else list(COVERAGE)
+    for s in states:
+        for variety, stats in COVERAGE.get(s, {}).get(commodity, {}).items():
+            counts[variety] = counts.get(variety, 0) + stats["rows"]
+    return sorted(counts, key=lambda v: (-counts[v], v))
+
+
+def _confidence(rows: int) -> str:
+    if rows >= HIGH_CONFIDENCE_ROWS:
         return "High"
-    if n >= 1:
+    if rows >= MEDIUM_CONFIDENCE_ROWS:
         return "Medium"
     return "Low"
+
+
+def _data_window() -> str:
+    if meta.get("date_from") and meta.get("date_to"):
+        return f"{meta['date_from']} to {meta['date_to']}"
+    return "unknown dates"
+
+
+def resolve_input(crop_input: CropPriceInput) -> Dict[str, str]:
+    """Map the request onto a combination the model has seen, or raise a 422 that says why not."""
+    state = _match(crop_input.state, COVERAGE)
+    if state is None:
+        raise HTTPException(
+            422,
+            f"No price data for '{crop_input.state}'. Supported states: {', '.join(sorted(COVERAGE))}.",
+        )
+
+    commodity = _match(crop_input.commodity, COVERAGE[state])
+    if commodity is None:
+        suggestions = ", ".join(_crops_for(state)[:8])
+        raise HTTPException(
+            422,
+            f"No recent '{crop_input.commodity}' prices for {state}. Try: {suggestions}.",
+        )
+
+    varieties = _varieties_for(state, commodity)
+    if crop_input.variety:
+        variety = _match(crop_input.variety, varieties)
+        if variety is None:
+            raise HTTPException(
+                422,
+                f"No '{crop_input.variety}' {commodity} prices for {state}. Available: {', '.join(varieties)}.",
+            )
+    else:
+        variety = varieties[0]
+
+    return {"state": state, "commodity": commodity, "variety": variety}
 
 
 # --------------------------------------------------
@@ -106,21 +168,48 @@ def _sample_size_confidence(commodity: str, state: str) -> str:
 # --------------------------------------------------
 @app.get("/health")
 async def health_check():
-    return {"status": "healthy" if model else "unhealthy", "model_loaded": model is not None}
+    ready = model is not None and bool(COVERAGE)
+    return {
+        "status": "healthy" if ready else "unhealthy",
+        "model_loaded": model is not None,
+        "states": len(COVERAGE),
+        "data_from": meta.get("date_from"),
+        "data_to": meta.get("date_to"),
+    }
 
 
 @app.get("/options")
-async def get_options():
-    states = sorted(_reference_df["State"].dropna().unique().tolist())
-    commodities = _reference_df["Commodity"].value_counts().head(30).index.tolist()
-    return {"states": states, "commodities": commodities}
+async def get_options(state: Optional[str] = None):
+    """All supported states, plus crops (for one state when ?state= is given, else the 30 most common)."""
+    states = sorted(COVERAGE)
+    if state:
+        matched = _match(state, COVERAGE)
+        if matched is None:
+            raise HTTPException(404, f"No price data for '{state}'.")
+        commodities = _crops_for(matched)
+    else:
+        commodities = [c for c in meta.get("crop_rank", [])][:30]
+    return {
+        "states": states,
+        "commodities": commodities,
+        "data_from": meta.get("date_from"),
+        "data_to": meta.get("date_to"),
+    }
 
 
 @app.get("/varieties")
-async def get_varieties(commodity: str):
-    subset = _reference_df[_reference_df["Commodity"] == commodity]
-    varieties = sorted(subset["Variety"].dropna().unique().tolist())
-    return {"commodity": commodity, "varieties": varieties}
+async def get_varieties(commodity: str, state: Optional[str] = None):
+    """Varieties for a crop, most reported first. Pass ?state= to limit to one state."""
+    matched_state = _match(state, COVERAGE) if state else None
+    if state and matched_state is None:
+        raise HTTPException(404, f"No price data for '{state}'.")
+    all_crops = {c for crops in COVERAGE.values() for c in crops}
+    matched_crop = _match(commodity, all_crops) or commodity
+    return {
+        "commodity": matched_crop,
+        "state": matched_state,
+        "varieties": _varieties_for(matched_state, matched_crop),
+    }
 
 
 @app.get("/crops")
@@ -131,49 +220,45 @@ async def supported_crops():
 
 @app.post("/predict", response_model=PricePredictionResponse)
 async def predict_price(crop_input: CropPriceInput):
-    if model is None:
+    if model is None or not COVERAGE:
         raise HTTPException(503, "Model not loaded")
 
+    combo = resolve_input(crop_input)
+    stats = COVERAGE[combo["state"]][combo["commodity"]][combo["variety"]]
+
     try:
-        variety = crop_input.variety or _default_variety(crop_input.commodity)
-
-        input_data = pd.DataFrame([{
-            "State":     crop_input.state,
-            "Commodity": crop_input.commodity,
-            "Variety":   variety,
-        }])
-
-        predicted_price = float(model.predict(input_data)[0])
-        if predicted_price <= 0 or not np.isfinite(predicted_price):
-            raise HTTPException(422, "Model produced an invalid price for these inputs")
-
-        # AGMARKNET prices are reported per quintal (100kg)
-        price_per_kg = round(predicted_price / 100, 2)
-        confidence = _sample_size_confidence(crop_input.commodity, crop_input.state)
-        margin = {"High": 0.10, "Medium": 0.18, "Low": 0.28}.get(confidence, 0.20)
-        min_price_per_kg = round(price_per_kg * (1 - margin), 2)
-        max_price_per_kg = round(price_per_kg * (1 + margin), 2)
-
-        return PricePredictionResponse(
-            predicted_price_per_quintal=round(predicted_price, 2),
-            price_per_kg=price_per_kg,
-            min_price_per_kg=min_price_per_kg,
-            max_price_per_kg=max_price_per_kg,
-            confidence=confidence,
-            disclaimer="Estimate based on real AGMARKNET mandi data (single-day sample, May 2025). Verify against today's local mandi rate before selling.",
-            factors={
-                "state": crop_input.state,
-                "commodity": crop_input.commodity,
-                "variety": variety,
-                "quantity_kg": crop_input.quantity,
-                "estimated_total_value": round(price_per_kg * crop_input.quantity, 2),
-            }
-        )
-
-    except HTTPException:
-        raise
-    except Exception as e:
+        row = pd.DataFrame([{f: combo[f] for f in FEATURES}])
+        predicted = float(model.predict(row)[0])
+    except Exception:
         raise HTTPException(500, "Prediction failed. Please check your inputs and try again.")
+
+    if predicted <= 0 or not np.isfinite(predicted):
+        raise HTTPException(422, "Model produced an invalid price for these inputs")
+
+    # AGMARKNET prices are per quintal (100 kg). The range is what mandis actually
+    # reported for this combination (25th-75th percentile), widened to include the estimate.
+    low = min(stats["p25"], predicted)
+    high = max(stats["p75"], predicted)
+    price_per_kg = round(predicted / 100, 2)
+
+    return PricePredictionResponse(
+        predicted_price_per_quintal=round(predicted, 2),
+        price_per_kg=price_per_kg,
+        min_price_per_kg=round(low / 100, 2),
+        max_price_per_kg=round(high / 100, 2),
+        confidence=_confidence(stats["rows"]),
+        disclaimer=(
+            f"Estimate based on AGMARKNET mandi prices from {_data_window()}. "
+            "Check today's local mandi rate before selling."
+        ),
+        factors={
+            **combo,
+            "quantity_kg": crop_input.quantity,
+            "estimated_total_value": round(price_per_kg * crop_input.quantity, 2),
+            "mandi_reports": stats["rows"],
+            "data_window": _data_window(),
+        },
+    )
 
 
 if __name__ == "__main__":

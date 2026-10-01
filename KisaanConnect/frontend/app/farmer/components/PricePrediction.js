@@ -1,134 +1,121 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
-import { predictCropPrice, checkPricePredictionApiHealth } from '../../../lib/pricePredictionService';
+import {
+  predictCropPrice,
+  checkPricePredictionApiHealth,
+  getPriceOptions,
+  getVarieties,
+} from '../../../lib/pricePredictionService';
 import './PricePrediction.css';
 
-const CATEGORIES = ['Vegetables', 'Fruits'];
+const DEFAULT_STATE = 'Maharashtra';
+const INITIAL_FORM = { state: '', commodity: '', variety: '', quantity: '' };
 
-const CROP_OPTIONS = {
-  Vegetables: ['BITTER GOURD','BRINJAL','CABBAGE','CAULIFLOWER','GARLIC',
-               'GINGER','GREEN CHILLY','OKRA','ONION','PEAS','POTATO','TOMATO'],
-  Fruits: ['ACID LIME','AONLA','APPLE','APPLE (ANTI BIRD/ANTI HAIL NET)',
-           'Apple Ber','BANANA','BER','CIRTUS','GRAPES','GUAVA','LITCHI',
-           'MANGO','Mulberry','PAPAYA','Phalsa','PINEAPPLE','POMEGRANATE','SAPOTA'],
-};
-
-const LOCATIONS = [
-  'AHMEDABAD','AMRITSAR','BANGALURU','BARAUT','BHOPAL','BHUBANESHWAR',
-  'CHANDIGARH','CHENNAI','DEHRADUN','DELHI','GANGTOK','GUWAHATI','HYDERABAD',
-  'JAIPUR','JAMMU','KOLKATA','LASALGAON','LUCKNOW','MUMBAI','NAGPUR','NASHIK',
-  'PATNA','PIMPALGAON','PUNE','RAIPUR','RANCHI','SHIMLA','SRINAGAR',
-  'TRIVANDRUM','VARANASI','VIJAYAWADA',
-];
-
-const FALLBACK_PRICES = {
-  'BITTER GOURD': { min: 1500, max: 5000, median: 3000 },
-  'BRINJAL': { min: 1200, max: 3500, median: 2200 },
-  'CABBAGE': { min: 800, max: 2500, median: 1600 },
-  'CAULIFLOWER': { min: 1500, max: 4000, median: 2600 },
-  'GARLIC': { min: 2000, max: 8000, median: 4800 },
-  'GINGER': { min: 3000, max: 10000, median: 6200 },
-  'GREEN CHILLY': { min: 2000, max: 7000, median: 4200 },
-  'OKRA': { min: 1500, max: 4500, median: 2900 },
-  'ONION': { min: 1000, max: 4000, median: 2300 },
-  'PEAS': { min: 2000, max: 5000, median: 3200 },
-  'POTATO': { min: 800, max: 2500, median: 1600 },
-  'TOMATO': { min: 1000, max: 4000, median: 2300 },
-  'ACID LIME': { min: 1800, max: 5500, median: 3300 },
-  'AONLA': { min: 2000, max: 6000, median: 3900 },
-  'APPLE': { min: 3000, max: 9000, median: 5600 },
-  'APPLE (ANTI BIRD/ANTI HAIL NET)': { min: 3500, max: 10000, median: 6200 },
-  'Apple Ber': { min: 2500, max: 7000, median: 4100 },
-  'BANANA': { min: 1000, max: 3000, median: 1800 },
-  'BER': { min: 1200, max: 3500, median: 2300 },
-  'CIRTUS': { min: 2000, max: 6000, median: 3600 },
-  'GRAPES': { min: 2500, max: 8000, median: 4600 },
-  'GUAVA': { min: 1800, max: 5000, median: 3300 },
-  'LITCHI': { min: 3000, max: 8000, median: 5100 },
-  'MANGO': { min: 2000, max: 10000, median: 5100 },
-  'Mulberry': { min: 1500, max: 4000, median: 2600 },
-  'PAPAYA': { min: 1000, max: 3000, median: 1800 },
-  'Phalsa': { min: 2000, max: 5000, median: 3100 },
-  'PINEAPPLE': { min: 1500, max: 5000, median: 2900 },
-  'POMEGRANATE': { min: 3000, max: 9000, median: 5600 },
-  'SAPOTA': { min: 1800, max: 5000, median: 3300 },
-};
-
-const INITIAL_FORM = { crop_name: '', category: 'Vegetables', center_state: '', quantity: '' };
+const formatRs = (value) =>
+  'Rs. ' + Number(value).toLocaleString('en-IN', { maximumFractionDigits: 2 });
 
 export default function PricePrediction() {
   const [formData, setFormData] = useState(INITIAL_FORM);
+  const [states, setStates] = useState([]);
+  const [commodities, setCommodities] = useState([]);
+  const [varieties, setVarieties] = useState([]);
   const [prediction, setPrediction] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [apiAvailable, setApiAvailable] = useState(true);
 
+  // 1. Is the price service up? Then load the states it has data for.
   useEffect(() => {
     checkPricePredictionApiHealth()
-      .then((ok) => setApiAvailable(ok))
+      .then((ok) => {
+        setApiAvailable(ok);
+        if (!ok) return;
+        return getPriceOptions().then(({ states: list }) => {
+          setStates(list);
+          const preferred = list.includes(DEFAULT_STATE) ? DEFAULT_STATE : list[0] || '';
+          setFormData((prev) => ({ ...prev, state: preferred }));
+        });
+      })
       .catch(() => setApiAvailable(false));
   }, []);
 
+  // 2. Crops this state has price data for, most traded first.
   useEffect(() => {
-    setFormData((prev) => ({ ...prev, crop_name: '' }));
-  }, [formData.category]);
+    if (!formData.state) return;
+    let cancelled = false;
+    getPriceOptions(formData.state)
+      .then(({ commodities: list }) => {
+        if (cancelled) return;
+        setCommodities(list);
+        setFormData((prev) => ({ ...prev, commodity: list[0] || '', variety: '' }));
+      })
+      .catch(() => !cancelled && setError('Could not load crops for this state. Please try again.'));
+    return () => { cancelled = true; };
+  }, [formData.state]);
+
+  // 3. Varieties of that crop in that state, most reported first.
+  useEffect(() => {
+    if (!formData.state || !formData.commodity) return;
+    let cancelled = false;
+    getVarieties(formData.commodity, formData.state)
+      .then(({ varieties: list }) => {
+        if (cancelled) return;
+        setVarieties(list || []);
+        setFormData((prev) => ({ ...prev, variety: (list && list[0]) || '' }));
+      })
+      .catch(() => !cancelled && setVarieties([]));
+    return () => { cancelled = true; };
+  }, [formData.state, formData.commodity]);
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
+    // Clear the dependent dropdowns; the effects above refill them.
+    if (name === 'state') {
+      setCommodities([]);
+      setVarieties([]);
+    }
+    if (name === 'commodity') setVarieties([]);
     setFormData((prev) => ({ ...prev, [name]: value }));
-    if (error) setError('');
-  }, [error]);
-
-  const fallbackPrediction = useCallback((data) => {
-    const range = FALLBACK_PRICES[data.crop_name] || { min: 1000, max: 5000, median: 2600 };
-    const multiplier = parseFloat(data.quantity) > 100 ? 0.9 : 1.0;
-    setPrediction({
-      min: Math.round(range.min * multiplier),
-      max: Math.round(range.max * multiplier),
-      median: Math.round(range.median * multiplier),
-      suggestedPrice: Math.round(range.median * multiplier),
-      isFallback: true,
-      factors: { ...data },
-    });
+    setPrediction(null);
+    setError('');
   }, []);
 
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     setError('');
 
-    if (!formData.crop_name) return setError('Please select a crop');
-    if (!formData.center_state) return setError('Please select a market location');
+    if (!formData.state) return setError('Please select a state');
+    if (!formData.commodity) return setError('Please select a crop');
     if (!formData.quantity || Number(formData.quantity) <= 0) return setError('Please enter a valid quantity');
-
-    const payload = {
-      crop_name: formData.crop_name,
-      category: formData.category,
-      center_state: formData.center_state,
-      quantity: parseFloat(formData.quantity),
-    };
 
     setLoading(true);
     try {
-      if (apiAvailable) {
-        const result = await predictCropPrice(payload);
-        setPrediction({
-          min: result.min_price,
-          max: result.max_price,
-          median: result.median_price || Math.round((result.min_price + result.max_price) / 2),
-          factors: result.factors,
-          isFallback: false,
-        });
-      } else {
-        fallbackPrediction(payload);
-      }
-    } catch {
-      fallbackPrediction(payload);
+      const result = await predictCropPrice({
+        state: formData.state,
+        commodity: formData.commodity,
+        variety: formData.variety || null,
+        quantity: parseFloat(formData.quantity),
+      });
+      setPrediction(result);
+    } catch (err) {
+      setPrediction(null);
+      setError(err.message || 'Could not get a price prediction right now.');
     } finally {
       setLoading(false);
     }
-  }, [formData, apiAvailable, fallbackPrediction]);
+  }, [formData]);
 
-  const cropList = CROP_OPTIONS[formData.category] || [];
+  if (!apiAvailable) {
+    return (
+      <div className="price-prediction">
+        <h2>Crop Price Prediction Tool</h2>
+        <p className="fallback-notice">
+          The price prediction service is offline right now. Please try again in a few minutes,
+          or check today&apos;s rate at your local mandi.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="price-prediction">
@@ -140,25 +127,26 @@ export default function PricePrediction() {
             {error && <p className="form-error" role="alert">{error}</p>}
 
             <div className="form-group">
-              <label htmlFor="category">Crop Category *</label>
-              <select id="category" name="category" value={formData.category} onChange={handleChange}>
-                {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+              <label htmlFor="state">State *</label>
+              <select id="state" name="state" value={formData.state} onChange={handleChange}>
+                {states.length === 0 && <option value="">Loading states...</option>}
+                {states.map((s) => <option key={s} value={s}>{s}</option>)}
               </select>
             </div>
 
             <div className="form-group">
-              <label htmlFor="crop_name">Crop Name *</label>
-              <select id="crop_name" name="crop_name" value={formData.crop_name} onChange={handleChange}>
-                <option value="">Select a crop</option>
-                {cropList.map((c) => <option key={c} value={c}>{c}</option>)}
+              <label htmlFor="commodity">Crop *</label>
+              <select id="commodity" name="commodity" value={formData.commodity} onChange={handleChange}>
+                {commodities.length === 0 && <option value="">Loading crops...</option>}
+                {commodities.map((c) => <option key={c} value={c}>{c}</option>)}
               </select>
             </div>
 
             <div className="form-group">
-              <label htmlFor="center_state">Destination Market Location *</label>
-              <select id="center_state" name="center_state" value={formData.center_state} onChange={handleChange}>
-                <option value="">Select a location</option>
-                {LOCATIONS.map((l) => <option key={l} value={l}>{l}</option>)}
+              <label htmlFor="variety">Variety</label>
+              <select id="variety" name="variety" value={formData.variety} onChange={handleChange}>
+                {varieties.length === 0 && <option value="">Most common</option>}
+                {varieties.map((v) => <option key={v} value={v}>{v}</option>)}
               </select>
             </div>
 
@@ -178,35 +166,29 @@ export default function PricePrediction() {
         <div className="prediction-result-container">
           {prediction ? (
             <div className="prediction-result">
-              <h3>Predicted Price Range (per kg)</h3>
-
-              {prediction.isFallback && (
-                <p className="fallback-notice">Using estimated prices (API unavailable)</p>
-              )}
+              <h3>Predicted Price (per kg)</h3>
 
               <div className="price-range">
-                <span className="min-price">{'Rs. ' + prediction.min}</span>
-                <span className="median-price">{'Rs. ' + prediction.median}</span>
-                <span className="max-price">{'Rs. ' + prediction.max}</span>
+                <span className="min-price">{formatRs(prediction.min_price_per_kg)}</span>
+                <span className="median-price">{formatRs(prediction.price_per_kg)}</span>
+                <span className="max-price">{formatRs(prediction.max_price_per_kg)}</span>
               </div>
               <div className="price-range-labels">
-                <span>Min</span><span>Median</span><span>Max</span>
+                <span>Low</span><span>Estimate</span><span>High</span>
               </div>
 
-              {prediction.suggestedPrice && (
-                <div className="total-value">
-                  <h4>Suggested Price</h4>
-                  <p className="total-amount">{'Rs. ' + prediction.suggestedPrice}</p>
-                </div>
-              )}
+              <div className="total-value">
+                <h4>Estimated value for {prediction.factors.quantity_kg} kg</h4>
+                <p className="total-amount">{formatRs(prediction.factors.estimated_total_value)}</p>
+              </div>
 
-              {prediction.factors && (
-                <div className="prediction-factors">
-                  <p>Crop: <strong>{prediction.factors.crop_name}</strong></p>
-                  <p>Location: <strong>{prediction.factors.center_state}</strong></p>
-                  <p>Quantity: <strong>{prediction.factors.quantity + ' kg'}</strong></p>
-                </div>
-              )}
+              <div className="prediction-factors">
+                <p>Crop: <strong>{prediction.factors.commodity} ({prediction.factors.variety})</strong></p>
+                <p>State: <strong>{prediction.factors.state}</strong></p>
+                <p>Confidence: <strong>{prediction.confidence}</strong> ({prediction.factors.mandi_reports} mandi reports)</p>
+              </div>
+
+              <p className="fallback-notice">{prediction.disclaimer}</p>
             </div>
           ) : (
             <div className="no-prediction">
@@ -214,9 +196,9 @@ export default function PricePrediction() {
               <div className="prediction-tips">
                 <h4>Tips for better predictions:</h4>
                 <ul>
-                  <li>Select the exact crop category and name</li>
-                  <li>Choose the destination market location where you plan to sell</li>
-                  <li>Enter the precise quantity you plan to sell</li>
+                  <li>Pick the state where you plan to sell</li>
+                  <li>Choose the variety you grow; it can change the price a lot</li>
+                  <li>Low/High is the range mandis reported for this crop recently</li>
                 </ul>
               </div>
             </div>

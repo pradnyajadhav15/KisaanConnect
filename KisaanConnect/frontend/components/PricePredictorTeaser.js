@@ -13,25 +13,32 @@ export default function PricePredictorTeaser() {
   useEffect(() => {
     getPriceOptions()
       .then((opts) => {
-        setOptions(opts);
-        setForm((f) => ({
-          ...f,
-          state: opts.states[0] || '',
-          commodity: opts.commodities[0] || '',
-        }));
+        setOptions((o) => ({ ...o, states: opts.states }));
+        const preferred = opts.states.includes('Maharashtra') ? 'Maharashtra' : opts.states[0] || '';
+        setForm((f) => ({ ...f, state: preferred }));
       })
       .catch(() => {});
   }, []);
 
   useEffect(() => {
-    if (!form.commodity) return;
-    getVarieties(form.commodity)
+    if (!form.state) return;
+    getPriceOptions(form.state)
+      .then((opts) => {
+        setOptions((o) => ({ ...o, commodities: opts.commodities }));
+        setForm((f) => ({ ...f, commodity: opts.commodities[0] || '', variety: '' }));
+      })
+      .catch(() => setOptions((o) => ({ ...o, commodities: [] })));
+  }, [form.state]);
+
+  useEffect(() => {
+    if (!form.commodity || !form.state) return;
+    getVarieties(form.commodity, form.state)
       .then((d) => {
         setVarieties(d.varieties || []);
         setForm((f) => ({ ...f, variety: (d.varieties && d.varieties[0]) || '' }));
       })
       .catch(() => setVarieties([]));
-  }, [form.commodity]);
+  }, [form.commodity, form.state]);
 
   const handleChange = (field) => (e) => {
     const value = field === 'quantity' ? Number(e.target.value) : e.target.value;
@@ -139,6 +146,7 @@ export default function PricePredictorTeaser() {
                 <div className="text-xs text-[var(--kc-ink)]/50 mt-1">
                   Estimated value for {form.quantity}kg: ₹{result.factors.estimated_total_value}
                 </div>
+                <div className="text-[11px] text-[var(--kc-ink)]/40 mt-2">{result.disclaimer}</div>
               </div>
             )}
           </form>

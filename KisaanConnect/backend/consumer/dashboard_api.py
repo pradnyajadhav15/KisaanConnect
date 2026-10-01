@@ -144,6 +144,14 @@ async def create_order(order: Order, user=Depends(get_current_user_full)):
                 INSERT INTO order_items (order_id, crop_id, farmer_id, quantity, unit_price, crop_name)
                 VALUES (%s,%s,%s,%s,%s,%s)
             ''', (order_id, crop_id, farmer_id, qty, price, name))
+            # Take the ordered quantity out of stock. The condition stops two buyers
+            # from both getting the last units; if it fails, the whole order rolls back.
+            cur.execute(
+                'UPDATE crops SET quantity = quantity - %s WHERE id = %s AND quantity >= %s',
+                (qty, crop_id, qty),
+            )
+            if cur.rowcount != 1:
+                raise HTTPException(409, 'Not enough ' + name + ' left in stock. Please refresh and try again.')
 
         if order.cart_id:
             cur.execute('DELETE FROM cart_items WHERE cart_id = %s', (order.cart_id,))

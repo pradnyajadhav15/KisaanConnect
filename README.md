@@ -206,12 +206,25 @@ pip install -r requirements-dev.txt
 pytest -q
 ```
 
-35 tests cover the price API (valid forecasts, refused inputs, the fallback for stale data, a
-sanity check that forecasts stay near last week's price), the no-look-ahead rule in the features,
-and the data-cleaning rules. They need no database or API keys.
+59 tests in two groups:
+
+- **No database needed (35):** the price API (valid forecasts, refused inputs, the fallback for stale
+  data, forecasts staying near last week's price), the no-look-ahead rule in the features, and the
+  data-cleaning rules.
+- **Needs a throwaway PostgreSQL (24):** sign-up and login, crop listings and who may edit them, cart
+  stock limits, placing orders (stock goes down, one farmer per order, order privacy), and the farmer's
+  order flow (accept, reject puts stock back, deliver). They are skipped unless `TEST_DATABASE_URL` is
+  set, and they refuse to run against a database that isn't on your machine, because they wipe it.
+
+```powershell
+# optional: run the database tests against a local PostgreSQL you don't mind wiping
+$env:TEST_DATABASE_URL = "postgresql://postgres:postgres@localhost:5432/kisaan_test"
+pytest -q
+```
 
 GitHub Actions ([`ci.yml`](.github/workflows/ci.yml)) runs on every push and pull request to `main`:
-it checks every backend file compiles, runs the tests, lints the frontend and builds it.
+it starts a throwaway PostgreSQL, checks every backend file compiles, runs all the tests, lints the
+frontend and builds it.
 
 ## Deployment
 

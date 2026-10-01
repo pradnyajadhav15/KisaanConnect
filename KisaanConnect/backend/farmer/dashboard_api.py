@@ -24,6 +24,7 @@ class CropInput(BaseModel):
 class CropListing(CropInput):
     id: int
     farmer_id: int
+    quantity: float = Field(..., ge=0)   # a listing can sell out; only new input must be > 0
 
 
 REQUIRED_CSV_COLUMNS = {"name", "quantity", "unit", "price_per_unit"}
@@ -232,6 +233,69 @@ async def farmer_sales_summary(user=Depends(get_current_user_full)):
         'total_revenue': round(float(totals_row['total_revenue'] or 0), 2),
         'total_orders': totals_row['total_orders'] or 0,
     }
+
+
+# --------------------------------------------------
+# ORDERS RECEIVED BY THIS FARMER (used by the Order Management tab)
+# --------------------------------------------------
+
+# Which status a farmer may move an order to, from each current status.
+ORDER_TRANSITIONS = {
+    'pending': {'accepted', 'rejected'},
+    'accepted': {'delivered'},
+}
+
+
+class OrderStatusUpdate(BaseModel):
+    status: str
+
+
+@router.get('/orders')
+async def get_farmer_orders(user=Depends(get_current_user_full)):
+    """One row per order, in the shape the Order Management table expects."""
+    _require_farmer(user)
+    with get_db() as conn:
+        cur = conn.cursor()
+        cur.execute('SELECT * FROM orders WHERE farmer_id = %s ORDER BY created_at DESC', (user['id'],))
+        orders = [dict(r) for r in cur.fetchall()]
+        for o in orders:
+            cur.execute('''
+                SELECT oi.crop_name, oi.quantity, oi.unit_price, c.unit
+                FROM order_items oi LEFT JOIN crops c ON c.id = oi.crop_id
+                WHERE oi.order_id = %s ORDER BY oi.id
+            ''', (o['id'],))
+            items = [dict(r) for r in cur.fetchall()]
+            o['items'] = items
+            o['consumerName'] = o.get('consumer_name')
+            o['created_at'] = o['created_at'].isoformat() if o.get('created_at') else None
+            if len(items) == 1:
+                o.update(crop_name=items[0]['crop_name'], quantity=items[0]['quantity'],
+                         unit=items[0]['unit'] or '', unit_price=items[0]['unit_price'])
+            else:
+                o.update(crop_name=', '.join(i['crop_name'] or '?' for i in items),
+                         quantity=len(items), unit='items', unit_price=None)
+    return {'orders': orders, 'total': len(orders)}
+
+
+@router.patch('/orders/{order_id}/status')
+async def update_farmer_order_status(order_id: int, body: OrderStatusUpdate, user=Depends(get_current_user_full)):
+    """Accept or reject a pending order, or mark an accepted one delivered. Rejecting puts the stock back."""
+    _require_farmer(user)
+    new_status = body.status.strip().lower()
+    with get_db() as conn:
+        cur = conn.cursor()
+        cur.execute('SELECT id, status FROM orders WHERE id = %s AND farmer_id = %s FOR UPDATE', (order_id, user['id']))
+        order = cur.fetchone()
+        if not order:
+            raise HTTPException(404, 'Order not found or not yours')
+        if new_status not in ORDER_TRANSITIONS.get(order['status'], set()):
+            raise HTTPException(400, f"Can't change an order from {order['status']} to {new_status}")
+        if new_status == 'rejected':
+            cur.execute('SELECT crop_id, quantity FROM order_items WHERE order_id = %s', (order_id,))
+            for item in cur.fetchall():
+                cur.execute('UPDATE crops SET quantity = quantity + %s WHERE id = %s', (item['quantity'], item['crop_id']))
+        cur.execute('UPDATE orders SET status = %s WHERE id = %s', (new_status, order_id))
+    return {'order_id': order_id, 'status': new_status}
 
 
 # --------------------------------------------------

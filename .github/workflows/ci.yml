@@ -13,6 +13,21 @@ jobs:
     defaults:
       run:
         working-directory: KisaanConnect/backend
+    services:
+      # Throwaway database for the login / cart / order tests (wiped on every run).
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: kisaan_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
     steps:
       - uses: actions/checkout@v4
 
@@ -31,8 +46,10 @@ jobs:
       - name: Check syntax of every backend file
         run: python -m compileall -q .
 
-      - name: Run tests (price API, features, data cleaning)
+      - name: Run tests (price API, features, data, login, cart, orders)
         run: pytest -q
+        env:
+          TEST_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/kisaan_test
 
   frontend:
     name: Frontend build

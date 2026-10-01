@@ -18,9 +18,9 @@ export default function CoverageArea() {
     <div className="bg-[var(--kc-mint)] py-16 border-t border-[var(--kc-ink)]/10">
       <div className="max-w-6xl mx-auto px-6">
         <span className="text-[11px] tracking-[0.2em] uppercase text-[var(--kc-forest)] font-mono">
-          Where we deliver
+          Pilot plan
         </span>
-        <h2 className="font-serif text-3xl text-[var(--kc-ink)] mt-2 mb-10">Coverage area</h2>
+        <h2 className="font-serif text-3xl text-[var(--kc-ink)] mt-2 mb-10">Planned pilot districts</h2>
 
         <div className="grid md:grid-cols-3 gap-8">
           {Object.entries(COVERAGE).map(([state, data]) => (
@@ -53,7 +53,7 @@ export default function CoverageArea() {
         </div>
 
         <p className="text-xs text-[var(--kc-ink)]/50 mt-10">
-          Don&apos;t see your district? We&apos;re adding new areas every month — sign up and we&apos;ll notify you when we reach you.
+          KisaanConnect is a final-year project demo. These are the districts planned for a first pilot, not live delivery areas yet.
         </p>
       </div>
     </div>

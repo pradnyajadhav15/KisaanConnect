@@ -2,11 +2,12 @@
 import { useEffect, useRef, useState } from 'react';
 import usePrefersReducedMotion from '../lib/usePrefersReducedMotion';
 
+// Real numbers from the price data behind the forecaster (backend/price_prediction).
 const STATS = [
-  { label: 'Farmers onboard', value: '2,400+' },
-  { label: 'Districts covered', value: '38' },
-  { label: 'Orders delivered', value: '18,600+' },
-  { label: 'Avg. price gain for farmers', value: '22%' },
+  { label: 'Mandi price reports analysed', value: '15,69,706' },
+  { label: 'Mandis tracked', value: '3,063' },
+  { label: 'States with price data', value: '30' },
+  { label: 'Maharashtra crops priced', value: '109' },
 ];
 
 function parse(raw) {

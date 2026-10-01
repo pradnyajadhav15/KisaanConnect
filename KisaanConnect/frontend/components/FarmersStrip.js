@@ -11,9 +11,12 @@ export default function FarmersStrip() {
     <div className="bg-[var(--kc-mint)] py-16 border-t border-[var(--kc-line)]">
       <div className="max-w-6xl mx-auto px-6">
         <span className="text-[11px] tracking-[0.2em] uppercase text-[var(--kc-forest)]">
-          The people behind the produce
+          Demo profiles
         </span>
-        <h2 className="text-[var(--kc-ink)] mt-2 mb-10">Meet the farmers</h2>
+        <h2 className="text-[var(--kc-ink)] mt-2 mb-2">Example farmer profiles</h2>
+        <p className="text-xs text-[var(--kc-ink-muted)] mb-10">
+          Sample data for this demo. Real farmer profiles appear here once farmers sign up.
+        </p>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-5">
           {FARMERS.map((f) => (
             <div

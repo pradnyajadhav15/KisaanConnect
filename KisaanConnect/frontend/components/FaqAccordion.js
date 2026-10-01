@@ -3,8 +3,8 @@ import { useState } from 'react';
 
 const FAQS = [
   {
-    q: 'How fast is delivery?',
-    a: 'Most orders reach you within 24-48 hours of the farmer confirming your order, since produce ships straight from the farm without sitting in a warehouse.',
+    q: 'How does delivery work?',
+    a: 'The farmer accepts your order and arranges delivery. You can follow it on your orders page as it moves from pending to accepted to delivered.',
   },
   {
     q: 'Is there a minimum order amount?',
@@ -12,15 +12,15 @@ const FAQS = [
   },
   {
     q: 'How is the price decided?',
-    a: 'Farmers set their own price, checked against real mandi (market) trends through our price prediction tool, so pricing stays fair for both sides — no middleman markup.',
+    a: 'Farmers set their own price. Before they do, they can check our price forecast, built from real AGMARKNET mandi prices, to see what the crop is selling for nearby.',
   },
   {
-    q: 'How do farmers get paid?',
-    a: 'Payment is released to the farmer once your order is confirmed and processed securely through our payment partner — funds go straight to them, not through a third party.',
+    q: 'How do payments work?',
+    a: 'Buyers pay online through Razorpay, and each payment is verified on our server before the order is confirmed. Automatic payouts to farmers are planned but not built yet in this demo.',
   },
   {
     q: 'What if the produce isn\u2019t fresh on arrival?',
-    a: 'Every listing is reviewed for quality before going live. If something arrives below the promised quality, contact support from your order page and we\u2019ll help sort a refund or replacement.',
+    a: 'Rate and review it from your order. Only verified buyers can review, so other buyers see which farmers deliver good produce. Refunds aren\u2019t built into this demo yet.',
   },
   {
     q: 'Can I sell on KisaanConnect if I\u2019m a small farmer?',

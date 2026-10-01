@@ -18,9 +18,13 @@ Ministry of Agriculture & Farmers Welfare, Government of India.
 Because it includes the Kaggle data, `mandi_history.csv.gz` is shared under
 **CC BY-SA 4.0**. Changes made to the sources: columns renamed to one schema,
 state spellings unified (e.g. Keralam to Kerala), "APMC" removed from market names,
-rows with zero, inconsistent or 10x-off prices dropped, and duplicates removed.
+crop names unified (e.g. "Lentil (Masur)" and "Lentil(Masur)"), livestock, fish, fuel,
+fodder and processed goods removed, rows with zero, inconsistent or 10x-off prices
+dropped, and duplicates removed.
 
 ## What the model uses
 
-`models/train_model.py` trains only on the most recent 90 days, which today means
-the 2026 GitHub data. The older Kaggle and May 2025 rows are kept for model evaluation.
+`models/train_model.py` trains the forecaster on all of the 2024-25 and 2026 data
+(the single-day May 2025 pull is left out because it has no history around it).
+The app only offers state / crop / variety combinations reported in the last 90 days,
+which today means the 2026 data. `evaluation/evaluate.py` tests the model on both periods.

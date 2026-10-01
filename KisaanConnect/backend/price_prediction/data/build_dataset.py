@@ -62,6 +62,23 @@ STATE_ALIASES = {
     "NCT of Delhi": "Delhi",
 }
 
+# Same crop, different names across AGMARKNET exports (applied after the
+# "no space before (" fix below, so 'Lentil (Masur)' and 'Lentil(Masur)' already match).
+COMMODITY_ALIASES = {
+    "Arhar(Tur/Red Gram)(Whole)": "Red gram/Arhar/Tur(whole)",
+    "Arhar Dal(Tur Dal)": "Red gram split/Arhar dal/Tur dal",
+    "Paddy(Dhan)(Common)": "Paddy(Common)",
+    "Paddy(Dhan)(Basmati)": "Paddy(Basmati)",
+    "Ladies Finger": "Bhindi(Ladies Finger)",
+}
+
+# Not crops a farmer would price here: livestock, fish, fuel, fodder and processed goods.
+NON_CROPS = {
+    "Calf", "Cock", "Cow", "Goat", "Hen", "Ox", "Pigs", "She Buffalo", "Sheep",
+    "Fish", "Prawn", "Ghee", "Firewood", "Wood", "Dry Fodder", "Green Fodder",
+    "Coconut Oil", "Mustard Oil", "Mentha Oil", "Sugar", "Maida Atta", "Wheat Atta",
+}
+
 # A modal price this far from the crop's overall median is almost always a unit
 # or typing error (e.g. Rs/kg entered instead of Rs/quintal).
 OUTLIER_FACTOR = 10
@@ -69,6 +86,11 @@ OUTLIER_FACTOR = 10
 
 def _clean_text(s: pd.Series) -> pd.Series:
     return s.astype("string").str.strip().str.replace(r"\s+", " ", regex=True)
+
+
+def _clean_commodity(s: pd.Series) -> pd.Series:
+    s = _clean_text(s).str.replace(r"\s+\(", "(", regex=True)
+    return s.replace(COMMODITY_ALIASES)
 
 
 def _clean_market(s: pd.Series) -> pd.Series:
@@ -125,12 +147,17 @@ def clean(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     stats = {"rows_in": len(df)}
     df = df[COLUMNS].copy()
 
-    for col in ["state", "district", "commodity", "variety", "grade"]:
+    for col in ["state", "district", "variety", "grade"]:
         df[col] = _clean_text(df[col])
+    df["commodity"] = _clean_commodity(df["commodity"])
     df["market"] = _clean_market(df["market"])
     df["state"] = df["state"].replace(STATE_ALIASES)
     for col in ["min_price", "max_price", "modal_price"]:
         df[col] = pd.to_numeric(df[col], errors="coerce")
+
+    before = len(df)
+    df = df[~df["commodity"].isin(NON_CROPS)]
+    stats["dropped_non_crops"] = before - len(df)
 
     before = len(df)
     df = df.dropna(subset=["date", "state", "market", "commodity", "modal_price"])

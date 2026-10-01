@@ -185,6 +185,9 @@ export default function PricePrediction() {
               <div className="prediction-factors">
                 <p>Crop: <strong>{prediction.factors.commodity} ({prediction.factors.variety})</strong></p>
                 <p>State: <strong>{prediction.factors.state}</strong></p>
+                {prediction.factors.last_week_price_per_kg != null && (
+                  <p>Last week&apos;s price: <strong>{formatRs(prediction.factors.last_week_price_per_kg)}/kg</strong></p>
+                )}
                 <p>Confidence: <strong>{prediction.confidence}</strong> ({prediction.factors.mandi_reports} mandi reports)</p>
               </div>
 
@@ -198,7 +201,8 @@ export default function PricePrediction() {
                 <ul>
                   <li>Pick the state where you plan to sell</li>
                   <li>Choose the variety you grow; it can change the price a lot</li>
-                  <li>Low/High is the range mandis reported for this crop recently</li>
+                  <li>The estimate is a one-week-ahead forecast built from recent mandi prices</li>
+                  <li>Low/High: in testing, half of real mandi prices landed inside this range</li>
                 </ul>
               </div>
             </div>

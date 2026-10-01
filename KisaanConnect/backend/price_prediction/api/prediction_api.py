@@ -1,8 +1,9 @@
 """
 Crop price prediction API (mounted at /price-prediction in main.py).
 
-The model only knows the state / crop / variety combinations listed in
-models/model_meta.json. Anything else gets a clear 422 instead of a guess.
+Forecasts the typical mandi price one week after the latest data, using the
+forecaster in models/forecaster.py and the recent state-level prices stored in
+models/model_meta.json. Inputs the data doesn't cover get a clear 422 instead of a guess.
 """
 import json
 import os
@@ -16,6 +17,8 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
+from price_prediction.models import forecaster
+
 # --------------------------------------------------
 # PATHS + ARTIFACTS
 # --------------------------------------------------
@@ -26,9 +29,9 @@ META_PATH = MODEL_DIR / "model_meta.json"
 
 ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
 
-# Confidence comes from how many real mandi reports back this exact combination.
-HIGH_CONFIDENCE_ROWS = 100
-MEDIUM_CONFIDENCE_ROWS = 20
+# Confidence comes from how many of the last 7 days had mandi reports for this combination.
+HIGH_CONFIDENCE_DAYS = 5
+MEDIUM_CONFIDENCE_DAYS = 2
 
 
 def _load_model():
@@ -46,20 +49,20 @@ def _load_meta() -> Dict[str, Any]:
         return json.loads(META_PATH.read_text(encoding="utf-8"))
     except Exception as e:
         print(f"Model metadata load failed: {e}")
-        return {"states": {}, "crop_rank": [], "features": ["state", "commodity", "variety"]}
+        return {"states": {}, "crop_rank": []}
 
 
 model = _load_model()
 meta = _load_meta()
-COVERAGE: Dict[str, Dict[str, Dict[str, Dict[str, float]]]] = meta.get("states", {})
+COVERAGE: Dict[str, Dict[str, Dict[str, Dict[str, Any]]]] = meta.get("states", {})
 CROP_RANK = {c: i for i, c in enumerate(meta.get("crop_rank", []))}
-FEATURES: List[str] = meta.get("features", ["state", "commodity", "variety"])
+ERROR_BAND = meta.get("error_band", {"low": -0.15, "high": 0.15})
 
 
 app = FastAPI(
     title="Crop Price Prediction API",
-    description="Crop price estimates for KisaanConnect, trained on AGMARKNET mandi prices",
-    version="3.0.0",
+    description="One-week-ahead crop price forecasts for KisaanConnect, from AGMARKNET mandi prices",
+    version="4.0.0",
 )
 
 app.add_middleware(
@@ -118,22 +121,19 @@ def _varieties_for(state: Optional[str], commodity: str) -> List[str]:
     return sorted(counts, key=lambda v: (-counts[v], v))
 
 
-def _confidence(rows: int) -> str:
-    if rows >= HIGH_CONFIDENCE_ROWS:
+def _confidence(stats: Dict[str, Any]) -> str:
+    days = stats.get("s7_days") or 0
+    if stats.get("s7") is None:
+        return "Low"
+    if days >= HIGH_CONFIDENCE_DAYS:
         return "High"
-    if rows >= MEDIUM_CONFIDENCE_ROWS:
+    if days >= MEDIUM_CONFIDENCE_DAYS:
         return "Medium"
     return "Low"
 
 
-def _data_window() -> str:
-    if meta.get("date_from") and meta.get("date_to"):
-        return f"{meta['date_from']} to {meta['date_to']}"
-    return "unknown dates"
-
-
 def resolve_input(crop_input: CropPriceInput) -> Dict[str, str]:
-    """Map the request onto a combination the model has seen, or raise a 422 that says why not."""
+    """Map the request onto a combination the data covers, or raise a 422 that says why not."""
     state = _match(crop_input.state, COVERAGE)
     if state is None:
         raise HTTPException(
@@ -163,6 +163,21 @@ def resolve_input(crop_input: CropPriceInput) -> Dict[str, str]:
     return {"state": state, "commodity": commodity, "variety": variety}
 
 
+def forecast(combo: Dict[str, str], stats: Dict[str, Any]) -> Dict[str, Any]:
+    """Run the forecaster on recent state-level prices; fall back to the latest known price."""
+    if stats.get("s7") is None and stats.get("s30") is None:
+        return {"price": float(stats["latest"]), "based_on": f"latest reports ({stats['latest_date']})"}
+
+    row = pd.DataFrame([{
+        **combo,
+        "date": pd.Timestamp(meta["forecast_for"]),
+        "s7": stats.get("s7"), "s7_days": stats.get("s7_days"), "s30": stats.get("s30"),
+        "m7": np.nan, "m30": np.nan,
+    }]).astype({"s7": float, "s7_days": float, "s30": float})
+    price = float(forecaster.predict(model, row).iloc[0])
+    return {"price": price, "based_on": "recent mandi prices"}
+
+
 # --------------------------------------------------
 # ROUTES
 # --------------------------------------------------
@@ -175,6 +190,7 @@ async def health_check():
         "states": len(COVERAGE),
         "data_from": meta.get("date_from"),
         "data_to": meta.get("date_to"),
+        "forecast_for": meta.get("forecast_for"),
     }
 
 
@@ -188,7 +204,7 @@ async def get_options(state: Optional[str] = None):
             raise HTTPException(404, f"No price data for '{state}'.")
         commodities = _crops_for(matched)
     else:
-        commodities = [c for c in meta.get("crop_rank", [])][:30]
+        commodities = meta.get("crop_rank", [])[:30]
     return {
         "states": states,
         "commodities": commodities,
@@ -227,36 +243,40 @@ async def predict_price(crop_input: CropPriceInput):
     stats = COVERAGE[combo["state"]][combo["commodity"]][combo["variety"]]
 
     try:
-        row = pd.DataFrame([{f: combo[f] for f in FEATURES}])
-        predicted = float(model.predict(row)[0])
+        result = forecast(combo, stats)
     except Exception:
         raise HTTPException(500, "Prediction failed. Please check your inputs and try again.")
 
+    predicted = result["price"]
     if predicted <= 0 or not np.isfinite(predicted):
         raise HTTPException(422, "Model produced an invalid price for these inputs")
 
-    # AGMARKNET prices are per quintal (100 kg). The range is what mandis actually
-    # reported for this combination (25th-75th percentile), widened to include the estimate.
-    low = min(stats["p25"], predicted)
-    high = max(stats["p75"], predicted)
+    # AGMARKNET prices are per quintal (100 kg). The range is where half of actual
+    # mandi prices landed around the forecast when it was tested (see error_band in the meta).
     price_per_kg = round(predicted / 100, 2)
+    low = predicted * float(np.exp(ERROR_BAND["low"]))
+    high = predicted * float(np.exp(ERROR_BAND["high"]))
+    last_week = stats.get("s7")
 
     return PricePredictionResponse(
         predicted_price_per_quintal=round(predicted, 2),
         price_per_kg=price_per_kg,
         min_price_per_kg=round(low / 100, 2),
         max_price_per_kg=round(high / 100, 2),
-        confidence=_confidence(stats["rows"]),
+        confidence=_confidence(stats),
         disclaimer=(
-            f"Estimate based on AGMARKNET mandi prices from {_data_window()}. "
-            "Check today's local mandi rate before selling."
+            f"Forecast for the week of {meta.get('forecast_for')} from AGMARKNET mandi prices up to "
+            f"{meta.get('date_to')}. Check today's local mandi rate before selling."
         ),
         factors={
             **combo,
             "quantity_kg": crop_input.quantity,
             "estimated_total_value": round(price_per_kg * crop_input.quantity, 2),
             "mandi_reports": stats["rows"],
-            "data_window": _data_window(),
+            "last_week_price_per_kg": round(last_week / 100, 2) if last_week else None,
+            "based_on": result["based_on"],
+            "forecast_for": meta.get("forecast_for"),
+            "data_window": f"{meta.get('date_from')} to {meta.get('date_to')}",
         },
     )
 

@@ -1,0 +1,44 @@
+{
+  "forecaster_wins": true,
+  "test_sets": {
+    "Aug 2024 - Aug 2025 (8 states, no Maharashtra)": {
+      "rows": 279951,
+      "actual_median_kg": 35.0,
+      "last_month_mae_kg": 5.98,
+      "last_month_median_pct_error": 7.2,
+      "last_week_mae_kg": 3.61,
+      "last_week_median_pct_error": 3.6,
+      "static_model_mae_kg": 9.17,
+      "static_model_median_pct_error": 14.6,
+      "forecaster_mae_kg": 3.55,
+      "forecaster_median_pct_error": 3.7,
+      "forecaster_beats_last_week_pct": 48.5
+    },
+    "Jul - Sep 2026 (30 states, incl. Maharashtra)": {
+      "rows": 94844,
+      "actual_median_kg": 40.0,
+      "last_month_mae_kg": 9.72,
+      "last_month_median_pct_error": 11.8,
+      "last_week_mae_kg": 5.47,
+      "last_week_median_pct_error": 5.2,
+      "static_model_mae_kg": 11.61,
+      "static_model_median_pct_error": 17.2,
+      "forecaster_mae_kg": 5.42,
+      "forecaster_median_pct_error": 5.3,
+      "forecaster_beats_last_week_pct": 35.1
+    },
+    "Maharashtra only (2026)": {
+      "rows": 2970,
+      "actual_median_kg": 29.62,
+      "last_month_mae_kg": 8.91,
+      "last_month_median_pct_error": 16.7,
+      "last_week_mae_kg": 5.09,
+      "last_week_median_pct_error": 9.5,
+      "static_model_mae_kg": 9.97,
+      "static_model_median_pct_error": 21.8,
+      "forecaster_mae_kg": 5.21,
+      "forecaster_median_pct_error": 9.2,
+      "forecaster_beats_last_week_pct": 43.0
+    }
+  }
+}

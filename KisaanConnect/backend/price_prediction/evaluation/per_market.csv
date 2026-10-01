@@ -1,0 +1,1552 @@
+state,market,rows,actual_median_kg,last_month,last_week,static_model,forecaster,best,test_set
+Uttar Pradesh,Aligarh,1248,26.0,4.52,1.89,7.86,1.72,New forecaster,2024-25
+Uttar Pradesh,Lakhimpur,1169,38.0,2.74,1.58,4.39,1.56,New forecaster,2024-25
+Uttar Pradesh,Gonda,1156,30.0,6.16,2.81,9.86,2.56,New forecaster,2024-25
+Uttar Pradesh,Mathura,1123,28.0,5.74,2.56,9.85,2.38,New forecaster,2024-25
+Uttar Pradesh,Pukharayan,1122,28.6,4.97,1.73,7.69,1.75,Last week's price,2024-25
+Uttar Pradesh,Ghaziabad,1093,40.5,3.42,1.9,6.41,1.84,New forecaster,2024-25
+Uttar Pradesh,Kanpur(Grain),1089,41.65,4.53,1.85,7.52,1.78,New forecaster,2024-25
+Uttar Pradesh,Bahraich,1039,32.5,5.69,2.41,8.43,2.13,New forecaster,2024-25
+Uttar Pradesh,Firozabad,1026,26.25,4.52,2.0,8.27,1.95,New forecaster,2024-25
+Uttar Pradesh,Nawabganj,1025,30.0,5.06,2.12,8.6,1.88,New forecaster,2024-25
+Uttar Pradesh,Tilhar,1013,24.6,2.95,1.25,5.49,1.13,New forecaster,2024-25
+Uttar Pradesh,Golagokarnath,985,38.0,2.48,1.28,3.98,1.26,New forecaster,2024-25
+Uttar Pradesh,Saharanpur,980,41.5,4.26,2.12,7.31,2.21,Last week's price,2024-25
+Uttar Pradesh,Etah,975,27.2,5.11,1.91,8.72,1.79,New forecaster,2024-25
+Uttar Pradesh,Haathras,959,25.4,4.52,1.9,8.34,1.77,New forecaster,2024-25
+Uttar Pradesh,Mainpuri,952,34.12,5.66,2.35,9.41,2.23,New forecaster,2024-25
+Uttar Pradesh,Badayoun,920,25.0,3.85,1.45,7.34,1.32,New forecaster,2024-25
+Uttar Pradesh,Unnao,919,28.0,3.95,1.37,7.3,1.22,New forecaster,2024-25
+Uttar Pradesh,Farukhabad,901,28.75,4.83,2.16,8.63,2.09,New forecaster,2024-25
+Uttar Pradesh,Bareilly,895,40.0,3.34,1.39,7.88,1.35,New forecaster,2024-25
+Gujarat,Porbandar,889,37.5,11.98,9.66,11.51,9.39,New forecaster,2024-25
+Uttar Pradesh,Etawah,882,29.0,5.89,3.29,8.4,3.16,New forecaster,2024-25
+Uttar Pradesh,Agra,881,27.5,5.74,2.44,9.83,2.28,New forecaster,2024-25
+Uttar Pradesh,Choubepur,877,30.5,4.57,2.07,8.22,1.9,New forecaster,2024-25
+Uttar Pradesh,Balrampur,869,37.2,4.25,1.86,7.61,1.72,New forecaster,2024-25
+Uttar Pradesh,Safdarganj,868,39.5,3.13,1.54,6.94,1.57,Last week's price,2024-25
+Uttar Pradesh,Orai,866,25.55,5.08,2.71,10.65,2.64,New forecaster,2024-25
+Uttar Pradesh,Gorakhpur,862,35.5,4.0,1.69,6.43,1.68,New forecaster,2024-25
+Uttar Pradesh,Lucknow,856,29.0,4.21,1.48,7.68,1.27,New forecaster,2024-25
+Uttar Pradesh,Faizabad,852,28.6,3.91,1.91,6.55,1.86,New forecaster,2024-25
+Uttar Pradesh,Shamli,846,24.75,5.0,2.7,7.93,2.51,New forecaster,2024-25
+Uttar Pradesh,Pratapgarh,834,37.45,3.59,1.36,7.48,1.21,New forecaster,2024-25
+Uttar Pradesh,Uttaripura,834,30.15,4.27,1.79,7.4,1.62,New forecaster,2024-25
+Kerala,Palakkad,829,61.0,9.04,6.21,10.98,6.15,New forecaster,2024-25
+Uttar Pradesh,Achnera,826,24.25,4.32,1.68,6.17,1.63,New forecaster,2024-25
+Uttar Pradesh,Kasganj,826,25.2,4.36,1.92,7.76,1.85,New forecaster,2024-25
+Uttar Pradesh,Chhibramau,825,28.0,4.38,1.69,8.23,1.5,New forecaster,2024-25
+Uttar Pradesh,Bangarmau,824,28.0,3.0,1.19,5.93,1.09,New forecaster,2024-25
+Kerala,Koduvayoor,807,37.0,12.2,7.7,11.25,7.59,New forecaster,2024-25
+Uttar Pradesh,Khurja,794,25.0,4.03,2.04,6.9,1.77,New forecaster,2024-25
+Punjab,Jalalabad,794,32.0,10.52,5.71,14.53,5.51,New forecaster,2024-25
+Uttar Pradesh,Gazipur,790,38.8,4.3,2.3,8.79,2.15,New forecaster,2024-25
+Uttar Pradesh,Mugrabaadshahpur,790,46.15,3.99,1.82,9.33,1.66,New forecaster,2024-25
+Uttar Pradesh,Auraiya,790,28.0,4.5,2.02,8.91,1.96,New forecaster,2024-25
+Uttar Pradesh,Buland Shahr,785,25.0,4.01,2.04,6.81,1.78,New forecaster,2024-25
+Uttar Pradesh,Ballia,781,38.5,3.78,1.67,7.31,1.51,New forecaster,2024-25
+Uttar Pradesh,Kannauj,780,28.5,4.14,1.75,7.61,1.55,New forecaster,2024-25
+Gujarat,Rajkot,780,53.2,4.62,3.12,5.71,3.1,New forecaster,2024-25
+Rajasthan,Udaipur (Grain),778,27.0,1.14,0.76,1.82,0.84,Last week's price,2024-25
+Uttar Pradesh,Raibareilly,778,26.6,4.54,1.84,7.76,1.68,New forecaster,2024-25
+Uttar Pradesh,Khair,770,20.0,6.49,3.76,8.9,3.75,New forecaster,2024-25
+Punjab,Nawan Shahar(Subzi Mandi),761,33.0,11.17,7.91,15.4,7.64,New forecaster,2024-25
+Rajasthan,Sriganganagar (F&V),750,31.0,9.27,5.12,11.6,4.84,New forecaster,2024-25
+Uttar Pradesh,Achalda,750,28.5,4.23,2.04,8.88,2.02,New forecaster,2024-25
+Uttar Pradesh,Dadri,750,27.75,5.07,2.05,9.47,1.86,New forecaster,2024-25
+Uttar Pradesh,Mirzapur,741,46.5,4.05,1.74,9.25,1.54,New forecaster,2024-25
+Uttar Pradesh,Hardoi,739,35.2,2.32,0.89,5.5,0.78,New forecaster,2024-25
+Uttar Pradesh,Jaunpur,735,29.0,4.35,2.08,8.64,1.93,New forecaster,2024-25
+Uttar Pradesh,Bhinga,729,27.8,5.29,2.35,9.81,2.2,New forecaster,2024-25
+Uttar Pradesh,Bharthna,727,29.0,5.52,3.01,8.02,2.89,New forecaster,2024-25
+Uttar Pradesh,Meerut,727,28.4,3.5,1.74,6.91,1.41,New forecaster,2024-25
+Rajasthan,Ajmer(F&V),726,20.0,4.87,2.74,10.45,2.69,New forecaster,2024-25
+Uttar Pradesh,Barabanki,725,36.5,4.71,1.92,7.55,1.79,New forecaster,2024-25
+Uttar Pradesh,Rasda,719,38.4,3.79,1.71,7.84,1.66,New forecaster,2024-25
+Punjab,Jalandhar City(Jalandhar),717,23.0,6.13,3.79,18.01,3.66,New forecaster,2024-25
+Uttar Pradesh,Jalaun,707,24.61,9.98,4.71,11.96,4.46,New forecaster,2024-25
+Madhya Pradesh,Indore(F&V),705,12.0,4.83,3.29,5.63,3.21,New forecaster,2024-25
+Kerala,Manjeri,705,45.5,8.92,4.24,9.79,4.46,Last week's price,2024-25
+Uttar Pradesh,Mahoba,704,42.25,3.96,1.9,6.71,1.77,New forecaster,2024-25
+Uttar Pradesh,Banda,703,28.5,4.13,2.24,7.49,2.16,New forecaster,2024-25
+Kerala,Kottakkal,700,39.0,13.76,8.11,13.9,8.22,Last week's price,2024-25
+Punjab,Bhawanigarh,694,32.5,14.32,9.82,20.76,9.71,New forecaster,2024-25
+Gujarat,Dahod(Veg. Market),691,28.0,9.35,6.71,12.95,6.46,New forecaster,2024-25
+Uttar Pradesh,Maigalganj,687,24.35,2.37,1.48,11.42,1.51,Last week's price,2024-25
+Uttar Pradesh,Madhoganj,686,40.1,3.28,1.28,4.75,1.15,New forecaster,2024-25
+Uttar Pradesh,Sitapur,685,37.7,3.28,1.32,4.51,1.23,New forecaster,2024-25
+Uttar Pradesh,Chandoli,683,39.0,4.25,1.89,8.62,1.64,New forecaster,2024-25
+Punjab,Ludhiana,681,17.0,5.22,3.01,20.75,3.06,Last week's price,2024-25
+Uttar Pradesh,Sandila,667,35.0,4.51,1.42,7.49,1.26,New forecaster,2024-25
+Punjab,Gurdaspur,666,23.0,8.01,4.44,10.26,4.51,Last week's price,2024-25
+Uttar Pradesh,Puwaha,663,24.4,3.66,1.33,6.26,1.22,New forecaster,2024-25
+Uttar Pradesh,Mohamadabad,662,24.8,5.06,2.44,9.11,2.33,New forecaster,2024-25
+Kerala,Pattambi,661,38.0,10.18,7.85,12.26,7.84,New forecaster,2024-25
+Kerala,Aralamoodu,654,50.0,9.68,6.33,17.61,7.13,Last week's price,2024-25
+Kerala,Kattappana,654,45.0,14.55,13.48,15.67,13.27,New forecaster,2024-25
+Uttar Pradesh,Hasanpur,646,18.5,6.1,2.75,10.54,2.91,Last week's price,2024-25
+Uttar Pradesh,Akbarpur,645,28.1,4.42,2.03,7.61,1.88,New forecaster,2024-25
+Uttar Pradesh,Purwa,642,25.3,3.57,1.34,7.8,1.21,New forecaster,2024-25
+Uttar Pradesh,Kosikalan,638,25.0,4.79,2.39,7.76,2.32,New forecaster,2024-25
+Punjab,Garh Shankar,635,30.0,5.99,3.57,13.29,3.64,Last week's price,2024-25
+Kerala,Kollengode,633,42.0,11.89,9.98,11.65,9.66,New forecaster,2024-25
+Punjab,Firozepur City,624,25.0,13.04,7.54,17.96,7.45,New forecaster,2024-25
+Kerala,Thalayolaparambu,621,42.0,8.48,4.87,8.89,5.17,Last week's price,2024-25
+Kerala,Kayamkulam,616,37.0,8.63,6.78,8.23,6.41,New forecaster,2024-25
+Gujarat,Gondal(Veg.market Gondal),616,25.0,13.91,9.95,13.25,9.64,New forecaster,2024-25
+Punjab,Fazilka,614,40.0,14.26,5.09,14.35,5.79,Last week's price,2024-25
+Uttar Pradesh,Fatehpur,613,36.8,3.7,1.36,7.56,1.28,New forecaster,2024-25
+Uttar Pradesh,Azamgarh,613,39.0,4.3,1.87,7.73,1.74,New forecaster,2024-25
+Kerala,Parappanangadi,610,41.0,8.88,6.1,14.33,6.08,New forecaster,2024-25
+Uttar Pradesh,Pilibhit,607,25.5,3.95,1.57,6.38,1.49,New forecaster,2024-25
+Kerala,Harippad,607,40.0,0.59,0.52,7.27,0.81,Last week's price,2024-25
+Uttar Pradesh,Puranpur,605,24.45,4.37,1.62,6.96,1.55,New forecaster,2024-25
+Uttar Pradesh,Jahangirabad,603,24.0,4.15,1.87,7.2,1.56,New forecaster,2024-25
+Uttar Pradesh,Viswan,602,33.15,3.15,1.24,7.19,1.15,New forecaster,2024-25
+Uttar Pradesh,Mohammdi,598,24.7,3.68,1.61,5.88,1.51,New forecaster,2024-25
+Punjab,Khanna,596,25.0,7.9,4.7,14.02,4.81,Last week's price,2024-25
+Punjab,Mansa,595,26.0,12.95,8.89,16.33,8.84,New forecaster,2024-25
+Kerala,Kondotty,592,45.0,9.86,6.81,13.66,6.8,New forecaster,2024-25
+Punjab,Muktsar,591,35.0,12.59,5.4,15.8,5.83,Last week's price,2024-25
+Kerala,Vadakkenchery,590,57.5,8.09,5.39,17.77,5.8,Last week's price,2024-25
+Uttar Pradesh,Lalitpur,589,42.6,4.72,2.49,6.72,2.35,New forecaster,2024-25
+Punjab,Patran,583,20.9,10.94,6.47,18.23,6.21,New forecaster,2024-25
+Gujarat,Bharuch,582,22.0,7.93,4.53,7.87,4.29,New forecaster,2024-25
+Uttar Pradesh,Basti,581,39.0,3.48,1.91,6.91,1.92,Last week's price,2024-25
+Gujarat,Amreli,577,52.0,3.55,2.57,4.66,2.52,New forecaster,2024-25
+Uttar Pradesh,Tundla,577,26.0,5.44,2.72,10.25,2.7,New forecaster,2024-25
+Uttar Pradesh,Robertsganj,576,54.78,3.87,1.76,8.65,1.57,New forecaster,2024-25
+Uttar Pradesh,Wazirganj,575,24.4,3.99,1.58,7.42,1.54,New forecaster,2024-25
+Madhya Pradesh,Badwah(F&V),574,25.0,6.96,4.5,10.57,4.32,New forecaster,2024-25
+Uttar Pradesh,Ghiraur,570,25.7,6.98,2.86,11.48,2.73,New forecaster,2024-25
+Madhya Pradesh,Sehore(F&V),563,22.0,7.71,5.69,10.64,5.43,New forecaster,2024-25
+Madhya Pradesh,Bhopal(F&V),562,16.0,4.71,2.33,6.38,2.44,Last week's price,2024-25
+Punjab,Bassi Pathana,562,33.0,11.72,7.08,13.66,6.97,New forecaster,2024-25
+Uttar Pradesh,Bindki,561,42.8,4.6,1.98,9.48,1.93,New forecaster,2024-25
+Kerala,North Paravur,557,42.0,8.72,4.88,10.25,5.23,Last week's price,2024-25
+Gujarat,Jamnagar,556,52.75,4.35,2.66,7.43,2.69,Last week's price,2024-25
+Gujarat,Jasdan,554,52.38,3.31,2.22,5.96,2.17,New forecaster,2024-25
+Uttar Pradesh,Gopiganj,552,39.25,3.8,1.86,8.09,1.7,New forecaster,2024-25
+Gujarat,Ankleshwar,552,25.0,11.94,7.58,12.14,7.33,New forecaster,2024-25
+Uttar Pradesh,Dankaur,551,24.4,4.48,1.92,7.94,1.57,New forecaster,2024-25
+Uttar Pradesh,Amroha,551,25.3,4.73,1.87,8.81,1.62,New forecaster,2024-25
+Uttar Pradesh,Baraut,550,22.5,4.94,1.96,8.28,1.59,New forecaster,2024-25
+Kerala,Athirampuzha,550,51.0,9.28,5.58,8.66,5.81,Last week's price,2024-25
+Gujarat,Dahod,545,43.5,2.21,1.28,5.07,1.25,New forecaster,2024-25
+Uttar Pradesh,Sikarpur,544,29.0,5.17,2.09,10.51,2.21,Last week's price,2024-25
+Punjab,Ropar,544,40.0,8.71,4.63,14.53,4.81,Last week's price,2024-25
+Uttar Pradesh,Muzzafarnagar,544,26.25,4.75,2.43,8.26,2.34,New forecaster,2024-25
+Uttar Pradesh,Rampur,539,28.5,3.47,1.25,8.22,1.24,New forecaster,2024-25
+Gujarat,Vadodara(Sayajipura),537,23.0,9.91,8.02,9.72,7.45,New forecaster,2024-25
+Punjab,Garh Shankar(Mahalpur),537,25.0,9.45,4.74,13.47,4.73,New forecaster,2024-25
+Gujarat,Morbi,536,27.48,8.4,4.81,7.74,4.94,Last week's price,2024-25
+Kerala,Vandiperiyar,535,54.0,7.1,5.23,14.17,5.35,Last week's price,2024-25
+Kerala,Mukkom,534,55.0,9.78,7.94,17.12,7.86,New forecaster,2024-25
+Gujarat,Surat,532,25.0,9.77,5.58,12.28,5.5,New forecaster,2024-25
+Kerala,Angamaly,532,60.0,7.8,5.04,15.9,5.41,Last week's price,2024-25
+Uttar Pradesh,Allahabad,532,25.5,4.77,1.8,6.26,1.75,New forecaster,2024-25
+Uttar Pradesh,Noida,531,20.6,5.46,2.19,9.64,1.79,New forecaster,2024-25
+Gujarat,Ahmedabad,531,25.5,9.2,6.42,10.44,5.98,New forecaster,2024-25
+West Bengal,Durgapur,529,29.5,3.2,2.23,5.75,2.25,Last week's price,2024-25
+Kerala,Aluva,525,40.0,8.97,5.62,8.38,5.8,Last week's price,2024-25
+Madhya Pradesh,Petlawad(F&V),520,16.34,4.66,3.46,6.93,3.19,New forecaster,2024-25
+Kerala,Aroor,519,56.0,9.07,5.81,16.47,5.71,New forecaster,2024-25
+Rajasthan,Jodhpur(F&V)(Paota),518,26.0,6.6,4.9,9.33,4.65,New forecaster,2024-25
+Uttar Pradesh,Nautnava,515,24.0,3.48,1.2,16.66,1.3,Last week's price,2024-25
+Madhya Pradesh,Mandsaur,515,47.0,4.87,3.75,6.81,3.68,New forecaster,2024-25
+Gujarat,Rajula,512,44.08,4.44,3.68,4.51,3.55,New forecaster,2024-25
+Uttar Pradesh,Kairana,509,18.5,9.08,4.04,14.72,4.17,Last week's price,2024-25
+Madhya Pradesh,Mhow(F&V),508,20.0,2.36,1.38,11.02,1.55,Last week's price,2024-25
+Kerala,Chengannur,508,50.0,8.3,6.52,9.02,6.58,Last week's price,2024-25
+Uttar Pradesh,Charra,505,19.5,2.35,1.25,4.06,1.27,Last week's price,2024-25
+Kerala,Perumbavoor,505,33.0,4.85,2.74,6.23,2.92,Last week's price,2024-25
+Punjab,Mukerian,501,30.0,7.34,3.86,16.74,3.81,New forecaster,2024-25
+Gujarat,Vadhvan,498,35.0,15.57,9.14,23.37,9.3,Last week's price,2024-25
+Kerala,Chelakkara,497,42.0,5.14,3.5,13.26,3.94,Last week's price,2024-25
+Rajasthan,Alwar (F&V),496,35.0,13.25,6.22,19.57,6.08,New forecaster,2024-25
+Rajasthan,Jaipur (F&V),495,33.0,10.51,6.01,15.19,6.03,Last week's price,2024-25
+Gujarat,Jam Jodhpur,492,50.5,2.77,2.06,4.92,2.01,New forecaster,2024-25
+Uttar Pradesh,Kopaganj,491,11.0,2.6,2.26,7.44,2.23,New forecaster,2024-25
+Kerala,Kothamangalam,490,40.0,7.53,5.03,7.12,5.21,Last week's price,2024-25
+Uttar Pradesh,Gulavati,490,21.0,1.89,1.32,14.99,1.39,Last week's price,2024-25
+Kerala,Piravam,489,50.0,13.28,8.06,17.22,8.76,Last week's price,2024-25
+Uttar Pradesh,Jayas,488,38.5,4.0,1.89,9.12,1.79,New forecaster,2024-25
+Uttar Pradesh,Jhansi,485,24.0,6.02,2.91,10.23,2.9,New forecaster,2024-25
+Rajasthan,Kota,484,45.0,2.47,1.94,3.14,1.78,New forecaster,2024-25
+Kerala,Quilandy,482,40.0,7.29,4.69,7.26,4.75,Last week's price,2024-25
+Kerala,Thrippunithura,481,58.0,9.05,6.31,17.13,6.64,Last week's price,2024-25
+Gujarat,Damnagar,479,31.0,13.19,9.16,14.83,9.06,New forecaster,2024-25
+Kerala,Chala,478,63.5,20.44,16.44,25.64,16.04,New forecaster,2024-25
+Gujarat,Navsari,477,27.5,13.02,8.22,14.44,7.85,New forecaster,2024-25
+Rajasthan,Udaipur (F&V),477,25.0,8.38,5.94,15.57,5.54,New forecaster,2024-25
+Kerala,Balarampuram,476,60.0,10.13,3.98,16.53,5.16,Last week's price,2024-25
+Uttar Pradesh,Khaga,474,37.0,5.86,2.24,11.04,1.94,New forecaster,2024-25
+Kerala,Perambra,469,43.0,7.16,4.97,7.62,5.06,Last week's price,2024-25
+Rajasthan,Bikaner (F&V),469,20.0,4.15,2.27,11.23,2.26,New forecaster,2024-25
+Uttar Pradesh,Varipaal,466,20.0,4.84,2.37,8.53,2.18,New forecaster,2024-25
+Kerala,Thrissur,465,40.0,9.66,7.24,11.21,7.26,Last week's price,2024-25
+Punjab,Chamkaur Sahib,463,31.0,12.91,8.25,14.42,7.86,New forecaster,2024-25
+Uttar Pradesh,Ujhani,463,25.0,3.16,1.46,7.4,1.53,Last week's price,2024-25
+Punjab,Hoshiarpur,462,18.0,5.6,5.29,10.88,5.0,New forecaster,2024-25
+Uttar Pradesh,Devariya,461,26.55,4.9,2.59,8.75,2.57,New forecaster,2024-25
+Gujarat,Jetpur(Dist.Rajkot),459,54.5,3.16,1.9,5.75,1.95,Last week's price,2024-25
+Uttar Pradesh,Bilsi,458,24.82,3.55,1.51,7.82,1.56,Last week's price,2024-25
+Kerala,Thodupuzha,458,48.0,11.01,8.44,11.53,8.4,New forecaster,2024-25
+Madhya Pradesh,Sagar(F&V),458,11.0,3.96,2.37,4.9,2.64,Last week's price,2024-25
+Gujarat,Gondal,456,51.55,3.32,2.39,5.3,2.31,New forecaster,2024-25
+Gujarat,Jambusar(Kaavi),455,33.0,3.33,2.1,4.76,2.32,Last week's price,2024-25
+Gujarat,Jambusar,455,33.0,3.28,2.15,4.93,2.35,Last week's price,2024-25
+Madhya Pradesh,Chindwara(F&V),454,12.0,2.63,1.83,4.11,1.85,Last week's price,2024-25
+Kerala,Palayam,454,28.0,7.77,5.42,12.5,5.3,New forecaster,2024-25
+Uttar Pradesh,Shahganj,453,25.35,4.03,1.77,8.12,1.57,New forecaster,2024-25
+Uttar Pradesh,Mehmoodabad,453,28.0,3.66,1.49,7.02,1.43,New forecaster,2024-25
+Punjab,Banur,453,29.01,10.99,6.26,19.97,6.27,Last week's price,2024-25
+Madhya Pradesh,Indore,452,42.5,5.84,4.95,7.76,4.81,New forecaster,2024-25
+Uttar Pradesh,Muradabad,452,25.12,5.35,2.21,9.42,1.92,New forecaster,2024-25
+Punjab,Phagwara,449,29.9,13.46,9.16,15.91,8.83,New forecaster,2024-25
+Punjab,Malout,448,22.0,11.15,7.11,18.75,6.93,New forecaster,2024-25
+Punjab,Tanda Urmur,446,42.0,11.22,6.14,19.77,6.28,Last week's price,2024-25
+West Bengal,Asansol,446,43.5,3.03,2.43,5.18,2.49,Last week's price,2024-25
+Kerala,Perinthalmanna,445,37.0,8.45,6.72,12.36,6.56,New forecaster,2024-25
+Kerala,Kanjirappally,445,68.0,10.27,6.13,27.74,7.69,Last week's price,2024-25
+Uttar Pradesh,Jasvantnagar,444,24.12,6.39,3.12,9.77,2.99,New forecaster,2024-25
+Madhya Pradesh,Dewas(F&V),442,12.0,3.07,1.94,3.27,1.95,Last week's price,2024-25
+Madhya Pradesh,Jawra(F&V),442,25.0,10.75,5.54,11.16,5.49,New forecaster,2024-25
+Punjab,Rajpura,442,33.0,14.44,10.21,22.55,10.04,New forecaster,2024-25
+Kerala,Pothencode,441,48.0,4.31,3.28,13.31,3.21,New forecaster,2024-25
+Gujarat,Bilimora,440,25.0,13.76,9.68,14.41,9.21,New forecaster,2024-25
+Punjab,Budalada,437,24.0,8.86,4.98,11.37,4.89,New forecaster,2024-25
+West Bengal,Sealdah Koley Market,436,40.0,10.19,5.57,20.75,6.01,Last week's price,2024-25
+Uttar Pradesh,Sandi,436,24.8,3.68,1.58,5.48,1.36,New forecaster,2024-25
+Uttar Pradesh,Vishalpur,436,24.5,2.64,0.92,4.16,0.79,New forecaster,2024-25
+Uttar Pradesh,Ahirora,433,14.0,5.57,2.35,7.66,2.32,New forecaster,2024-25
+West Bengal,Gangarampur(Dakshin Dinajpur),432,28.0,9.41,5.58,12.83,5.58,Last week's price,2024-25
+Uttar Pradesh,Tulsipur,432,25.2,6.79,4.07,11.13,3.8,New forecaster,2024-25
+Kerala,Kanjangadu,432,40.0,4.92,3.88,6.28,3.81,New forecaster,2024-25
+Gujarat,Padra,432,27.5,11.05,7.6,10.46,7.09,New forecaster,2024-25
+Kerala,Adimali,429,60.0,12.93,11.72,14.59,11.47,New forecaster,2024-25
+Kerala,Manjeswaram,427,55.0,8.11,5.44,14.65,5.61,Last week's price,2024-25
+Punjab,Nabha,426,25.0,12.36,8.5,16.0,8.33,New forecaster,2024-25
+Punjab,Lehra Gaga,425,35.0,14.41,9.29,18.75,8.96,New forecaster,2024-25
+Kerala,Chavakkad,425,56.0,8.66,7.19,12.4,7.31,Last week's price,2024-25
+Uttar Pradesh,Bharuasumerpur,424,46.0,3.73,2.01,8.71,1.95,New forecaster,2024-25
+Uttar Pradesh,Manjhanpur,424,25.1,4.68,1.85,7.89,1.67,New forecaster,2024-25
+Uttar Pradesh,Jalalabad,422,9.5,1.99,1.84,6.61,1.43,New forecaster,2024-25
+Madhya Pradesh,Sehore,420,43.15,4.55,4.3,5.53,4.03,New forecaster,2024-25
+Rajasthan,Baran,418,50.0,3.5,1.84,3.93,1.76,New forecaster,2024-25
+Kerala,Madhavapuram,418,35.5,4.41,3.49,6.42,3.39,New forecaster,2024-25
+Uttar Pradesh,Hapur,416,19.9,4.4,2.16,6.14,1.84,New forecaster,2024-25
+Rajasthan,Kota (F&V),415,22.5,9.66,6.49,15.0,6.08,New forecaster,2024-25
+Madhya Pradesh,Neemuch,412,45.0,8.69,6.66,8.78,6.56,New forecaster,2024-25
+Uttar Pradesh,Jagnair,411,15.0,2.76,2.21,5.72,1.95,New forecaster,2024-25
+Uttar Pradesh,Shahjahanpur,411,25.3,4.66,2.32,7.78,2.06,New forecaster,2024-25
+Uttar Pradesh,Mauranipur,410,38.1,4.7,2.57,7.73,2.55,New forecaster,2024-25
+Uttar Pradesh,Kayamganj,410,24.88,5.78,3.05,10.3,2.81,New forecaster,2024-25
+Kerala,Neyyatinkara,408,57.0,6.83,7.2,13.45,6.68,New forecaster,2024-25
+Uttar Pradesh,Siyana,408,25.1,3.53,1.9,19.29,2.11,Last week's price,2024-25
+West Bengal,Mechua,408,120.0,34.82,18.12,44.32,18.2,Last week's price,2024-25
+Rajasthan,Chomu (F&V),407,20.0,8.29,4.38,10.28,4.28,New forecaster,2024-25
+Madhya Pradesh,Sitmau,406,43.58,4.33,2.84,5.44,2.83,New forecaster,2024-25
+Punjab,Tarantaran,405,25.0,6.72,3.44,12.63,3.51,Last week's price,2024-25
+Gujarat,Deesa(Deesa Veg Yard),404,35.25,13.42,8.24,15.97,8.03,New forecaster,2024-25
+Kerala,Ettumanoor,404,41.0,8.79,5.81,9.61,5.94,Last week's price,2024-25
+Rajasthan,Jalore,403,26.0,8.19,5.87,9.9,5.67,New forecaster,2024-25
+Uttar Pradesh,Thanabhavan,402,17.0,5.32,3.42,8.89,2.4,New forecaster,2024-25
+Kerala,Kottarakkara,402,55.0,9.6,8.82,25.38,8.88,Last week's price,2024-25
+Madhya Pradesh,Lashkar(F&V),400,18.0,8.34,5.5,10.5,5.45,New forecaster,2024-25
+Madhya Pradesh,Hoshangabad(F&V),398,17.55,3.2,1.7,6.08,1.85,Last week's price,2024-25
+Gujarat,Nadiyad(Piplag),398,15.0,3.9,2.59,9.63,2.65,Last week's price,2024-25
+Gujarat,Savarkundla,393,53.0,3.28,2.29,4.44,2.26,New forecaster,2024-25
+Uttar Pradesh,Rudauli,391,24.9,4.97,2.12,7.64,1.99,New forecaster,2024-25
+Uttar Pradesh,Chutmalpur,384,9.0,2.4,1.74,7.54,1.74,Last week's price,2024-25
+Madhya Pradesh,Sarangpur(F&V),382,9.0,6.44,3.36,7.63,3.45,Last week's price,2024-25
+Madhya Pradesh,Badwani(F&V),380,15.0,3.03,2.4,4.88,2.43,Last week's price,2024-25
+Uttar Pradesh,Sultanpur,379,24.5,6.36,2.74,9.24,2.46,New forecaster,2024-25
+Uttar Pradesh,Khandhla,379,34.5,2.7,1.81,12.29,2.07,Last week's price,2024-25
+Uttar Pradesh,Gadaura,376,24.5,2.58,0.98,13.68,1.09,Last week's price,2024-25
+Uttar Pradesh,Shahabad(New Mandi),375,39.0,1.87,0.93,3.78,0.82,New forecaster,2024-25
+West Bengal,Medinipur(West),374,52.0,12.56,7.61,15.19,7.84,Last week's price,2024-25
+Uttar Pradesh,Anoop Shahar,373,24.85,6.16,2.66,10.53,2.7,Last week's price,2024-25
+Rajasthan,Ramganjmandi,372,42.0,4.12,2.61,5.73,2.45,New forecaster,2024-25
+Kerala,Pampady,371,50.0,11.18,7.85,18.58,8.14,Last week's price,2024-25
+Kerala,Neeleswaram,370,50.0,6.09,4.23,8.07,4.58,Last week's price,2024-25
+Uttar Pradesh,Varanasi(F&V),368,38.5,6.02,2.98,11.82,2.76,New forecaster,2024-25
+Kerala,Wadakkanchery,366,46.0,9.16,5.88,10.24,6.28,Last week's price,2024-25
+Gujarat,Kapadvanj,366,22.5,8.05,6.15,11.02,5.84,New forecaster,2024-25
+Kerala,Parassala,365,40.0,11.13,8.52,13.69,8.23,New forecaster,2024-25
+West Bengal,Ghatal,365,46.0,11.53,5.42,16.49,6.21,Last week's price,2024-25
+Punjab,Patti,364,18.0,8.34,6.24,14.34,6.39,Last week's price,2024-25
+West Bengal,Sheoraphuly,364,58.0,15.74,8.97,19.0,9.52,Last week's price,2024-25
+West Bengal,Karimpur,364,46.0,7.89,4.76,11.95,4.62,New forecaster,2024-25
+Kerala,Thamarassery,364,35.0,8.25,5.3,9.68,5.38,Last week's price,2024-25
+Kerala,Anchal,364,51.0,6.07,5.96,14.95,6.01,Last week's price,2024-25
+Gujarat,Khambhat(Veg Yard Khambhat),361,30.0,14.28,10.39,17.21,9.84,New forecaster,2024-25
+Kerala,Cherthala,361,45.0,3.98,2.95,7.42,3.33,Last week's price,2024-25
+Madhya Pradesh,Sanawad(F&V),359,19.0,9.04,6.31,8.4,6.09,New forecaster,2024-25
+Punjab,Dinanagar,356,34.0,11.67,6.72,14.67,6.81,Last week's price,2024-25
+West Bengal,Nadia,355,52.0,9.03,3.78,15.17,4.11,Last week's price,2024-25
+Rajasthan,Pratapgarh,353,44.0,3.87,2.37,4.33,2.35,New forecaster,2024-25
+Gujarat,Mahuva(Station Road),353,48.9,5.57,3.79,8.06,3.8,Last week's price,2024-25
+Kerala,Broadway market,350,52.0,12.87,10.47,16.21,10.45,New forecaster,2024-25
+Madhya Pradesh,Timarni(F&V),349,20.0,7.76,6.1,9.81,5.76,New forecaster,2024-25
+Madhya Pradesh,Betul,347,42.21,2.38,1.66,3.38,1.58,New forecaster,2024-25
+Gujarat,Talalagir,347,30.0,12.47,7.71,14.17,7.9,Last week's price,2024-25
+Rajasthan,Khanpur,346,51.15,3.2,2.21,5.88,2.18,New forecaster,2024-25
+Madhya Pradesh,Shajapur,346,47.11,7.26,6.03,7.72,5.93,New forecaster,2024-25
+Kerala,Kallachi,345,45.0,6.8,3.9,6.93,4.09,Last week's price,2024-25
+Gujarat,"Anand(Veg,Yard,Anand)",345,18.0,9.23,7.17,9.09,6.58,New forecaster,2024-25
+Kerala,Attingal,344,50.0,8.92,7.48,11.56,7.96,Last week's price,2024-25
+Gujarat,Botad,343,47.5,4.46,3.7,7.59,3.67,New forecaster,2024-25
+Madhya Pradesh,Kolaras,342,60.08,2.79,1.81,5.35,1.68,New forecaster,2024-25
+Kerala,Kottayam,342,49.0,7.95,5.57,8.01,5.66,Last week's price,2024-25
+Madhya Pradesh,Damoh,341,58.9,3.63,2.83,6.01,2.84,Last week's price,2024-25
+Uttar Pradesh,Naanpara,340,24.15,10.15,4.28,11.58,4.23,New forecaster,2024-25
+Madhya Pradesh,Pachaur,336,60.0,2.93,1.96,5.57,1.97,Last week's price,2024-25
+Uttar Pradesh,Dhanaura,335,22.0,6.45,2.9,14.69,2.92,Last week's price,2024-25
+Madhya Pradesh,Manasa,334,42.76,3.95,2.94,5.05,2.95,Last week's price,2024-25
+Uttar Pradesh,Muradnagar,334,10.5,5.73,2.83,9.77,2.35,New forecaster,2024-25
+Uttar Pradesh,Karvi,334,40.0,2.74,1.14,5.32,1.2,Last week's price,2024-25
+Uttar Pradesh,Bijnaur,332,25.25,5.97,2.81,11.15,2.58,New forecaster,2024-25
+Kerala,Irinjalakkuda,331,40.0,7.09,6.5,7.28,6.41,New forecaster,2024-25
+Rajasthan,Bundi,329,43.49,2.39,1.9,3.76,1.8,New forecaster,2024-25
+Gujarat,Himatnagar,328,24.0,3.64,2.64,3.38,2.66,Last week's price,2024-25
+Punjab,Zira,326,28.0,17.61,7.41,18.13,7.47,Last week's price,2024-25
+Punjab,Patiala,326,30.0,17.38,7.55,19.82,7.98,Last week's price,2024-25
+Punjab,Dudhansadhan,324,27.0,10.5,6.85,15.75,6.46,New forecaster,2024-25
+Punjab,Pathankot,323,34.0,10.02,6.7,10.95,6.72,Last week's price,2024-25
+Uttar Pradesh,Sahiyapur,323,19.9,9.47,5.57,12.62,5.57,Last week's price,2024-25
+Uttar Pradesh,Hargaon (Laharpur),323,24.55,4.09,1.31,11.54,1.17,New forecaster,2024-25
+Uttar Pradesh,Muskara,319,24.5,3.12,1.55,4.57,1.44,New forecaster,2024-25
+Madhya Pradesh,Manawar(F&V),319,13.0,2.76,1.75,4.41,1.78,Last week's price,2024-25
+Madhya Pradesh,Biaora,318,59.9,4.5,3.7,6.38,3.61,New forecaster,2024-25
+Punjab,Amritsar(Amritsar Mewa Mandi),317,12.0,11.74,5.25,25.18,3.83,New forecaster,2024-25
+Madhya Pradesh,Kurawar,316,58.95,2.78,1.82,4.84,1.8,New forecaster,2024-25
+Andhra Pradesh,Palamaner,316,15.0,7.9,4.51,5.69,4.61,Last week's price,2024-25
+Gujarat,Mehsana(Mehsana Veg),315,22.5,8.04,4.81,10.15,4.39,New forecaster,2024-25
+Kerala,vadakarapathy,313,27.0,11.8,8.21,14.42,7.71,New forecaster,2024-25
+Madhya Pradesh,Pipariya(F&V),313,14.0,3.51,1.87,8.62,1.88,Last week's price,2024-25
+Uttar Pradesh,Naugarh,308,38.5,4.05,2.65,6.78,2.63,New forecaster,2024-25
+Madhya Pradesh,Badarwas,308,61.15,2.15,1.45,4.21,1.39,New forecaster,2024-25
+Madhya Pradesh,Dhamnod(F&V),307,13.0,4.39,2.48,3.14,2.44,New forecaster,2024-25
+Gujarat,Taleja,306,51.3,3.81,2.8,6.16,2.63,New forecaster,2024-25
+Uttar Pradesh,Chandausi,306,18.6,7.18,2.89,13.64,2.52,New forecaster,2024-25
+Rajasthan,Jodhpur (F&V),303,45.0,10.41,7.04,17.49,6.97,New forecaster,2024-25
+Punjab,Rampuraphul(Nabha Mandi),303,35.0,8.21,4.45,17.63,4.56,Last week's price,2024-25
+Madhya Pradesh,Khirakiya,303,42.4,2.57,1.81,3.54,1.84,Last week's price,2024-25
+Rajasthan,Deoli,302,58.25,2.19,1.1,2.85,1.07,New forecaster,2024-25
+Madhya Pradesh,Sendhwa(F&V),302,10.0,2.35,1.69,4.83,1.67,New forecaster,2024-25
+Uttar Pradesh,Khatauli,298,14.0,0.59,0.21,9.63,0.37,Last week's price,2024-25
+Madhya Pradesh,Piplya,296,42.8,8.03,7.13,8.4,7.05,New forecaster,2024-25
+Madhya Pradesh,Jabalpur,292,58.55,3.08,2.39,3.14,2.2,New forecaster,2024-25
+Punjab,Rayya,291,22.0,5.6,2.16,5.71,2.19,Last week's price,2024-25
+Rajasthan,Malpura,291,39.25,3.42,2.21,6.05,2.1,New forecaster,2024-25
+Uttar Pradesh,Atrauli,290,15.5,1.75,0.79,4.34,0.93,Last week's price,2024-25
+West Bengal,Dhupguri,289,29.0,10.04,7.67,12.99,7.63,New forecaster,2024-25
+Madhya Pradesh,Narsinghpur,289,57.76,2.13,1.55,2.68,1.47,New forecaster,2024-25
+Madhya Pradesh,Begamganj,289,59.1,2.77,2.36,4.19,2.27,New forecaster,2024-25
+Uttar Pradesh,Dudhi,289,14.0,5.79,2.39,8.8,2.3,New forecaster,2024-25
+Madhya Pradesh,Agar,288,47.0,6.13,4.52,7.85,4.4,New forecaster,2024-25
+Gujarat,Rajkot(Veg.Sub Yard),288,30.0,13.52,7.6,8.62,7.61,Last week's price,2024-25
+Gujarat,Visavadar,285,48.15,4.18,3.45,7.77,3.09,New forecaster,2024-25
+Madhya Pradesh,Khargone,285,41.67,2.84,2.3,3.58,2.21,New forecaster,2024-25
+Uttar Pradesh,Ajuha,284,19.3,4.24,1.47,5.88,1.41,New forecaster,2024-25
+West Bengal,Jalpaiguri Sadar,284,28.0,10.52,8.64,13.18,8.34,New forecaster,2024-25
+Kerala,Madikai VFPCK,284,45.0,8.18,5.93,9.33,5.79,New forecaster,2024-25
+Kerala,Chalakudy,282,50.0,7.76,6.26,10.71,6.02,New forecaster,2024-25
+Kerala,Kalpetta,280,23.0,1.68,1.05,20.68,1.16,Last week's price,2024-25
+Uttar Pradesh,Anandnagar,280,41.0,2.16,1.58,6.27,1.66,Last week's price,2024-25
+Madhya Pradesh,Katni,280,62.36,4.93,4.34,5.69,4.2,New forecaster,2024-25
+Punjab,Kurali,278,25.0,12.05,6.74,14.45,6.68,New forecaster,2024-25
+Madhya Pradesh,Nalkehda,276,56.34,3.0,2.01,4.83,1.87,New forecaster,2024-25
+Uttar Pradesh,Sambhal,276,10.0,1.94,1.58,3.2,1.69,Last week's price,2024-25
+West Bengal,Bishnupur(Bankura),276,40.0,5.38,2.67,6.68,2.43,New forecaster,2024-25
+Rajasthan,Nimbahera,276,43.48,2.31,1.58,5.19,1.61,Last week's price,2024-25
+Madhya Pradesh,Satna,275,60.75,3.6,2.7,4.49,2.51,New forecaster,2024-25
+Uttar Pradesh,Awagarh,274,12.5,3.46,1.91,6.38,1.93,Last week's price,2024-25
+Madhya Pradesh,Jaora,274,47.12,5.73,4.82,7.62,4.67,New forecaster,2024-25
+West Bengal,Ramkrishanpur(Howrah),273,55.0,16.34,8.48,28.88,9.6,Last week's price,2024-25
+Punjab,Bathinda,272,65.0,12.77,9.59,14.73,9.76,Last week's price,2024-25
+Punjab,Bhagta Bhai Ka,272,29.5,7.74,5.31,8.83,5.31,Last week's price,2024-25
+Madhya Pradesh,Khandwa(F&V),269,9.5,3.76,2.07,5.62,1.89,New forecaster,2024-25
+West Bengal,Bolpur,269,39.0,10.51,4.73,14.45,4.9,Last week's price,2024-25
+Madhya Pradesh,Chhindwara,269,42.25,2.17,1.74,2.8,1.59,New forecaster,2024-25
+West Bengal,Baruipur(Canning),268,46.0,14.36,6.67,21.69,7.57,Last week's price,2024-25
+Madhya Pradesh,Rajgarh,267,41.51,4.76,4.82,4.61,4.56,New forecaster,2024-25
+Punjab,Sirhind,267,30.0,10.78,7.48,11.51,7.56,Last week's price,2024-25
+Madhya Pradesh,Ganjbasoda,266,58.0,3.4,2.71,5.44,2.64,New forecaster,2024-25
+Uttar Pradesh,Varanasi,266,47.1,1.11,0.44,3.56,0.41,New forecaster,2024-25
+Uttar Pradesh,Shahaswan,265,21.0,2.44,1.67,5.41,1.81,Last week's price,2024-25
+Kerala,Mannar,265,41.0,6.12,3.72,8.98,4.33,Last week's price,2024-25
+Kerala,Vengeri(Kozhikode),265,33.0,8.95,6.58,11.26,6.39,New forecaster,2024-25
+West Bengal,Siliguri,264,31.0,7.04,4.27,8.33,4.24,New forecaster,2024-25
+Madhya Pradesh,Shamgarh,263,45.0,4.34,3.08,4.74,3.08,Last week's price,2024-25
+Madhya Pradesh,Kareli,263,57.5,2.71,2.38,3.47,2.31,New forecaster,2024-25
+Gujarat,Bagasara,262,47.18,4.42,3.36,5.19,3.19,New forecaster,2024-25
+Kerala,Pala,262,52.0,9.31,5.34,15.11,6.15,Last week's price,2024-25
+Punjab,Mukerian(Talwara),262,31.0,15.4,8.01,19.01,8.02,Last week's price,2024-25
+Uttar Pradesh,Lalganj,260,24.75,5.36,2.07,10.28,2.04,New forecaster,2024-25
+Madhya Pradesh,Sagar,260,58.88,4.41,3.45,6.37,3.43,New forecaster,2024-25
+Madhya Pradesh,Kalapipal,259,49.0,5.65,4.83,6.51,4.69,New forecaster,2024-25
+Punjab,Lalru,259,30.0,12.01,10.2,12.98,9.88,New forecaster,2024-25
+West Bengal,Kalyani,258,48.0,11.6,5.45,21.62,5.91,Last week's price,2024-25
+Gujarat,Dhrol,257,52.0,3.49,2.88,4.72,2.74,New forecaster,2024-25
+Madhya Pradesh,Vidisha,256,58.0,3.17,2.44,5.2,2.35,New forecaster,2024-25
+Uttar Pradesh,Milak,254,19.82,4.08,1.37,5.41,1.27,New forecaster,2024-25
+West Bengal,Sainthia,254,39.0,10.36,4.78,13.91,4.81,Last week's price,2024-25
+West Bengal,Belacoba,253,32.0,10.06,7.04,12.21,7.0,New forecaster,2024-25
+Punjab,Giddarbaha,252,26.0,13.09,7.1,14.12,6.96,New forecaster,2024-25
+Madhya Pradesh,Dewas,252,46.86,3.87,2.53,5.29,2.53,Last week's price,2024-25
+Rajasthan,Chhabra,252,51.75,3.31,2.23,3.91,2.16,New forecaster,2024-25
+Kerala,Kollam,252,38.0,9.48,5.78,10.28,5.78,Last week's price,2024-25
+Punjab,Bilga,251,30.0,9.04,5.56,10.26,5.68,Last week's price,2024-25
+Kerala,Vamanapuram,251,40.0,3.97,3.09,13.5,3.4,Last week's price,2024-25
+Punjab,Kharar,251,30.0,12.48,6.03,14.3,6.06,Last week's price,2024-25
+West Bengal,Khatra,250,40.0,5.74,2.99,7.22,2.67,New forecaster,2024-25
+Uttar Pradesh,Chitwadagaon,249,28.5,3.55,1.51,8.46,1.56,Last week's price,2024-25
+Madhya Pradesh,Shujalpur,248,50.0,4.64,4.01,6.03,3.96,New forecaster,2024-25
+West Bengal,Moynaguri,248,31.0,10.09,7.25,12.53,7.16,New forecaster,2024-25
+Rajasthan,Dooni,247,24.59,1.9,1.17,3.17,1.17,Last week's price,2024-25
+Rajasthan,Bhawani Mandi,246,45.22,2.51,1.33,4.66,1.27,New forecaster,2024-25
+West Bengal,Uluberia,245,55.0,16.26,8.0,28.66,9.26,Last week's price,2024-25
+Uttar Pradesh,Fatehabad,245,17.0,4.46,2.93,6.42,2.87,New forecaster,2024-25
+Punjab,Baghapurana,245,20.0,8.77,3.42,9.56,3.41,New forecaster,2024-25
+Kerala,Thirurrangadi,245,40.0,6.86,5.0,7.24,4.93,New forecaster,2024-25
+Madhya Pradesh,Harda,243,42.5,2.91,2.12,4.07,2.01,New forecaster,2024-25
+Rajasthan,Jhalarapatan,241,43.1,2.39,1.38,3.65,1.3,New forecaster,2024-25
+Rajasthan,Madanganj Kishangarh,240,26.0,3.31,2.7,5.19,2.58,New forecaster,2024-25
+Punjab,Jagraon,238,28.0,6.8,4.58,11.01,4.42,New forecaster,2024-25
+Madhya Pradesh,Berasia,238,45.5,2.38,1.87,3.46,1.72,New forecaster,2024-25
+Madhya Pradesh,Gadarwada,237,52.01,2.31,2.0,3.09,1.96,New forecaster,2024-25
+Rajasthan,Merta City,236,65.0,3.26,1.69,6.11,1.51,New forecaster,2024-25
+Punjab,Batala,236,32.0,9.98,7.14,14.11,6.87,New forecaster,2024-25
+Gujarat,Halvad,236,60.0,5.4,3.5,7.36,3.28,New forecaster,2024-25
+Madhya Pradesh,Barad,234,48.72,2.8,2.2,5.64,2.08,New forecaster,2024-25
+Madhya Pradesh,Ashta,234,56.9,4.09,3.34,5.04,3.31,New forecaster,2024-25
+Gujarat,Visnagar,233,42.5,3.52,2.15,5.92,2.17,Last week's price,2024-25
+West Bengal,Ranaghat,233,48.0,10.0,4.6,20.96,4.71,Last week's price,2024-25
+Uttar Pradesh,Partaval,233,24.7,3.79,1.43,5.24,1.43,Last week's price,2024-25
+Uttar Pradesh,Dibiapur,231,14.0,2.99,1.69,3.94,1.79,Last week's price,2024-25
+Madhya Pradesh,Burhanpur,230,22.92,2.15,1.84,2.31,1.75,New forecaster,2024-25
+Madhya Pradesh,Ratlam,230,41.55,10.28,8.54,9.37,8.31,New forecaster,2024-25
+Gujarat,Bhavnagar,229,54.05,4.33,3.54,4.8,3.28,New forecaster,2024-25
+West Bengal,Balarampur,228,42.0,7.23,3.49,11.58,3.52,Last week's price,2024-25
+Madhya Pradesh,Narsinghgarh,228,47.95,4.4,3.48,6.49,3.41,New forecaster,2024-25
+Gujarat,Palitana,228,46.08,4.65,3.36,7.46,3.31,New forecaster,2024-25
+Madhya Pradesh,Khategaon,227,42.7,2.6,1.94,4.84,2.23,Last week's price,2024-25
+Madhya Pradesh,Khurai(F&V),227,18.0,4.73,3.5,7.13,3.3,New forecaster,2024-25
+Madhya Pradesh,Dhamnod,226,22.68,3.13,2.61,3.65,2.46,New forecaster,2024-25
+Gujarat,Dhanera,226,30.48,3.31,2.39,6.27,2.14,New forecaster,2024-25
+Madhya Pradesh,Patharia,226,60.78,2.82,2.3,3.77,2.14,New forecaster,2024-25
+Kerala,Omalloor,226,58.0,8.14,4.09,20.05,5.37,Last week's price,2024-25
+Rajasthan,Chhotisadri,225,41.2,3.79,2.69,4.77,2.65,New forecaster,2024-25
+Punjab,Ahmedgarh,225,27.0,12.74,5.14,8.89,4.57,New forecaster,2024-25
+Madhya Pradesh,Alirajpur,224,39.67,4.17,3.38,5.07,3.33,New forecaster,2024-25
+Madhya Pradesh,Badnawar,223,40.0,6.54,5.44,8.35,5.51,Last week's price,2024-25
+Madhya Pradesh,Bhopal,223,43.21,9.24,8.13,11.55,7.53,New forecaster,2024-25
+Madhya Pradesh,Bhikangaon,223,40.7,2.75,2.07,4.07,2.03,New forecaster,2024-25
+Madhya Pradesh,Daloda,223,47.0,6.85,5.2,6.86,5.09,New forecaster,2024-25
+Madhya Pradesh,Pipariya,223,59.5,3.7,2.62,3.75,2.55,New forecaster,2024-25
+Madhya Pradesh,Khandwa,222,41.0,2.7,2.26,3.12,2.22,New forecaster,2024-25
+Rajasthan,Atru,222,40.62,1.88,1.28,3.01,1.27,New forecaster,2024-25
+Rajasthan,Dausa,222,24.32,1.82,0.82,3.44,0.73,New forecaster,2024-25
+Uttar Pradesh,Doharighat,221,39.55,6.16,3.73,10.64,3.95,Last week's price,2024-25
+Madhya Pradesh,Sarangpur,221,45.17,2.23,1.68,3.39,1.78,Last week's price,2024-25
+Madhya Pradesh,Udaipura,221,58.45,3.43,2.07,2.97,1.97,New forecaster,2024-25
+Rajasthan,Bassi,221,24.32,1.81,1.19,3.46,1.1,New forecaster,2024-25
+Rajasthan,Lalsot,221,24.6,1.8,0.98,3.86,0.87,New forecaster,2024-25
+Rajasthan,Hindoun,220,24.53,1.68,0.81,3.68,0.73,New forecaster,2024-25
+Madhya Pradesh,Pohari,219,49.0,3.08,2.06,6.22,1.9,New forecaster,2024-25
+Madhya Pradesh,Banda,218,55.5,2.21,1.85,2.76,1.81,New forecaster,2024-25
+Punjab,Bhulath,217,17.55,7.81,5.76,10.15,5.3,New forecaster,2024-25
+Rajasthan,Chomu (Grain),216,49.45,1.9,1.49,3.43,1.39,New forecaster,2024-25
+Gujarat,Patan,216,50.0,5.23,2.85,7.06,2.86,Last week's price,2024-25
+Uttar Pradesh,Tamkuhi road,216,34.75,1.58,0.78,4.82,0.84,Last week's price,2024-25
+Gujarat,Diyodar,215,28.0,2.63,1.43,4.6,1.38,New forecaster,2024-25
+Punjab,Guru Har Sahai,215,35.0,16.88,9.25,20.17,9.66,Last week's price,2024-25
+Gujarat,Siddhpur,215,50.62,4.29,2.22,7.39,2.32,Last week's price,2024-25
+Gujarat,Bodeliu,214,51.65,1.83,0.9,2.16,0.95,Last week's price,2024-25
+Madhya Pradesh,Ashoknagar,214,61.86,2.45,1.31,5.28,1.32,Last week's price,2024-25
+Rajasthan,Dei,214,41.5,1.83,0.81,3.29,0.73,New forecaster,2024-25
+Uttar Pradesh,Aliganj,214,21.5,0.68,0.35,2.23,0.46,Last week's price,2024-25
+Uttar Pradesh,Tikonia,214,26.05,5.79,3.79,7.84,3.58,New forecaster,2024-25
+Punjab,Nihal Singh Wala,213,18.0,8.41,4.66,12.45,4.41,New forecaster,2024-25
+Rajasthan,Iklera,213,40.9,1.66,0.86,2.64,0.8,New forecaster,2024-25
+Gujarat,Nadiyad(Chaklasi),213,14.0,2.26,1.18,9.02,1.22,Last week's price,2024-25
+West Bengal,Indus(Bankura Sadar),213,59.5,10.84,5.11,15.87,5.25,Last week's price,2024-25
+Gujarat,Bhesan,211,42.5,3.13,2.45,4.11,2.3,New forecaster,2024-25
+Rajasthan,Fatehnagar,211,25.0,1.84,0.87,3.26,0.8,New forecaster,2024-25
+Uttar Pradesh,Rura,211,24.5,5.09,4.78,8.37,4.09,New forecaster,2024-25
+Punjab,Samana,211,45.0,27.46,16.74,34.14,16.31,New forecaster,2024-25
+West Bengal,Coochbehar,210,21.0,9.76,7.48,11.68,7.46,New forecaster,2024-25
+Gujarat,Modasa,210,24.88,3.9,1.67,4.83,1.63,New forecaster,2024-25
+Punjab,Dhuri,210,20.5,10.44,5.92,14.94,5.41,New forecaster,2024-25
+Rajasthan,Niwai,210,43.12,2.56,1.8,4.51,1.74,New forecaster,2024-25
+Punjab,Bariwala,210,25.0,10.72,8.49,12.47,8.11,New forecaster,2024-25
+Gujarat,Vyra,209,56.45,4.83,2.87,8.7,2.92,Last week's price,2024-25
+Gujarat,Upleta,208,47.25,2.92,2.54,3.91,2.42,New forecaster,2024-25
+Madhya Pradesh,Ujjain,208,43.0,3.99,3.3,7.89,3.36,Last week's price,2024-25
+Madhya Pradesh,Sailana,208,42.5,5.96,5.94,6.29,5.77,New forecaster,2024-25
+Gujarat,Mansa(Manas Veg Yard),208,30.0,14.44,8.45,11.67,8.31,New forecaster,2024-25
+Rajasthan,Kawai Salpura (Atru),207,42.0,2.02,1.31,3.56,1.21,New forecaster,2024-25
+Madhya Pradesh,Itarsi,207,46.95,2.7,1.94,4.17,1.86,New forecaster,2024-25
+Gujarat,Veraval,206,51.38,3.96,2.09,2.9,1.94,New forecaster,2024-25
+Madhya Pradesh,Bina,205,61.99,5.25,3.65,6.9,3.73,Last week's price,2024-25
+Kerala,Munnar,204,60.0,12.75,12.72,21.07,11.48,New forecaster,2024-25
+Punjab,Sangrur,203,25.0,8.75,6.29,12.29,6.18,New forecaster,2024-25
+Madhya Pradesh,Shivpuri,203,46.65,3.7,2.35,5.49,2.4,Last week's price,2024-25
+Madhya Pradesh,Jeerapur,202,62.0,2.99,1.53,5.78,1.55,Last week's price,2024-25
+Uttar Pradesh,Vilthararoad,202,25.5,0.94,0.84,3.92,0.84,Last week's price,2024-25
+Rajasthan,Bhusawar Bair,201,24.5,1.69,0.66,3.57,0.59,New forecaster,2024-25
+Madhya Pradesh,Harsood,201,42.01,2.54,1.62,4.01,1.84,Last week's price,2024-25
+Uttar Pradesh,Sikandraraau,200,21.85,1.34,0.58,2.63,0.57,New forecaster,2024-25
+Rajasthan,Itawa,199,41.6,2.01,0.96,3.21,0.91,New forecaster,2024-25
+Kerala,Chathanoor,199,50.0,21.4,14.42,21.99,14.68,Last week's price,2024-25
+Madhya Pradesh,Kailaras,199,52.5,2.52,1.38,6.03,1.29,New forecaster,2024-25
+Gujarat,Kalawad,198,63.38,5.97,3.56,5.62,3.55,New forecaster,2024-25
+Rajasthan,Suratgarh,197,60.5,2.67,1.41,3.61,1.36,New forecaster,2024-25
+Madhya Pradesh,Sironj,197,60.4,2.63,1.85,4.89,1.75,New forecaster,2024-25
+West Bengal,Alipurduar,197,20.0,12.65,8.77,13.8,8.72,New forecaster,2024-25
+Rajasthan,Bikaner (Grain),196,53.21,3.11,2.77,3.67,2.65,New forecaster,2024-25
+Rajasthan,Bayana,196,24.85,1.64,0.78,2.78,0.73,New forecaster,2024-25
+Madhya Pradesh,Khujner,195,60.95,2.99,1.74,5.53,1.71,New forecaster,2024-25
+Rajasthan,Bandikui,195,24.07,1.67,0.91,3.45,0.87,New forecaster,2024-25
+Madhya Pradesh,Paatan,195,56.1,2.12,1.84,2.39,1.74,New forecaster,2024-25
+Gujarat,Dhoraji,194,48.55,2.75,2.2,3.68,2.16,New forecaster,2024-25
+Gujarat,Dhari,194,46.52,4.0,3.51,5.85,3.34,New forecaster,2024-25
+Rajasthan,Nahargarh,193,40.07,2.6,1.76,3.59,1.69,New forecaster,2024-25
+Madhya Pradesh,Guna,193,59.85,2.93,2.26,4.82,2.06,New forecaster,2024-25
+Madhya Pradesh,Nasrullaganj,191,41.41,1.43,1.12,1.92,1.02,New forecaster,2024-25
+Punjab,F.G.Churian,191,17.0,8.92,4.34,11.76,4.27,New forecaster,2024-25
+West Bengal,Karsiyang(Matigara),190,38.0,4.13,0.92,16.29,1.42,Last week's price,2024-25
+Gujarat,Deesa,190,50.31,4.9,1.9,5.14,2.05,Last week's price,2024-25
+Madhya Pradesh,Badwaha,190,35.12,2.59,1.74,2.77,1.71,New forecaster,2024-25
+Punjab,Morinda,189,30.0,7.85,6.6,13.23,6.05,New forecaster,2024-25
+Madhya Pradesh,Khurai,188,60.0,5.48,4.66,7.01,4.6,New forecaster,2024-25
+Rajasthan,Hanumangarh,188,26.32,2.56,1.29,4.48,1.28,New forecaster,2024-25
+Punjab,Kot ise Khan,188,9.0,0.89,0.5,18.41,0.57,Last week's price,2024-25
+Madhya Pradesh,Sabalgarh,188,61.3,2.95,1.48,7.8,1.37,New forecaster,2024-25
+West Bengal,Falakata,187,22.0,10.97,9.66,12.51,9.61,New forecaster,2024-25
+Gujarat,Gogamba,187,23.5,2.32,0.98,3.38,1.03,Last week's price,2024-25
+Madhya Pradesh,Khilchipur,187,44.0,2.39,1.39,4.0,1.36,New forecaster,2024-25
+Andhra Pradesh,Kurnool,184,56.34,4.57,3.81,4.01,3.77,New forecaster,2024-25
+Madhya Pradesh,Sheopurkalan(F&V),184,25.0,7.38,5.78,10.53,5.82,Last week's price,2024-25
+Uttar Pradesh,Khalilabad,183,14.75,3.25,2.48,7.74,2.42,New forecaster,2024-25
+Kerala,Punalur,183,48.0,10.45,5.35,12.4,6.4,Last week's price,2024-25
+West Bengal,Birbhum,182,44.0,15.59,7.16,19.88,7.33,Last week's price,2024-25
+West Bengal,Champadanga,182,38.0,12.57,6.5,18.19,6.86,Last week's price,2024-25
+West Bengal,Darjeeling,182,47.5,7.62,4.3,12.93,4.33,Last week's price,2024-25
+West Bengal,Lalbagh,182,37.5,13.81,10.02,15.86,9.45,New forecaster,2024-25
+West Bengal,Kalipur,182,39.0,12.49,6.53,18.19,6.88,Last week's price,2024-25
+Andhra Pradesh,Anakapally,181,36.6,2.65,1.49,3.27,1.5,Last week's price,2024-25
+Rajasthan,Sriganganagar (Grain),181,60.0,2.87,1.77,4.54,1.66,New forecaster,2024-25
+Gujarat,Junagadh,180,47.5,2.61,2.51,2.78,1.8,New forecaster,2024-25
+West Bengal,Pandua,179,40.0,13.0,6.49,17.91,7.03,Last week's price,2024-25
+Rajasthan,Alwar,179,25.62,1.95,0.99,4.02,0.98,New forecaster,2024-25
+Madhya Pradesh,Garhakota,178,58.02,2.94,2.58,4.23,2.41,New forecaster,2024-25
+Punjab,Naushera Pannuan,178,15.0,5.43,2.95,11.97,2.73,New forecaster,2024-25
+West Bengal,Kalna,177,34.0,8.7,4.26,11.71,3.86,New forecaster,2024-25
+Kerala,Sasthamkotta,177,42.0,4.16,4.23,37.67,4.17,Last month's price,2024-25
+Uttar Pradesh,Bewar,177,24.5,4.99,1.48,4.68,1.59,Last week's price,2024-25
+Rajasthan,Nadwai,177,24.58,1.74,0.71,3.84,0.66,New forecaster,2024-25
+Rajasthan,Barodamev,177,25.75,1.85,0.76,3.87,0.71,New forecaster,2024-25
+Punjab,Sunam,176,15.5,10.12,4.47,17.69,4.49,Last week's price,2024-25
+Madhya Pradesh,Manawar,176,21.5,1.51,1.22,1.51,1.2,New forecaster,2024-25
+Kerala,Taliparamba,176,46.0,6.09,3.9,7.88,3.95,Last week's price,2024-25
+Uttar Pradesh,Bachranwa,176,42.15,2.22,0.38,3.36,0.36,New forecaster,2024-25
+West Bengal,Habra,176,52.5,21.52,14.63,27.94,14.12,New forecaster,2024-25
+Madhya Pradesh,Badnagar,176,42.5,8.66,8.18,9.33,8.01,New forecaster,2024-25
+Uttar Pradesh,Moth,176,25.2,2.32,0.91,4.49,0.9,New forecaster,2024-25
+Madhya Pradesh,Timarni,175,41.9,1.66,1.46,2.23,1.31,New forecaster,2024-25
+Kerala,Kuruppanthura,175,56.0,14.48,6.65,18.63,7.14,Last week's price,2024-25
+Rajasthan,Kekri,175,60.0,2.43,1.63,3.48,1.61,New forecaster,2024-25
+Punjab,Phillaur(Apra Mandi),174,25.0,7.46,4.94,11.21,4.87,New forecaster,2024-25
+West Bengal,Barasat,174,50.0,12.01,9.05,22.34,8.15,New forecaster,2024-25
+Rajasthan,Kherli,173,25.0,1.54,0.61,3.89,0.65,Last week's price,2024-25
+Uttar Pradesh,Khairagarh,173,30.5,4.71,2.76,6.24,2.74,New forecaster,2024-25
+Madhya Pradesh,Khetia,173,40.0,2.56,2.02,3.81,1.87,New forecaster,2024-25
+Kerala,Thalasserry,172,43.5,9.89,6.29,8.45,6.82,Last week's price,2024-25
+Rajasthan,Gajsinghpur,172,58.26,2.66,1.86,5.1,1.72,New forecaster,2024-25
+Rajasthan,Hanumangarh Town,172,51.5,2.95,1.4,5.03,1.32,New forecaster,2024-25
+Uttar Pradesh,Anwala,170,11.0,5.51,2.79,6.72,2.75,New forecaster,2024-25
+Uttar Pradesh,Samsabad,170,26.12,4.92,2.73,12.57,2.57,New forecaster,2024-25
+West Bengal,Guskara,170,57.0,4.11,1.74,8.59,2.13,Last week's price,2024-25
+West Bengal,Mathabhanga,170,35.25,13.27,6.08,13.46,6.4,Last week's price,2024-25
+Madhya Pradesh,Kukshi,169,39.0,2.04,1.79,2.26,1.74,New forecaster,2024-25
+West Bengal,Garbeta(Medinipur),169,53.0,13.91,7.47,21.68,7.75,Last week's price,2024-25
+Uttar Pradesh,Chorichora,169,81.0,4.25,2.78,16.31,2.52,New forecaster,2024-25
+West Bengal,Purulia,168,35.25,6.97,3.73,8.08,3.24,New forecaster,2024-25
+Rajasthan,Chaksu,168,27.56,2.87,1.81,4.51,1.71,New forecaster,2024-25
+Madhya Pradesh,Dhar,167,42.0,2.62,2.27,3.35,2.14,New forecaster,2024-25
+Uttar Pradesh,Kiratpur,167,18.5,4.53,3.04,4.71,2.81,New forecaster,2024-25
+Madhya Pradesh,Anjad,166,20.0,2.04,1.75,2.43,1.62,New forecaster,2024-25
+Madhya Pradesh,Sonkatch,164,54.4,2.68,2.13,2.98,1.93,New forecaster,2024-25
+West Bengal,Haldibari,164,35.0,13.32,6.07,13.83,6.66,Last week's price,2024-25
+West Bengal,Baxirhat,164,34.5,12.3,5.65,12.55,5.95,Last week's price,2024-25
+Uttar Pradesh,Mehrauni,163,40.0,0.4,0.09,0.41,0.27,Last week's price,2024-25
+Rajasthan,Madanganj Mandawar,163,24.14,1.46,0.6,3.77,0.61,Last week's price,2024-25
+Madhya Pradesh,Jobat,162,40.0,2.53,1.92,3.86,1.94,Last week's price,2024-25
+West Bengal,Pundibari,162,22.75,11.52,8.88,14.27,8.83,New forecaster,2024-25
+Uttar Pradesh,Kamlaganj,161,20.5,5.32,2.59,10.44,2.4,New forecaster,2024-25
+Gujarat,Vankaner,161,37.0,2.6,1.82,3.02,1.77,New forecaster,2024-25
+West Bengal,Diamond Harbour(South 24-pgs),160,49.0,15.07,7.49,25.64,8.06,Last week's price,2024-25
+Uttar Pradesh,Sikanderabad,160,18.0,8.65,6.97,10.73,5.51,New forecaster,2024-25
+Punjab,GarhShankar (Kotfatuhi),160,25.0,7.1,5.86,10.3,5.14,New forecaster,2024-25
+Madhya Pradesh,Pandhana,160,40.0,0.97,0.7,1.04,0.7,Last week's price,2024-25
+Madhya Pradesh,Nagda,160,42.63,1.66,1.2,3.04,1.22,Last week's price,2024-25
+Kerala,Kuttoor,159,48.0,11.75,7.58,33.06,8.48,Last week's price,2024-25
+West Bengal,Burdwan,159,45.0,9.68,4.3,13.1,4.29,New forecaster,2024-25
+Punjab,Raman,158,37.35,2.59,0.91,9.48,1.94,Last week's price,2024-25
+West Bengal,Tamluk (Medinipur E),158,24.0,6.73,3.13,11.72,3.41,Last week's price,2024-25
+Madhya Pradesh,Ichhawar(F&V),157,43.1,5.17,3.58,5.13,3.58,Last week's price,2024-25
+Madhya Pradesh,Gautampura,156,40.95,4.67,4.93,4.67,4.92,Last month's price,2024-25
+Punjab,Kalanaur,156,45.0,4.74,4.0,10.23,4.42,Last week's price,2024-25
+Rajasthan,Mandawari,156,25.84,2.07,0.85,4.52,0.76,New forecaster,2024-25
+Punjab,Abohar,155,26.5,11.93,6.52,12.05,7.2,Last week's price,2024-25
+Gujarat,Mansa,155,35.75,2.9,1.65,3.84,1.59,New forecaster,2024-25
+Rajasthan,Gharsana,154,59.0,2.84,1.62,3.07,1.53,New forecaster,2024-25
+Gujarat,Vadgam,154,24.22,6.09,3.8,6.51,3.74,New forecaster,2024-25
+Rajasthan,Raisingh Nagar,153,58.79,2.66,1.71,3.43,1.51,New forecaster,2024-25
+West Bengal,Dinhata,153,28.0,4.56,3.5,5.83,3.5,Last week's price,2024-25
+Gujarat,Bhiloda,153,22.5,3.61,2.37,3.66,2.33,New forecaster,2024-25
+West Bengal,Chakdah,152,52.0,12.91,5.98,23.63,5.94,New forecaster,2024-25
+Andhra Pradesh,Adoni,152,63.89,3.34,2.8,4.45,2.72,New forecaster,2024-25
+Rajasthan,Dholpur,152,24.65,1.48,0.93,3.53,0.89,New forecaster,2024-25
+Punjab,Talwandi Sabo,151,28.0,7.88,5.41,11.27,5.27,New forecaster,2024-25
+Rajasthan,Lunkaransar,150,40.98,2.01,1.25,1.96,1.02,New forecaster,2024-25
+Madhya Pradesh,Tendukheda,150,60.0,3.06,2.53,3.92,2.18,New forecaster,2024-25
+Rajasthan,Tijara,150,25.4,2.02,0.99,4.28,0.95,New forecaster,2024-25
+Rajasthan,Sri Madhopur,150,46.5,2.82,2.03,3.88,1.98,New forecaster,2024-25
+Gujarat,Mehsana,150,41.12,2.14,1.02,4.89,0.9,New forecaster,2024-25
+Rajasthan,Choumahla,149,39.4,1.84,1.05,2.12,1.02,New forecaster,2024-25
+West Bengal,Memari,149,42.0,9.21,5.96,17.54,5.6,New forecaster,2024-25
+Uttar Pradesh,Jasra,149,27.7,4.44,1.66,7.28,1.67,Last week's price,2024-25
+Rajasthan,Keshoraipatan,149,42.1,2.03,1.22,3.27,1.21,New forecaster,2024-25
+Madhya Pradesh,Gandhwani,148,41.0,3.28,2.34,2.57,2.26,New forecaster,2024-25
+Gujarat,Kalol,148,31.05,3.43,2.58,4.25,2.5,New forecaster,2024-25
+Uttar Pradesh,Fatehpur Sikri,145,27.8,7.9,4.15,15.42,4.02,New forecaster,2024-25
+Madhya Pradesh,Mhow,145,42.0,2.44,2.14,3.02,2.01,New forecaster,2024-25
+Rajasthan,Tonk,145,59.76,2.3,0.81,3.66,0.72,New forecaster,2024-25
+Gujarat,Zalod(Sanjeli),145,23.0,1.59,0.8,0.75,0.85,Step-1 model (average per crop),2024-25
+Madhya Pradesh,Chhatarpur,145,48.0,3.97,2.25,4.39,2.03,New forecaster,2024-25
+Madhya Pradesh,Rehli,145,55.21,2.48,1.92,2.98,1.84,New forecaster,2024-25
+West Bengal,Rampurhat,145,65.25,2.01,0.73,6.64,1.19,Last week's price,2024-25
+Rajasthan,Barisadri,145,41.92,2.0,1.24,2.89,1.12,New forecaster,2024-25
+Gujarat,Bhanvad,145,48.0,2.14,1.5,2.91,1.38,New forecaster,2024-25
+West Bengal,Bankura Sadar,144,59.5,9.34,5.11,14.08,5.17,Last week's price,2024-25
+Madhya Pradesh,A lot,144,42.41,4.4,4.64,8.14,4.68,Last month's price,2024-25
+Rajasthan,Rawatsar,144,58.94,2.39,1.09,4.19,0.99,New forecaster,2024-25
+Rajasthan,Gangapur City,144,24.72,1.68,0.69,4.24,0.67,New forecaster,2024-25
+Madhya Pradesh,Nagod,144,60.5,3.45,2.73,5.19,2.61,New forecaster,2024-25
+Rajasthan,Khairthal,144,24.5,1.72,0.71,3.76,0.64,New forecaster,2024-25
+Rajasthan,Anupgarh,143,58.6,2.48,1.24,4.07,1.13,New forecaster,2024-25
+Madhya Pradesh,Gairatganj,143,58.0,2.25,1.93,2.7,1.86,New forecaster,2024-25
+Madhya Pradesh,Chaurai,143,21.52,2.2,1.83,2.53,1.67,New forecaster,2024-25
+Madhya Pradesh,Kareli(F&V),143,47.56,3.14,2.55,3.63,2.45,New forecaster,2024-25
+Punjab,Mehatpur,143,26.0,7.01,3.99,9.34,4.04,Last week's price,2024-25
+Rajasthan,Bansoor,142,25.25,1.61,0.71,4.79,0.81,Last week's price,2024-25
+Uttar Pradesh,Rampurmaniharan,142,16.0,4.11,3.12,9.31,2.81,New forecaster,2024-25
+Madhya Pradesh,Sanawad,142,38.52,3.64,3.28,4.01,2.75,New forecaster,2024-25
+Madhya Pradesh,Jawar,141,47.01,2.63,1.97,2.71,2.07,Last week's price,2024-25
+Rajasthan,Goluwala,141,57.0,2.18,1.02,4.32,0.96,New forecaster,2024-25
+Punjab,Majitha,141,6.0,6.72,2.51,19.94,2.42,New forecaster,2024-25
+Gujarat,Bardoli(Katod),141,19.5,1.92,1.28,8.62,1.36,Last week's price,2024-25
+Madhya Pradesh,Rewa,141,59.22,3.62,2.44,5.18,2.22,New forecaster,2024-25
+Rajasthan,Nohar,140,60.24,3.34,2.23,6.76,1.95,New forecaster,2024-25
+Rajasthan,Bhilwara,139,26.3,5.01,3.52,8.57,3.43,New forecaster,2024-25
+Rajasthan,Deeg,139,25.8,2.01,0.78,4.2,0.72,New forecaster,2024-25
+Rajasthan,Vijaynagar,139,24.0,1.97,1.66,2.84,1.5,New forecaster,2024-25
+Madhya Pradesh,Soyatkalan,139,41.35,8.26,6.66,8.47,6.72,Last week's price,2024-25
+Madhya Pradesh,Morena,139,57.35,3.02,1.64,7.84,1.47,New forecaster,2024-25
+Madhya Pradesh,Kannod,139,42.8,2.17,2.03,2.92,1.93,New forecaster,2024-25
+Rajasthan,Madanganj Mahuwa,138,24.44,1.72,0.68,4.09,0.66,New forecaster,2024-25
+Rajasthan,Bharatpur,138,24.92,1.58,0.93,2.52,0.87,New forecaster,2024-25
+Madhya Pradesh,Sirali,138,41.0,1.19,1.0,1.7,0.94,New forecaster,2024-25
+Rajasthan,Sangriya,138,61.31,2.86,1.19,5.77,1.06,New forecaster,2024-25
+Rajasthan,Beawar,138,26.0,2.45,1.66,3.27,1.57,New forecaster,2024-25
+Gujarat,Zalod(Zalod),138,23.75,1.62,1.21,1.16,1.32,Step-1 model (average per crop),2024-25
+Madhya Pradesh,Banapura,137,42.99,2.0,1.73,2.75,1.64,New forecaster,2024-25
+Punjab,Noor Mehal,137,15.0,5.85,2.45,13.86,2.62,Last week's price,2024-25
+Gujarat,Palanpur,137,24.57,6.56,2.69,7.59,2.94,Last week's price,2024-25
+Rajasthan,Bahror,136,60.0,0.79,0.35,1.55,0.84,Last week's price,2024-25
+Gujarat,Talod,136,22.35,3.54,1.82,4.16,1.75,New forecaster,2024-25
+Madhya Pradesh,Pandhurna,136,42.5,2.17,1.8,3.94,1.71,New forecaster,2024-25
+Gujarat,Thara,136,32.83,3.71,2.17,4.94,2.08,New forecaster,2024-25
+Punjab,Hoshiarpur(Sham Churasi),135,22.0,7.01,4.88,11.64,4.98,Last week's price,2024-25
+Gujarat,Modasa(Tintoi),135,23.5,3.89,1.72,5.16,1.65,New forecaster,2024-25
+Punjab,Malerkotla,135,20.0,9.25,1.79,13.75,1.97,Last week's price,2024-25
+Uttar Pradesh,Shahpur,134,11.62,6.57,3.46,10.55,2.79,New forecaster,2024-25
+Gujarat,Jam Khambalia,134,51.0,3.29,2.7,4.05,2.49,New forecaster,2024-25
+West Bengal,Balurghat,133,30.0,14.69,8.59,12.46,8.75,Last week's price,2024-25
+Rajasthan,Ositan Mathania,132,55.84,2.5,1.59,3.03,1.5,New forecaster,2024-25
+Madhya Pradesh,Ichhawar,132,42.96,2.8,1.75,2.83,1.93,Last week's price,2024-25
+Madhya Pradesh,Seoni,132,20.0,1.44,0.83,1.04,0.83,Last week's price,2024-25
+Madhya Pradesh,Vijaypur,132,63.0,3.36,1.61,9.76,1.5,New forecaster,2024-25
+Gujarat,Kodinar,131,41.35,4.21,2.3,3.28,2.17,New forecaster,2024-25
+Rajasthan,Kama,131,59.0,2.11,0.9,4.77,0.79,New forecaster,2024-25
+Rajasthan,Kesarisinghpur,129,47.51,2.33,1.17,3.85,1.16,New forecaster,2024-25
+Rajasthan,Jaitsar,129,56.6,2.31,1.02,3.55,0.9,New forecaster,2024-25
+West Bengal,Kalimpong,129,51.0,4.42,1.67,26.99,2.09,Last week's price,2024-25
+Gujarat,Vadali,129,22.62,3.71,2.51,4.1,2.52,Last week's price,2024-25
+Rajasthan,Padampur,128,53.04,2.65,1.18,4.02,1.03,New forecaster,2024-25
+Kerala,Ranniangadi,127,40.0,5.25,4.37,11.48,4.17,New forecaster,2024-25
+Uttar Pradesh,Jahanabad,127,24.5,0.41,0.3,1.67,0.37,Last week's price,2024-25
+Uttar Pradesh,Jhansi (Grain),127,44.0,2.31,1.33,3.01,1.28,New forecaster,2024-25
+Uttar Pradesh,Dataganj,127,24.7,1.06,0.25,2.43,0.36,Last week's price,2024-25
+Madhya Pradesh,Sendhwa,126,38.0,2.68,2.42,2.8,2.3,New forecaster,2024-25
+Madhya Pradesh,Binaganj,126,43.0,1.97,1.34,2.59,1.22,New forecaster,2024-25
+Gujarat,Deesa(Bhildi),126,45.0,3.41,1.9,3.69,1.85,New forecaster,2024-25
+Madhya Pradesh,Shamshabad,126,42.68,2.0,1.73,2.96,1.52,New forecaster,2024-25
+Uttar Pradesh,Gangoh,125,20.0,11.0,6.25,11.51,6.12,New forecaster,2024-25
+Madhya Pradesh,Isagarh,125,59.55,2.32,1.54,4.38,1.53,New forecaster,2024-25
+Rajasthan,Samraniyan,125,39.21,1.75,1.17,2.24,1.1,New forecaster,2024-25
+Madhya Pradesh,Bamora,125,59.71,3.12,3.12,4.59,2.82,New forecaster,2024-25
+Rajasthan,Bhagat Ki Kothi,124,62.5,4.55,4.13,10.06,3.7,New forecaster,2024-25
+Uttar Pradesh,Nagina,124,20.0,7.99,5.71,20.71,4.76,New forecaster,2024-25
+Madhya Pradesh,Taal,124,41.96,2.19,1.7,2.58,1.64,New forecaster,2024-25
+Kerala,Manathavady,124,35.0,5.27,3.79,27.51,2.98,New forecaster,2024-25
+Punjab,Harike,124,8.0,1.22,1.13,22.09,1.01,New forecaster,2024-25
+Punjab,Nakodar,124,15.0,5.04,2.65,9.54,2.6,New forecaster,2024-25
+West Bengal,Egra/contai,124,51.0,10.28,7.27,17.88,7.19,New forecaster,2024-25
+Uttar Pradesh,Payagpur,124,43.5,11.39,7.69,15.99,7.86,Last week's price,2024-25
+Madhya Pradesh,Rahatgarh,123,55.55,2.68,2.17,4.27,2.16,New forecaster,2024-25
+Punjab,Khamano,123,30.0,12.73,10.11,13.13,9.6,New forecaster,2024-25
+Madhya Pradesh,Mahidpur(F&V),123,42.0,7.07,6.51,6.05,6.21,Step-1 model (average per crop),2024-25
+Madhya Pradesh,Susner,123,42.71,1.55,1.14,2.75,1.16,Last week's price,2024-25
+Punjab,Bhulath (Nadala),123,17.65,8.9,5.57,11.95,5.04,New forecaster,2024-25
+Uttar Pradesh,Babrala,123,24.45,0.66,0.4,2.53,0.43,Last week's price,2024-25
+Madhya Pradesh,Bhind,122,62.9,2.81,1.27,6.5,1.15,New forecaster,2024-25
+Uttar Pradesh,Konch,122,25.21,8.0,4.96,7.66,4.81,New forecaster,2024-25
+Rajasthan,Anta,121,40.01,1.32,1.04,1.68,0.97,New forecaster,2024-25
+Rajasthan,Malpura(Todaraisingh),121,62.75,2.23,1.05,6.71,1.1,Last week's price,2024-25
+Rajasthan,Palsana,121,25.5,1.11,0.64,1.29,0.52,New forecaster,2024-25
+Punjab,Kapurthala,120,14.0,5.67,2.97,15.15,3.08,Last week's price,2024-25
+West Bengal,Kandi,120,42.8,2.0,0.82,2.45,0.58,New forecaster,2024-25
+Gujarat,"Patan(Veg,Yard Patan)",120,25.0,6.96,6.07,7.38,5.35,New forecaster,2024-25
+Gujarat,Gogamba(Similiya),118,35.88,3.12,1.36,5.74,1.36,Last week's price,2024-25
+Madhya Pradesh,Lahar,116,63.6,3.44,1.35,7.78,1.2,New forecaster,2024-25
+Rajasthan,Nokha,116,52.54,1.92,1.43,2.31,1.45,Last week's price,2024-25
+Uttar Pradesh,Madhogarh,116,24.5,5.34,1.6,8.25,1.65,Last week's price,2024-25
+Madhya Pradesh,Jabalpur(F&V),116,20.0,2.62,2.31,6.53,2.29,New forecaster,2024-25
+Rajasthan,Sumerganj,115,53.25,1.94,0.99,4.11,0.9,New forecaster,2024-25
+Rajasthan,Sawai Madhopur,115,25.35,1.92,1.14,3.76,1.1,New forecaster,2024-25
+Rajasthan,Degana,114,52.25,2.19,1.69,2.07,1.46,New forecaster,2024-25
+Madhya Pradesh,Chattarpur(F&V),113,20.0,5.6,3.62,5.64,3.62,Last week's price,2024-25
+Uttar Pradesh,Tanda(Rampur),113,10.2,3.52,1.95,9.29,1.83,New forecaster,2024-25
+Uttar Pradesh,Bhehjoi,113,20.5,1.47,0.64,3.5,0.95,Last week's price,2024-25
+Rajasthan,Sri Karanpur,113,58.0,2.67,1.21,4.32,1.08,New forecaster,2024-25
+Madhya Pradesh,Mahidpur,113,42.9,2.77,2.25,3.47,2.23,New forecaster,2024-25
+Uttar Pradesh,Vilaspur,113,21.0,8.85,3.18,16.32,2.81,New forecaster,2024-25
+Rajasthan,Kotputli,112,25.8,1.84,1.13,2.72,1.15,Last week's price,2024-25
+Madhya Pradesh,Petlawad,112,40.5,0.89,0.84,0.84,0.88,Last week's price,2024-25
+Madhya Pradesh,Gorakhpur,111,41.0,2.58,2.16,2.21,2.08,New forecaster,2024-25
+West Bengal,Toofanganj,110,30.0,4.12,3.39,4.95,3.42,Last week's price,2024-25
+Gujarat,Panthawada,110,59.0,5.01,2.61,6.2,2.58,New forecaster,2024-25
+Kerala,Vithinasserri VFPCK,110,40.0,8.96,4.44,10.25,5.1,Last week's price,2024-25
+Madhya Pradesh,LavKush Nagar(Laundi),110,59.25,2.65,1.7,3.57,1.41,New forecaster,2024-25
+West Bengal,Mekhliganj,109,30.0,3.63,2.86,4.65,2.91,Last week's price,2024-25
+Rajasthan,Laxmangarh (Barodamev),109,63.0,2.65,1.31,6.23,1.24,New forecaster,2024-25
+Madhya Pradesh,Silvani,109,61.5,3.1,2.02,2.49,2.0,New forecaster,2024-25
+Madhya Pradesh,Badod,108,43.06,2.12,1.41,3.31,1.53,Last week's price,2024-25
+Andhra Pradesh,Tiruvuru,108,22.5,0.34,0.35,0.38,0.35,Last month's price,2024-25
+Gujarat,Tharad,108,58.25,1.95,1.04,2.4,1.02,New forecaster,2024-25
+Kerala,Kattakada,108,47.0,8.84,7.52,14.7,6.46,New forecaster,2024-25
+Rajasthan,Sadulshahar,108,52.0,2.47,1.4,4.82,1.38,New forecaster,2024-25
+Uttar Pradesh,Raath,107,59.0,3.14,1.14,5.69,1.29,Last week's price,2024-25
+Madhya Pradesh,Tikamgarh,107,42.52,3.54,2.11,3.34,2.04,New forecaster,2024-25
+Madhya Pradesh,Momanbadodiya,107,42.3,2.43,1.63,3.22,1.92,Last week's price,2024-25
+Rajasthan,Sri Vijayanagar,106,51.56,2.67,1.21,3.43,1.12,New forecaster,2024-25
+Madhya Pradesh,Nainpur,106,20.0,1.07,0.86,0.97,0.82,New forecaster,2024-25
+Uttar Pradesh,Richha,106,44.02,2.08,1.5,24.97,1.12,New forecaster,2024-25
+Andhra Pradesh,Rajahmundry,105,25.0,6.01,4.76,4.45,4.73,Step-1 model (average per crop),2024-25
+Punjab,Faridkot,105,35.0,17.53,8.98,19.58,9.09,Last week's price,2024-25
+West Bengal,Kasipur,105,24.0,9.92,5.25,8.17,5.04,New forecaster,2024-25
+Madhya Pradesh,Chhpara,105,20.5,1.19,0.83,0.79,0.81,Step-1 model (average per crop),2024-25
+Rajasthan,Pilibanga,104,60.02,2.68,1.12,3.35,1.03,New forecaster,2024-25
+Madhya Pradesh,Sirali(F&V),103,10.0,3.06,3.77,4.2,3.57,Last month's price,2024-25
+Madhya Pradesh,Maksudangarh,103,43.05,2.32,1.42,3.56,1.38,New forecaster,2024-25
+Madhya Pradesh,Bareli,101,61.9,3.75,3.41,3.11,3.2,Step-1 model (average per crop),2024-25
+Madhya Pradesh,Lashkar,101,64.5,3.7,1.91,8.8,1.84,New forecaster,2024-25
+West Bengal,Raiganj,100,27.5,4.8,4.15,8.55,3.79,New forecaster,2024-25
+Madhya Pradesh,Gohad,100,64.35,3.34,1.68,8.31,1.56,New forecaster,2024-25
+Madhya Pradesh,Tarana,100,43.0,2.03,1.79,2.94,1.56,New forecaster,2024-25
+Punjab,Mamdot,98,33.0,9.37,4.38,11.31,4.07,New forecaster,2024-25
+Uttar Pradesh,Sirsa,98,26.0,5.64,2.03,5.51,1.7,New forecaster,2024-25
+Rajasthan,Jodhpur (Grain),97,59.2,3.96,2.92,3.68,2.56,New forecaster,2024-25
+Rajasthan,Sumerpur,97,25.84,2.19,1.15,3.55,1.08,New forecaster,2024-25
+Uttar Pradesh,Charkhari,96,24.5,0.92,0.6,1.23,0.51,New forecaster,2024-25
+Uttar Pradesh,Kishunpur,96,24.5,0.61,0.75,2.32,0.75,Last month's price,2024-25
+Madhya Pradesh,Sanwer,95,42.4,2.31,1.9,3.26,1.9,Last week's price,2024-25
+Kerala,Vadakarapathy VFPCK,94,26.25,10.77,10.6,13.77,9.37,New forecaster,2024-25
+Madhya Pradesh,Haatpipliya,94,42.58,2.65,2.48,2.72,2.32,New forecaster,2024-25
+Madhya Pradesh,Aron,93,42.59,2.12,1.21,3.01,1.26,Last week's price,2024-25
+Gujarat,Hadad,93,68.5,1.45,0.62,2.05,0.76,Last week's price,2024-25
+Rajasthan,Pahari,93,64.45,3.7,1.39,7.66,1.28,New forecaster,2024-25
+Gujarat,Mandvi,92,55.0,9.39,5.5,10.65,5.06,New forecaster,2024-25
+Madhya Pradesh,Kalapipal(F&V),92,38.7,4.93,4.06,4.94,4.09,Last week's price,2024-25
+West Bengal,Bara Bazar (Posta Bazar),92,62.5,13.28,6.27,38.3,6.74,Last week's price,2024-25
+Rajasthan,Kishangarhbas,92,61.0,2.84,1.81,5.15,1.81,Last week's price,2024-25
+Gujarat,Kalediya,92,68.5,1.38,0.49,1.94,0.62,Last week's price,2024-25
+Gujarat,Modasar,92,68.5,1.38,0.48,1.89,0.61,Last week's price,2024-25
+Rajasthan,Gudhagorji,92,25.0,1.32,0.66,2.19,0.75,Last week's price,2024-25
+Andhra Pradesh,Chittoor,91,35.0,0.08,0.08,0.69,0.18,Last month's price,2024-25
+Madhya Pradesh,Mungawali,90,45.92,2.17,1.59,3.25,1.51,New forecaster,2024-25
+Uttar Pradesh,Jhijhank,90,24.35,1.44,0.86,3.46,1.01,Last week's price,2024-25
+Madhya Pradesh,Sheopurkalan,90,63.35,3.5,1.69,8.15,1.51,New forecaster,2024-25
+Gujarat,Mehsana(Jornang),90,21.75,1.58,1.0,3.08,1.03,Last week's price,2024-25
+Rajasthan,Nagaur,89,60.0,3.49,1.88,5.49,1.82,New forecaster,2024-25
+Madhya Pradesh,Multai,89,22.0,1.09,1.15,0.85,0.98,Step-1 model (average per crop),2024-25
+Punjab,Chogawan,89,8.0,3.13,1.12,16.08,1.32,Last week's price,2024-25
+Madhya Pradesh,Dindori,88,54.0,3.1,3.43,3.71,3.0,New forecaster,2024-25
+West Bengal,Gajol,87,32.0,9.03,4.74,13.35,4.52,New forecaster,2024-25
+Madhya Pradesh,Niwadi,87,49.05,2.3,1.59,4.93,1.62,Last week's price,2024-25
+Rajasthan,Surajgarh,87,61.0,3.39,1.34,6.23,1.14,New forecaster,2024-25
+Madhya Pradesh,Gotegaon,87,41.6,2.27,2.22,2.13,1.94,New forecaster,2024-25
+West Bengal,Bethuadahari,87,48.0,17.32,6.24,18.91,6.29,Last week's price,2024-25
+Kerala,Kannur,87,43.0,9.5,8.32,7.96,8.07,Step-1 model (average per crop),2024-25
+Gujarat,Lakhani,87,59.1,2.99,0.94,6.97,0.98,Last week's price,2024-25
+Madhya Pradesh,Lateri,86,41.78,2.5,2.13,2.66,2.03,New forecaster,2024-25
+Gujarat,Kadi,86,25.38,3.03,2.35,3.31,2.36,Last week's price,2024-25
+Madhya Pradesh,Jobat(F&V),86,39.0,1.94,1.36,1.51,1.51,Last week's price,2024-25
+Rajasthan,Kapasan,86,26.0,0.62,0.31,0.56,0.46,Last week's price,2024-25
+Gujarat,Tharad(Rah),86,59.5,2.57,0.94,5.77,0.98,Last week's price,2024-25
+Madhya Pradesh,Porsa,86,62.55,3.06,1.32,7.02,1.13,New forecaster,2024-25
+Uttar Pradesh,Najibabad,85,14.0,8.51,4.66,10.02,4.08,New forecaster,2024-25
+Uttar Pradesh,Ait,85,24.4,0.35,0.23,1.75,0.27,Last week's price,2024-25
+Madhya Pradesh,Palari,85,20.15,0.97,0.28,0.39,0.29,Last week's price,2024-25
+Gujarat,Mahuva(Anaval),83,20.0,17.45,6.58,14.03,7.71,Last week's price,2024-25
+Gujarat,Vansda,83,27.5,10.73,5.16,11.24,6.59,Last week's price,2024-25
+Madhya Pradesh,Jhabua,83,41.23,1.58,1.49,1.39,1.35,New forecaster,2024-25
+West Bengal,Katwa,83,60.0,1.14,0.64,1.31,0.74,Last week's price,2024-25
+Gujarat,Vijapur(veg),83,24.0,12.14,7.25,8.78,6.88,New forecaster,2024-25
+Uttar Pradesh,Baruwasagar,83,26.0,1.45,0.73,12.2,0.88,Last week's price,2024-25
+Rajasthan,Bhadara,82,60.1,5.17,4.83,4.18,4.72,Step-1 model (average per crop),2024-25
+Punjab,Lohian Khas,82,13.0,8.31,4.39,13.05,4.69,Last week's price,2024-25
+Rajasthan,Chhipabarod (Chhabra),82,39.99,1.57,1.35,2.62,1.29,New forecaster,2024-25
+West Bengal,Beldanga,82,64.0,4.48,1.5,6.12,1.62,Last week's price,2024-25
+Madhya Pradesh,Karhi,81,21.0,2.17,1.7,1.94,1.66,New forecaster,2024-25
+Punjab,Dera Baba Nanak,81,11.0,3.69,2.18,16.32,1.97,New forecaster,2024-25
+Kerala,Pullur Periya VFPCK,80,45.0,6.17,4.54,5.69,5.14,Last week's price,2024-25
+Rajasthan,Chirawa,80,61.0,3.29,1.85,6.03,1.61,New forecaster,2024-25
+Madhya Pradesh,Itarsi(F&V),80,20.83,2.59,1.76,2.87,1.76,Last week's price,2024-25
+Gujarat,Harij,80,23.78,2.12,1.55,3.44,1.45,New forecaster,2024-25
+Madhya Pradesh,Gotegaon(F&V),79,41.0,2.33,2.48,1.97,2.18,Step-1 model (average per crop),2024-25
+Gujarat,Songadh,79,40.0,10.39,12.17,10.75,10.68,Last month's price,2024-25
+Rajasthan,Dablirathan,78,50.0,5.14,2.42,13.34,2.83,Last week's price,2024-25
+Madhya Pradesh,Badamalhera,78,41.0,2.66,1.95,2.03,1.99,Last week's price,2024-25
+Gujarat,Amirgadh,77,24.25,1.57,1.28,2.99,1.21,New forecaster,2024-25
+Madhya Pradesh,Mow,77,65.0,3.84,1.51,9.84,1.39,New forecaster,2024-25
+Rajasthan,Khajuwala,77,61.0,3.27,1.6,5.23,1.56,New forecaster,2024-25
+Gujarat,Thara(Shihori),77,21.65,1.85,1.48,5.1,1.38,New forecaster,2024-25
+Uttar Pradesh,Bahedi,77,46.7,3.39,2.03,22.92,2.03,Last week's price,2024-25
+West Bengal,English Bazar,76,90.0,0.09,0.09,6.0,0.24,Last month's price,2024-25
+Uttar Pradesh,Visoli,76,20.0,1.1,0.27,2.94,0.49,Last week's price,2024-25
+Madhya Pradesh,Panna,76,60.0,3.64,3.76,4.63,3.46,New forecaster,2024-25
+Uttar Pradesh,Kurara,76,24.75,0.65,0.62,2.12,0.6,New forecaster,2024-25
+Kerala,Nedumkandam,76,30.0,5.28,2.81,5.01,3.02,Last week's price,2024-25
+Gujarat,Umreth,76,24.1,1.56,0.7,1.02,0.88,Last week's price,2024-25
+Madhya Pradesh,Tikamgarh(F&V),76,42.0,2.01,1.26,2.9,1.17,New forecaster,2024-25
+Uttar Pradesh,Banthara,76,25.82,0.55,0.28,0.52,0.27,New forecaster,2024-25
+Gujarat,Dehgam,75,24.75,1.83,0.83,1.82,0.88,Last week's price,2024-25
+Madhya Pradesh,Sailana(F&V),75,35.0,8.42,7.16,8.48,7.38,Last week's price,2024-25
+West Bengal,Jiaganj,75,60.5,1.08,0.67,2.18,0.71,Last week's price,2024-25
+Gujarat,Babra,75,79.25,2.75,1.17,7.54,1.51,Last week's price,2024-25
+Madhya Pradesh,Deori,75,42.2,2.62,3.1,3.02,2.33,New forecaster,2024-25
+Gujarat,Dehgam(Rekhiyal),74,24.37,1.78,0.77,2.28,0.9,Last week's price,2024-25
+Gujarat,Songadh(Umrada),74,39.92,10.57,12.09,11.1,10.3,New forecaster,2024-25
+Gujarat,Songadh(Badarpada),74,39.85,10.79,12.23,11.11,10.68,New forecaster,2024-25
+Madhya Pradesh,Unhel,74,42.73,1.56,0.95,3.24,1.02,Last week's price,2024-25
+Kerala,Kodungalloor,73,42.0,11.9,7.99,11.27,8.64,Last week's price,2024-25
+Madhya Pradesh,Khachrod,73,42.41,2.15,1.67,2.86,1.67,Last week's price,2024-25
+Madhya Pradesh,Ghansour,73,19.8,1.03,1.16,1.48,0.96,New forecaster,2024-25
+Uttar Pradesh,Bharwari,72,25.0,0.15,0.06,1.4,0.13,Last week's price,2024-25
+Madhya Pradesh,Badnawar(F&V),71,30.0,10.08,8.87,13.09,9.14,Last week's price,2024-25
+Rajasthan,Nagar,71,63.4,3.55,1.22,8.31,0.95,New forecaster,2024-25
+Kerala,Kuthuparambu,71,80.0,0.0,0.0,32.74,0.42,Last month's price,2024-25
+West Bengal,Jhargram,71,54.0,21.55,11.75,27.24,11.45,New forecaster,2024-25
+Madhya Pradesh,Chhapiheda,70,41.7,1.86,1.25,2.22,1.15,New forecaster,2024-25
+Gujarat,Nizar(Kukarmuda),70,21.45,2.93,1.43,8.18,1.4,New forecaster,2024-25
+Madhya Pradesh,Machalpur,70,43.32,2.39,1.72,3.45,1.66,New forecaster,2024-25
+Rajasthan,Kuchaman City,70,24.0,1.9,1.56,1.72,1.5,New forecaster,2024-25
+Punjab,Bhogpur,70,19.5,10.12,6.6,15.32,6.18,New forecaster,2024-25
+Punjab,Moga,70,25.0,13.77,10.16,18.46,9.72,New forecaster,2024-25
+Punjab,Barnala,70,22.38,9.95,5.76,14.13,6.7,Last week's price,2024-25
+Rajasthan,Sadulpur,69,21.5,0.79,0.42,2.08,0.47,Last week's price,2024-25
+Madhya Pradesh,Khatora,68,59.64,1.47,1.22,2.76,1.28,Last week's price,2024-25
+Madhya Pradesh,Shahdol,68,40.0,2.04,1.6,3.14,1.54,New forecaster,2024-25
+Madhya Pradesh,Sheopurbadod,68,62.08,3.48,1.43,6.39,1.31,New forecaster,2024-25
+Andhra Pradesh,Cuddapah,68,52.58,7.86,6.48,5.94,6.29,Step-1 model (average per crop),2024-25
+Gujarat,Botad(Haddad),68,76.0,2.16,1.49,5.38,1.58,Last week's price,2024-25
+Gujarat,Valsad,68,55.0,22.57,6.8,11.33,9.79,Last week's price,2024-25
+Rajasthan,Begu,68,22.6,0.4,0.31,0.41,0.33,Last week's price,2024-25
+Gujarat,Radhanpur,68,58.0,4.24,2.12,7.48,1.9,New forecaster,2024-25
+Madhya Pradesh,Sabalgarh(F&V),67,9.5,5.46,4.6,5.04,4.42,New forecaster,2024-25
+Kerala,Kasargod,67,61.0,4.86,3.44,25.37,3.78,Last week's price,2024-25
+Gujarat,Bhuj,67,60.5,6.16,3.35,6.18,2.69,New forecaster,2024-25
+Rajasthan,Nagaur(Jayal),67,25.0,2.32,2.14,3.19,2.12,New forecaster,2024-25
+Rajasthan,Jhunjhunu,66,60.0,3.22,1.4,5.62,1.19,New forecaster,2024-25
+West Bengal,Kaliaganj,66,26.0,0.65,0.4,2.64,0.44,Last week's price,2024-25
+Gujarat,Khambhat(Grain Market),66,24.0,0.13,0.0,2.34,0.05,Last week's price,2024-25
+Gujarat,Chotila,66,37.5,1.96,0.93,2.42,0.92,New forecaster,2024-25
+Kerala,Sultan bathery,65,22.0,5.35,3.23,44.58,3.4,Last week's price,2024-25
+Rajasthan,Sridungargarh,65,26.1,1.27,0.91,1.05,0.91,Last week's price,2024-25
+Rajasthan,Pugal Road (Grain),65,26.21,2.3,2.4,2.01,2.27,Step-1 model (average per crop),2024-25
+Madhya Pradesh,Bijawar,65,42.1,1.62,1.63,2.34,1.44,New forecaster,2024-25
+Rajasthan,Sikri,65,62.0,3.78,1.45,7.2,1.25,New forecaster,2024-25
+Madhya Pradesh,Shahagarh,65,40.25,1.52,1.29,1.55,1.09,New forecaster,2024-25
+Kerala,Perumatty Vfpck,64,32.5,10.85,9.17,10.41,9.03,New forecaster,2024-25
+Punjab,Sahnewal,64,20.0,7.64,3.56,8.89,3.7,Last week's price,2024-25
+Rajasthan,Sambhar (Kishangarh renwal),64,25.75,2.0,1.22,3.33,1.06,New forecaster,2024-25
+Madhya Pradesh,Kumbhraj,64,42.4,2.08,1.38,3.01,1.39,Last week's price,2024-25
+Rajasthan,Khatauli,64,40.65,2.61,1.41,3.38,1.44,Last week's price,2024-25
+Kerala,Pulpally,63,34.0,1.36,1.27,16.9,1.5,Last week's price,2024-25
+Punjab,Bhikhiwind,63,19.0,8.1,3.43,15.64,3.51,Last week's price,2024-25
+Madhya Pradesh,Javad,63,60.01,26.58,25.69,28.23,25.5,New forecaster,2024-25
+Uttar Pradesh,Khekda,63,16.0,7.98,4.92,8.19,5.03,Last week's price,2024-25
+Kerala,Nedumpaikulam VFPCK,63,100.0,34.71,21.2,53.46,20.47,New forecaster,2024-25
+Uttar Pradesh,Gurusarai,63,38.5,1.57,1.37,1.57,1.16,New forecaster,2024-25
+Gujarat,Unjha,63,62.5,4.09,2.24,9.22,1.92,New forecaster,2024-25
+Uttar Pradesh,Atarra,62,43.2,2.81,1.78,5.78,1.68,New forecaster,2024-25
+Uttar Pradesh,Paliakala,62,24.75,0.49,0.08,1.87,0.16,Last week's price,2024-25
+Rajasthan,Rawla,62,61.12,4.03,1.6,6.05,1.48,New forecaster,2024-25
+Madhya Pradesh,Loharda,62,39.6,2.92,2.7,3.71,2.41,New forecaster,2024-25
+Madhya Pradesh,Shadora,61,42.0,2.27,1.62,2.25,1.71,Last week's price,2024-25
+Uttar Pradesh,Bagpat,61,16.0,8.65,4.54,8.59,4.74,Last week's price,2024-25
+Uttar Pradesh,Panchpedwa,61,25.0,0.16,0.09,1.3,0.16,Last week's price,2024-25
+Madhya Pradesh,Bichhiya,61,53.0,3.97,3.61,5.51,2.96,New forecaster,2024-25
+Madhya Pradesh,Keolari,61,20.0,0.75,0.43,0.7,0.48,Last week's price,2024-25
+Punjab,Doraha,60,22.0,8.36,9.49,11.29,8.18,New forecaster,2024-25
+Uttar Pradesh,Deoband,60,24.5,14.29,12.88,13.11,12.84,New forecaster,2024-25
+Madhya Pradesh,Amarwda,60,21.0,1.44,1.4,1.62,1.2,New forecaster,2024-25
+Madhya Pradesh,Rewa(F&V),60,15.0,3.92,2.98,5.13,2.45,New forecaster,2024-25
+Gujarat,Dhragradhra,60,57.8,6.98,5.83,6.47,5.19,New forecaster,2024-25
+Gujarat,Nizar,59,70.45,1.38,0.97,2.67,0.89,New forecaster,2024-25
+Andhra Pradesh,Yemmiganur,58,55.4,4.54,4.26,6.0,4.14,New forecaster,2024-25
+Rajasthan,Bandikui(Geejgarh),58,54.24,2.03,1.35,3.19,1.21,New forecaster,2024-25
+Rajasthan,Uniyara,57,60.35,2.38,1.04,4.56,0.78,New forecaster,2024-25
+Uttar Pradesh,Shikohabad,57,19.0,2.78,2.99,6.79,2.75,New forecaster,2024-25
+Madhya Pradesh,Chhapara(F&V),57,20.5,1.31,1.04,0.98,0.99,Step-1 model (average per crop),2024-25
+Rajasthan,Dhorimanna,56,63.25,3.71,2.42,6.2,2.49,Last week's price,2024-25
+Rajasthan,Kishangarh Renwal,56,27.38,2.69,2.45,4.44,2.05,New forecaster,2024-25
+Kerala,Veliyam VFPCK,56,135.0,22.31,21.62,63.18,20.05,New forecaster,2024-25
+Madhya Pradesh,Kurwai,55,59.5,2.28,1.5,2.88,1.53,Last week's price,2024-25
+Madhya Pradesh,Badwani,55,20.0,1.96,2.04,2.02,1.87,New forecaster,2024-25
+Madhya Pradesh,Shujalpur(F&V),54,51.0,6.35,5.09,9.55,4.67,New forecaster,2024-25
+Madhya Pradesh,Thandla,54,41.0,1.33,1.13,1.57,1.15,Last week's price,2024-25
+Gujarat,Bhabhar,53,60.2,3.17,1.47,7.58,1.35,New forecaster,2024-25
+Gujarat,Pardi,52,35.0,18.87,9.33,15.6,8.71,New forecaster,2024-25
+Madhya Pradesh,Kasrawad,52,18.9,1.86,1.52,1.88,1.46,New forecaster,2024-25
+Madhya Pradesh,Saunsar,52,50.0,1.93,2.04,3.2,1.64,New forecaster,2024-25
+Madhya Pradesh,Baikunthpur,52,60.0,3.32,2.96,4.26,2.89,New forecaster,2024-25
+Punjab,Dharamkot,50,20.0,7.36,5.33,12.5,5.63,Last week's price,2024-25
+Madhya Pradesh,Berachha,50,42.75,1.36,1.27,2.11,1.09,New forecaster,2024-25
+Rajasthan,Raniwara,50,33.0,2.94,3.28,2.49,3.24,Step-1 model (average per crop),2024-25
+Rajasthan,Manohar Thana,50,24.86,1.45,0.84,1.82,0.77,New forecaster,2024-25
+Madhya Pradesh,Shahpura Bhitoni (F&V),50,58.02,3.36,3.3,3.89,2.36,New forecaster,2024-25
+Madhya Pradesh,Naugaon,50,54.15,2.98,2.92,2.37,2.22,New forecaster,2024-25
+Madhya Pradesh,Umariya,49,41.0,2.1,2.22,1.68,1.93,Step-1 model (average per crop),2024-25
+Andhra Pradesh,Nandyal,49,20.0,5.91,3.97,3.7,4.09,Step-1 model (average per crop),2024-25
+Gujarat,Pardi(Motavagachiya),49,35.0,19.28,9.65,15.66,9.07,New forecaster,2024-25
+Gujarat,Pardi(Rohinee),49,35.0,19.26,9.24,16.24,8.5,New forecaster,2024-25
+Madhya Pradesh,Ajaygarh,49,61.0,2.76,1.07,3.93,1.2,Last week's price,2024-25
+Gujarat,Limkheda,48,23.75,1.48,0.81,0.84,0.88,Last week's price,2024-25
+Gujarat,Rapar,48,48.58,6.37,4.76,5.62,4.76,Last week's price,2024-25
+Kerala,Vaniyamkulam VFPCK,48,50.0,12.06,10.89,12.64,11.66,Last week's price,2024-25
+Madhya Pradesh,Obedullaganj,48,46.08,4.32,3.33,3.81,2.85,New forecaster,2024-25
+Kerala,Nedumangadu,48,100.0,48.49,38.08,66.84,35.91,New forecaster,2024-25
+Gujarat,Pardi(Ugvada),47,35.0,19.06,9.42,16.03,8.73,New forecaster,2024-25
+Madhya Pradesh,Maksi,47,42.95,1.86,1.33,3.29,1.36,Last week's price,2024-25
+Rajasthan,Jaipur (Grain),47,44.5,2.96,0.68,7.32,0.73,Last week's price,2024-25
+Gujarat,Dhansura,47,23.0,1.99,0.89,4.18,0.82,New forecaster,2024-25
+Madhya Pradesh,Raisen,46,32.5,3.47,2.3,3.03,2.45,Last week's price,2024-25
+Uttar Pradesh,Sardhana,46,17.5,10.92,6.62,20.54,5.94,New forecaster,2024-25
+Gujarat,Pardi(Vapi),46,35.0,20.46,9.05,16.54,8.68,New forecaster,2024-25
+Madhya Pradesh,Anuppur,46,56.0,3.53,2.93,2.92,2.34,New forecaster,2024-25
+Rajasthan,Kishan Renwal(Fulera),46,23.25,1.05,0.79,1.17,0.72,New forecaster,2024-25
+Rajasthan,Bhagat Kii Phalodi,46,58.0,3.66,1.22,4.15,0.98,New forecaster,2024-25
+Punjab,Khadur Sahib(Fetehabad),46,16.5,10.22,5.76,13.63,6.17,Last week's price,2024-25
+Kerala,Parakkodu,45,38.0,4.0,3.7,3.71,3.62,New forecaster,2024-25
+Madhya Pradesh,Bankhedi,45,43.5,3.52,3.01,3.58,2.29,New forecaster,2024-25
+Madhya Pradesh,Segaon,45,20.75,0.67,0.57,0.52,0.54,Step-1 model (average per crop),2024-25
+Gujarat,Nizar(Pumkitalov),44,21.16,4.03,2.4,7.07,1.8,New forecaster,2024-25
+Rajasthan,Sikar,44,56.75,5.96,4.36,12.45,4.16,New forecaster,2024-25
+Kerala,Ezhamkulam,44,39.0,20.69,16.93,26.94,14.23,New forecaster,2024-25
+Uttar Pradesh,Mawana,44,23.15,7.0,5.52,8.94,5.41,New forecaster,2024-25
+Madhya Pradesh,Rajnagar,43,55.4,2.99,3.17,2.55,2.85,Step-1 model (average per crop),2024-25
+Andhra Pradesh,Atmakur(SPS),42,75.21,0.18,0.0,0.17,0.11,Last week's price,2024-25
+Madhya Pradesh,Balwadi,42,20.78,1.14,0.9,1.55,0.88,New forecaster,2024-25
+Madhya Pradesh,Mandla,42,28.28,4.28,3.72,5.2,3.29,New forecaster,2024-25
+Madhya Pradesh,Sehora,42,44.55,5.7,3.2,4.42,3.28,Last week's price,2024-25
+Madhya Pradesh,Singroli(F&V),41,16.0,5.01,4.16,7.06,4.19,Last week's price,2024-25
+Rajasthan,Kumher,41,60.6,2.21,0.78,4.47,0.66,New forecaster,2024-25
+Uttar Pradesh,Baberu,41,24.5,0.12,0.1,1.72,0.19,Last week's price,2024-25
+Madhya Pradesh,Mundi,40,40.11,1.76,1.43,1.18,1.31,Step-1 model (average per crop),2024-25
+Punjab,Dera Bassi,40,25.0,3.74,2.07,12.08,2.55,Last week's price,2024-25
+Gujarat,Vijapur,40,36.5,3.99,3.17,2.21,3.18,Step-1 model (average per crop),2024-25
+Kerala,Mannackanad VFPCK,40,60.0,10.12,5.25,6.41,5.18,New forecaster,2024-25
+Madhya Pradesh,Chanderi,39,60.15,2.12,1.36,3.61,1.26,New forecaster,2024-25
+Madhya Pradesh,Mehgaon,37,63.3,3.31,1.58,7.82,1.28,New forecaster,2024-25
+Uttar Pradesh,Jamanian,37,12.5,4.27,0.46,12.6,0.56,Last week's price,2024-25
+Madhya Pradesh,Garoth,37,40.1,1.91,1.56,1.47,1.56,Step-1 model (average per crop),2024-25
+Kerala,Punalur VFPCK,37,45.0,32.04,16.77,36.29,17.59,Last week's price,2024-25
+Gujarat,Borsad,36,23.75,1.9,0.96,2.62,1.03,Last week's price,2024-25
+Uttar Pradesh,Sirsaganj,36,11.0,1.11,1.99,2.23,1.97,Last month's price,2024-25
+Rajasthan,Lalgarh Jatan,36,61.28,3.81,2.59,5.78,2.35,New forecaster,2024-25
+Rajasthan,Govindgarh,36,62.75,3.61,1.58,6.91,1.65,Last week's price,2024-25
+Punjab,Sri Har Gobindpur,36,6.5,5.64,2.72,5.77,2.51,New forecaster,2024-25
+Madhya Pradesh,Lakhnadon,36,20.2,2.47,1.38,3.12,1.52,Last week's price,2024-25
+Gujarat,Mandal,36,60.0,2.44,0.97,4.42,0.97,Last week's price,2024-25
+Uttar Pradesh,Jafarganj,35,31.6,6.4,3.64,12.26,3.93,Last week's price,2024-25
+Madhya Pradesh,Banapura(F&V),35,42.0,1.47,1.3,3.04,1.13,New forecaster,2024-25
+Madhya Pradesh,Shyampur,34,40.58,1.79,1.35,1.15,1.29,Step-1 model (average per crop),2024-25
+Uttar Pradesh,Kadaura,34,24.5,0.05,0.05,0.59,0.08,Last month's price,2024-25
+Rajasthan,Ridmalsar,34,54.25,1.81,1.56,1.73,1.54,New forecaster,2024-25
+Madhya Pradesh,Karera,34,41.0,3.41,2.66,2.39,2.74,Step-1 model (average per crop),2024-25
+Gujarat,Anjar,33,53.0,5.71,3.41,6.47,3.48,Last week's price,2024-25
+Gujarat,Vijapur(Kukarvada),33,36.75,2.42,1.55,1.36,1.51,Step-1 model (average per crop),2024-25
+Punjab,Sri Har Gobindpur(Harechowal),33,6.0,4.18,2.33,5.48,2.26,New forecaster,2024-25
+Rajasthan,Gulabpura,32,24.75,1.53,1.31,1.69,1.32,Last week's price,2024-25
+Uttar Pradesh,Salon,32,24.75,1.21,0.73,2.36,0.61,New forecaster,2024-25
+Uttar Pradesh,Lediyari,32,67.0,3.74,2.94,2.72,3.06,Step-1 model (average per crop),2024-25
+Rajasthan,Nawalgarh,32,58.0,2.94,1.04,3.39,1.18,Last week's price,2024-25
+Kerala,Kollengode Vfpck,31,38.0,4.04,4.11,5.64,3.99,New forecaster,2024-25
+Punjab,Goniana,31,10.0,7.24,4.56,29.47,3.14,New forecaster,2024-25
+Gujarat,Vijapur(Gojjariya),31,32.5,2.04,1.85,3.83,1.74,New forecaster,2024-25
+Madhya Pradesh,Rehati,31,19.81,2.5,2.2,2.21,1.95,New forecaster,2024-25
+Madhya Pradesh,Chaakghat,31,57.25,2.08,0.65,1.54,1.08,Last week's price,2024-25
+Madhya Pradesh,Bagli,31,21.68,3.68,3.24,4.84,3.21,New forecaster,2024-25
+Punjab,Jalandhar City,31,20.0,3.32,2.04,5.04,2.02,New forecaster,2024-25
+Madhya Pradesh,Sounsar(F&V),30,48.12,1.94,1.73,4.13,1.65,New forecaster,2024-25
+Uttar Pradesh,Haldaur,30,37.5,1.83,0.82,1.07,0.83,Last week's price,2024-25
+Tamil Nadu,Anna nagar(Uzhavar Sandhai ),616,53.0,13.27,8.67,16.97,8.8,Last week's price,2026
+Tamil Nadu,Tiruvannamalai(Uzhavar Sandhai ),559,52.0,10.05,6.0,14.55,5.81,New forecaster,2026
+Tamil Nadu,Hosur(Uzhavar Sandhai ),552,47.5,19.61,13.55,24.37,13.14,New forecaster,2026
+Tamil Nadu,Thathakapatti(Uzhavar Sandhai ),534,45.0,14.88,8.99,15.54,9.53,Last week's price,2026
+Tamil Nadu,RSPuram(Uzhavar Sandhai ),528,47.5,10.81,5.72,13.33,5.62,New forecaster,2026
+Tamil Nadu,Chokkikulam(Uzhavar Sandhai ),526,52.5,11.4,5.48,14.81,5.05,New forecaster,2026
+Tamil Nadu,Mettupalayam(Uzhavar Sandhai ),508,47.5,9.44,4.32,14.39,4.26,New forecaster,2026
+Tamil Nadu,Anaiyur(Uzhavar Sandhai ),498,55.0,12.49,6.15,15.75,6.07,New forecaster,2026
+Tamil Nadu,Hasthampatti(Uzhavar Sandhai ),493,42.5,7.6,4.61,12.12,4.55,New forecaster,2026
+Tamil Nadu,Theni(Uzhavar Sandhai ),484,53.25,11.68,6.16,18.08,6.4,Last week's price,2026
+Tamil Nadu,KKNagar(Uzhavar Sandhai ),479,56.0,14.76,7.9,17.25,7.81,New forecaster,2026
+Tamil Nadu,Sooramangalam(Uzhavar Sandhai ),474,39.0,10.03,5.2,13.22,5.64,Last week's price,2026
+Tamil Nadu,Singanallur(Uzhavar Sandhai ),472,50.0,13.12,6.69,15.13,6.11,New forecaster,2026
+Tamil Nadu,Palanganatham(Uzhavar Sandhai ),472,55.0,13.79,7.05,16.6,6.79,New forecaster,2026
+Tamil Nadu,Ammapet(Uzhavar Sandhai ),471,43.5,9.99,6.97,10.69,6.56,New forecaster,2026
+Tamil Nadu,Namakkal(Uzhavar Sandhai ),469,47.5,11.88,7.57,14.31,7.54,New forecaster,2026
+Tamil Nadu,Udhagamandalam(Uzhavar Sandhai ),463,46.5,9.8,5.67,16.3,5.15,New forecaster,2026
+Tamil Nadu,Kahithapattarai(Uzhavar Sandhai ),454,40.0,16.77,10.89,21.06,10.47,New forecaster,2026
+Tamil Nadu,Vellore,452,40.0,14.5,7.33,17.12,7.5,Last week's price,2026
+Tamil Nadu,Rasipuram(Uzhavar Sandhai ),449,50.0,10.58,5.66,12.14,5.37,New forecaster,2026
+Tamil Nadu,Perambalur(Uzhavar Sandhai ),448,55.0,8.65,4.45,10.58,4.71,Last week's price,2026
+Tamil Nadu,Vadavalli(Uzhavar Sandhai ),447,45.0,11.08,5.58,13.07,5.25,New forecaster,2026
+Tamil Nadu,Musiri(Uzhavar Sandhai ),443,40.0,8.21,4.02,12.81,3.54,New forecaster,2026
+Tamil Nadu,Athur(Uzhavar Sandhai ),441,45.0,14.44,9.17,12.38,9.41,Last week's price,2026
+Tamil Nadu,Dharmapuri(Uzhavar Sandhai ),436,43.5,9.44,3.79,15.67,4.39,Last week's price,2026
+Tamil Nadu,Pudukottai(Uzhavar Sandhai ),428,55.0,11.57,6.64,18.32,5.89,New forecaster,2026
+Tamil Nadu,Dindigul(Uzhavar Sandhai ),427,55.0,9.15,5.41,13.29,5.56,Last week's price,2026
+Tamil Nadu,Kallakurichi(Uzhavar Sandhai ),421,50.0,10.45,8.78,19.86,9.12,Last week's price,2026
+Tamil Nadu,Kulithalai(Uzhavar Sandhai ),418,45.5,12.46,5.32,13.25,5.65,Last week's price,2026
+Tamil Nadu,Ranipettai(Uzhavar Sandhai ),415,45.0,20.56,13.13,27.63,13.7,Last week's price,2026
+Tamil Nadu,Katpadi (Uzhavar Sandhai ),412,40.0,11.9,6.36,12.89,6.69,Last week's price,2026
+Tamil Nadu,Vadaseri,410,55.0,20.54,13.97,24.94,14.0,Last week's price,2026
+Tamil Nadu,Mettur(Uzhavar Sandhai ),407,37.5,8.93,5.15,9.9,5.32,Last week's price,2026
+Tamil Nadu,Krishnagiri(Uzhavar Sandhai ),406,32.5,12.39,6.14,14.21,5.88,New forecaster,2026
+Tamil Nadu,Chengam(Uzhavar Sandhai ),390,44.5,6.75,3.4,8.79,3.77,Last week's price,2026
+Tamil Nadu,Palacode(Uzhavar Sandhai ),390,43.5,8.33,3.71,12.14,3.94,Last week's price,2026
+Tamil Nadu,Jameenrayapettai(Uzhavar Sandhai ),389,55.0,11.83,7.09,16.49,7.8,Last week's price,2026
+Tamil Nadu,Avallapalli(Uzhavar Sandhai ),388,37.5,9.47,4.85,16.52,4.72,New forecaster,2026
+Tamil Nadu,Udumalpet,387,47.5,11.03,6.08,12.04,5.31,New forecaster,2026
+Tamil Nadu,Tiruchengode,387,47.5,8.44,3.53,10.37,3.72,Last week's price,2026
+Tamil Nadu,Polur(Uzhavar Sandhai ),385,36.5,8.15,4.56,11.52,4.12,New forecaster,2026
+Tamil Nadu,Pallavaram(Uzhavar Sandhai ),384,55.0,9.58,4.12,14.55,5.02,Last week's price,2026
+Tamil Nadu,Palayamkottai(Uzhavar Sandhai ),381,47.5,10.46,6.69,16.32,6.91,Last week's price,2026
+Tamil Nadu,Aruppukottai(Uzhavar Sandhai ),381,45.0,10.75,6.28,12.92,6.11,New forecaster,2026
+Tamil Nadu,Thammampatti (Uzhavar Sandhai ),377,40.0,6.58,3.45,10.0,3.52,Last week's price,2026
+Tamil Nadu,Gudiyatham(Uzhavar Sandhai ),377,40.0,8.3,3.45,10.89,3.72,Last week's price,2026
+Tamil Nadu,Sankarapuram(Uzhavar Sandhai ),376,50.0,8.29,4.26,10.1,4.39,Last week's price,2026
+Tamil Nadu,Pennagaram(Uzhavar Sandhai ),375,42.5,8.9,3.98,11.54,3.01,New forecaster,2026
+Tamil Nadu,Arcot(Uzhavar Sandhai ),373,40.0,10.59,4.9,13.13,5.29,Last week's price,2026
+Tamil Nadu,Perampet(Uzhavar Sandhai),372,40.0,8.02,3.65,9.66,3.75,Last week's price,2026
+Tamil Nadu,Tindivanam,367,45.0,9.14,4.14,12.14,4.23,Last week's price,2026
+Tamil Nadu,Cuddalore(Uzhavar Sandhai ),364,45.0,14.12,7.86,15.31,7.16,New forecaster,2026
+Tamil Nadu,Sirkali(Uzhavar Sandhai ),360,47.5,3.67,1.54,10.97,1.61,Last week's price,2026
+Tamil Nadu,Gandhigramam(Uzhavar Sandhai),360,47.5,11.29,3.62,12.42,4.68,Last week's price,2026
+Tamil Nadu,Kovilpatti(Uzhavar Sandhai ),358,47.5,10.61,7.07,12.7,6.96,New forecaster,2026
+Tamil Nadu,Kambam(Uzhavar Sandhai ),358,37.0,11.84,5.82,16.17,6.07,Last week's price,2026
+Tamil Nadu,Villupuram(Uzhavar Sandhai ),357,50.0,11.72,9.18,15.34,9.41,Last week's price,2026
+Tamil Nadu,AJattihalli(Uzhavar Sandhai ),356,40.0,10.41,4.83,14.68,4.63,New forecaster,2026
+Tamil Nadu,Karur(Uzhavar Sandhai ),356,47.5,11.25,4.33,14.11,5.63,Last week's price,2026
+Tamil Nadu,Tiruppur (North) (Uzhavar Sandhai ),355,37.5,9.97,3.82,11.69,3.83,Last week's price,2026
+Tamil Nadu,Sathiyamagalam(Uzhavar Sandhai ),355,37.5,7.06,3.59,8.32,3.46,New forecaster,2026
+Tamil Nadu,Coonoor(Uzhavar Sandhai ),354,44.0,9.84,6.56,12.74,5.54,New forecaster,2026
+Tamil Nadu,Pollachi(Uzhavar Sandhai ),352,47.5,9.85,4.17,10.71,3.56,New forecaster,2026
+Tamil Nadu,Sampath Nagar(Uzhavar Sandhai ),351,37.5,13.48,5.14,15.41,5.83,Last week's price,2026
+Tamil Nadu,Mannargudi I(Uzhavar Sandhai ),349,50.0,14.67,6.64,17.49,6.24,New forecaster,2026
+Tamil Nadu,Nagapattinam(Uzhavar Sandhai ),349,47.0,8.48,5.23,10.37,5.0,New forecaster,2026
+Tamil Nadu,Jalagandapuram(Uzhavar Sandhai ),348,37.5,6.26,3.29,9.36,3.34,Last week's price,2026
+Tamil Nadu,Sundarapuram(Uzhavar Sandhai ),348,47.5,12.81,5.19,14.03,4.41,New forecaster,2026
+Tamil Nadu,Gingee(Uzhavar Sandhai ),347,45.0,8.33,3.19,10.0,3.89,Last week's price,2026
+Tamil Nadu,Lalgudi(Uzhavar Sandhai ),346,46.0,11.02,5.15,12.25,5.02,New forecaster,2026
+Tamil Nadu,Elampillai(Uzhavar Sandhai ),346,37.5,9.33,6.2,11.5,6.11,New forecaster,2026
+Tamil Nadu,Denkanikottai(Uzhavar Sandhai ),346,37.5,10.22,5.32,15.91,4.95,New forecaster,2026
+Tamil Nadu,Palani(Uzhavar Sandhai ),346,45.0,9.66,4.57,11.99,4.23,New forecaster,2026
+Tamil Nadu,Thirupathur,343,40.0,4.53,2.08,11.1,1.97,New forecaster,2026
+Tamil Nadu,Kumarapalayam(Uzhavar Sandhai ),343,37.5,10.93,7.27,11.76,6.88,New forecaster,2026
+Tamil Nadu,Manapparai(Uzhavar Sandhai ),343,45.0,10.49,4.72,13.16,5.3,Last week's price,2026
+Tamil Nadu,Arani(Uzhavar Sandhai ),342,38.5,7.19,4.32,10.12,4.7,Last week's price,2026
+Tamil Nadu,Rajapalayam(Uzhavar Sandhai ),338,37.5,12.74,5.72,15.04,5.54,New forecaster,2026
+Tamil Nadu,Thuraiyur,337,42.5,9.62,5.27,11.61,5.05,New forecaster,2026
+Tamil Nadu,Melur(Uzhavar Sandhai ),337,47.5,10.96,4.56,13.83,4.07,New forecaster,2026
+Maharashtra,Pune,336,30.0,5.29,2.87,8.63,3.04,Last week's price,2026
+Tamil Nadu,Tuticorin(Uzhavar Sandhai ),336,55.0,15.71,5.33,16.56,6.1,Last week's price,2026
+Tamil Nadu,Chinnamanur(Uzhavar Sandhai ),336,40.0,12.9,7.39,15.0,7.58,Last week's price,2026
+Tamil Nadu,Tirupatthur(Uzhavar Sandhai ),336,47.5,12.57,5.73,13.81,5.15,New forecaster,2026
+Tamil Nadu,Edapadi (Uzhavar Sandhai ),334,37.5,8.53,4.28,8.81,4.9,Last week's price,2026
+Tamil Nadu,Thiruverumbur(Uzhavar Sandhai ),333,46.0,13.2,7.7,15.02,7.22,New forecaster,2026
+Tamil Nadu,Kumbakonam (Uzhavar Sandhai ),333,54.0,8.77,4.43,15.69,4.45,Last week's price,2026
+Tamil Nadu,Karimangalam(Uzhavar Sandhai),332,42.5,10.72,3.61,11.14,3.63,Last week's price,2026
+Tamil Nadu,Sulur(Uzhavar Sandhai ),331,46.0,12.07,5.52,13.37,5.21,New forecaster,2026
+Tamil Nadu,Gudalur(Uzhavar Sandhai ),329,42.5,9.62,4.26,13.01,3.8,New forecaster,2026
+Tamil Nadu,Sivagangai (Uzhavar Sandhai ),328,49.0,11.57,5.07,13.03,5.0,New forecaster,2026
+Tamil Nadu,Pattukottai(Uzhavar Sandhai ),326,45.0,7.46,2.77,11.97,3.88,Last week's price,2026
+Tamil Nadu,Thalavaipuram(Uzhavar Sandhai ),326,37.5,13.29,5.49,14.9,5.42,New forecaster,2026
+Tamil Nadu,Paramathivelur(Uzhavar Sandhai ),325,47.0,9.69,5.92,11.22,5.42,New forecaster,2026
+Tamil Nadu,Srivilliputhur(Uzhavar Sandhai ),325,37.5,6.6,3.3,7.28,3.3,Last week's price,2026
+Tamil Nadu,Karaikudi(Uzhavar Sandhai ),324,50.0,10.81,5.68,11.5,5.34,New forecaster,2026
+Tamil Nadu,Nanganallur(Uzhavar Sandhai ),323,57.5,13.85,7.86,19.83,8.46,Last week's price,2026
+Tamil Nadu,Cheyyar(Uzhavar Sandhai ),320,38.5,6.64,3.78,10.45,4.2,Last week's price,2026
+Tamil Nadu,Harur(Uzhavar Sandhai ),319,45.0,8.16,4.84,9.04,4.44,New forecaster,2026
+Tamil Nadu,Perundurai(Uzhavar Sandhai ),314,37.5,8.69,3.87,9.46,3.39,New forecaster,2026
+Tamil Nadu,Paramakudi(Uzhavar Sandhai ),314,59.0,20.37,20.15,25.96,20.05,New forecaster,2026
+Tamil Nadu,Vadalur(Uzhavar Sandhai ),314,40.0,11.31,5.45,10.34,5.84,Last week's price,2026
+Tamil Nadu,Chinnalapatti(Uzhavar Sandhai ),313,50.0,7.18,4.33,9.22,4.34,Last week's price,2026
+Kerala,Palakkad Market,312,56.0,10.91,5.55,14.43,5.57,Last week's price,2026
+Tamil Nadu,Periyakulam(Uzhavar Sandhai ),311,35.0,11.08,5.34,13.55,5.73,Last week's price,2026
+Tamil Nadu,Singampunari(Uzhavar Sandhai ),310,47.0,9.87,4.7,10.7,4.56,New forecaster,2026
+Tamil Nadu,Manachanallur(Uzhavar Sandhai ),309,40.0,8.62,5.6,10.03,5.76,Last week's price,2026
+Tamil Nadu,Tamarainagar(Uzhavar Sandhai ),304,45.0,15.54,12.81,20.21,13.18,Last week's price,2026
+Tamil Nadu,Andipatti(Uzhavar Sandhai ),304,37.0,11.51,5.58,14.87,5.79,Last week's price,2026
+Tamil Nadu,Pallikonda(Uzhavar Sandhai),303,37.5,6.08,3.04,10.32,3.13,Last week's price,2026
+Tamil Nadu,Tiruppur (South) (Uzhavar Sandhai ),303,35.0,13.43,5.9,15.29,5.97,Last week's price,2026
+Tamil Nadu,Mohanur(Uzhavar Sandhai ),302,54.0,8.25,3.96,9.79,3.9,New forecaster,2026
+Tamil Nadu,Vandavasi(Uzhavar Sandhai ),300,39.0,6.0,4.17,8.97,4.26,Last week's price,2026
+Tamil Nadu,Thalavadi(Uzhavar Sandhai ),299,33.0,6.64,3.75,10.48,3.32,New forecaster,2026
+Tamil Nadu,Tenkasi(Uzhavar Sandhai ),297,40.0,6.04,3.23,10.47,2.92,New forecaster,2026
+Tamil Nadu,Dharapuram(Uzhavar Sandhai ),297,45.0,10.4,4.57,11.35,4.17,New forecaster,2026
+Tamil Nadu,Gobichettipalayam(Uzhavar Sandhai ),296,39.0,12.14,5.45,11.86,5.14,New forecaster,2026
+Tamil Nadu,Palladam(Uzhavar Sandhai ),295,37.5,8.04,3.37,11.0,3.24,New forecaster,2026
+Tamil Nadu,Vazhapadi(Uzhavar Sandhai),292,40.0,11.0,6.54,11.2,6.89,Last week's price,2026
+Maharashtra,Mumbai,288,35.0,11.66,3.09,11.85,3.51,Last week's price,2026
+Tamil Nadu,Devaram(Uzhavar Sandhai ),287,34.0,10.58,4.95,12.26,5.39,Last week's price,2026
+Tamil Nadu,Bodinayakanur(Uzhavar Sandhai ),287,36.0,11.45,4.99,13.23,5.53,Last week's price,2026
+Tamil Nadu,Ulundurpettai,286,50.0,5.1,1.7,13.64,1.97,Last week's price,2026
+Tamil Nadu,Devakottai (Uzhavar Sandhai ),284,46.0,12.18,5.69,13.26,5.21,New forecaster,2026
+Tamil Nadu,Viruthachalam(Uzhavar Sandhai ),280,42.5,11.12,6.4,11.61,6.0,New forecaster,2026
+Tamil Nadu,Mayiladuthurai(Uzhavar Sandhai ),271,40.0,6.68,3.52,9.83,3.3,New forecaster,2026
+Tamil Nadu,Periyar Nagar(Uzhavar Sandhai ),264,34.0,10.14,3.83,14.22,4.89,Last week's price,2026
+Tamil Nadu,Pallapatti (Uzhavar Sandhai ),262,47.5,9.25,4.44,12.06,3.45,New forecaster,2026
+Haryana,Hansi,261,35.0,13.03,4.56,11.7,4.76,Last week's price,2026
+Tamil Nadu,Kurichi(Uzhavar Sandhai ),257,42.5,9.76,4.43,11.35,3.14,New forecaster,2026
+Tamil Nadu,Kaveripattinam(Uzhavar Sandhai ),257,45.0,9.54,4.61,8.55,4.11,New forecaster,2026
+Tamil Nadu,Kariyapatti(Uzhavar Sandhai ),256,37.5,9.42,4.3,9.96,4.05,New forecaster,2026
+Tamil Nadu,Guduvancheri(Uzhavar Sandhai ),250,55.0,10.58,7.64,13.78,8.13,Last week's price,2026
+Tamil Nadu,Natrampalli(Uzhavar Sandhai ),249,35.0,7.11,3.56,10.51,3.52,New forecaster,2026
+Tamil Nadu,Kundrathur(Uzhavar Sandhai ),249,37.5,2.89,2.03,9.33,1.91,New forecaster,2026
+Tamil Nadu,Attayampatti(Uzhavar Sandhai ),246,37.25,5.47,3.37,6.55,3.34,New forecaster,2026
+Tamil Nadu,Mannargudi II(Uzhavar Sandhai ),244,44.0,12.4,5.17,14.44,4.42,New forecaster,2026
+Tamil Nadu,Kangayam(Uzhavar Sandhai ),243,38.0,6.87,3.4,8.85,3.26,New forecaster,2026
+Maharashtra,Pune(Moshi),243,35.0,10.26,8.26,10.93,8.15,New forecaster,2026
+Tamil Nadu,Sivakasi(Uzhavar Sandhai ),241,37.5,9.45,6.11,8.73,5.63,New forecaster,2026
+Tamil Nadu,Panruti(Uzhavar Sandhai ),234,40.0,9.19,3.69,10.29,3.29,New forecaster,2026
+Tamil Nadu,Myladi(Uzhavar Sandhai ),234,55.0,9.03,5.27,13.95,4.93,New forecaster,2026
+Tamil Nadu,Sunguvarchatram(Uzhavar Sandhai ),232,37.5,3.25,2.39,8.85,2.17,New forecaster,2026
+Tamil Nadu,Sathur(Uzhavar Sandhai ),232,37.5,3.04,1.42,6.09,1.84,Last week's price,2026
+Himachal Pradesh,SMY Bhuntar,231,35.0,16.48,9.42,14.96,9.73,Last week's price,2026
+Gujarat,Surat,231,25.0,20.68,6.15,13.26,6.27,Last week's price,2026
+Tamil Nadu,Thirumangalam(Uzhavar Sandhai ),228,45.0,13.5,5.15,14.88,4.73,New forecaster,2026
+Kerala,Anchal Market,227,52.0,4.0,2.77,12.31,2.74,New forecaster,2026
+Tamil Nadu,Padappai(Uzhavar Sandhai ),227,35.0,9.03,5.96,13.51,5.57,New forecaster,2026
+Tamil Nadu,Vedaranyam(Uzhavar Sandhai),226,39.0,7.09,4.97,9.25,4.71,New forecaster,2026
+Kerala,Mukkom Market,224,50.0,10.45,2.68,9.26,2.23,New forecaster,2026
+Telangana,Rythu Bazar Mehdipatnam,224,28.0,5.13,3.73,6.96,4.02,Last week's price,2026
+Gujarat,Dahod(Veg. Market),222,27.0,16.04,8.36,16.17,8.34,New forecaster,2026
+Tamil Nadu,Gandarvakottai(Uzhavar Sandhai ),221,45.0,6.98,4.28,9.84,4.25,New forecaster,2026
+Tamil Nadu,Ponnamaravathi(Uzhavar Sandhai),219,37.5,9.87,4.46,13.44,3.63,New forecaster,2026
+Kerala,North Paravur Market,216,55.0,12.34,10.25,14.48,9.61,New forecaster,2026
+Tamil Nadu,Sankarankoil(Uzhavar Sandhai ),215,50.0,7.63,4.89,10.15,5.15,Last week's price,2026
+Punjab,Jalandhar City(Jalandhar),213,22.0,6.08,3.27,9.51,3.32,Last week's price,2026
+Rajasthan,Sriganganagar (F&V),209,35.0,10.5,5.71,11.8,5.35,New forecaster,2026
+Tamil Nadu,Ramanathapuram(Uzhavar Sandhai ),209,57.5,13.09,15.84,18.38,13.3,Last month's price,2026
+Tamil Nadu,NGO Colony(Uzhavar Sandhai ),208,37.5,10.35,5.12,13.44,5.58,Last week's price,2026
+Telangana,"Vanasthalipuram,RBZ",206,28.0,4.83,3.59,6.04,3.77,Last week's price,2026
+Tamil Nadu,Tiruthuraipoondi(Uzhavar Sandhai ),205,44.0,9.47,4.11,12.67,2.86,New forecaster,2026
+Tamil Nadu,Peravurani(Uzhavar Sandhai),203,42.0,11.94,3.89,8.41,4.22,Last week's price,2026
+Tamil Nadu,Usilampatti(Uzhavar Sandhai ),202,43.25,13.89,5.54,15.02,5.24,New forecaster,2026
+Tamil Nadu,Velayuthampalayam(Uzhavar Sandhai ),201,36.0,12.64,3.67,14.79,5.53,Last week's price,2026
+Himachal Pradesh,SMY Palampur,199,49.0,13.5,8.66,11.52,8.79,Last week's price,2026
+Kerala,Perumbavoor Market,198,45.0,8.54,6.76,7.34,6.37,New forecaster,2026
+Tamil Nadu,Aranthangi(Uzhavar Sandhai ),197,37.5,6.91,4.33,8.94,3.8,New forecaster,2026
+Tamil Nadu,Alangudi(Uzhavar Sandhai ),194,37.5,6.74,3.52,9.34,3.43,New forecaster,2026
+Telangana,"Saroornagar,RBZ",192,28.0,5.16,3.71,5.37,3.87,Last week's price,2026
+Tamil Nadu,Thanjavur(Uzhavar Sandhai ),188,56.0,13.57,8.55,15.82,8.59,Last week's price,2026
+Haryana,Ganaur,187,35.0,11.22,5.86,13.31,6.39,Last week's price,2026
+Tamil Nadu,Karambakkudi(Uzhavar Sandhai ),186,37.5,9.25,5.79,9.96,4.96,New forecaster,2026
+Kerala,Chengannur Market,184,50.0,9.68,6.92,8.78,6.72,New forecaster,2026
+Jammu and Kashmir,MAC F&V Market Narwal Jammu,181,37.5,12.08,8.78,10.55,8.68,New forecaster,2026
+Tamil Nadu,Ariyalur(Uzhavar Sandhai),179,42.5,4.84,2.14,6.66,2.85,Last week's price,2026
+Gujarat,Vadhvan,178,21.25,26.69,7.13,15.98,6.83,New forecaster,2026
+Telangana,Rythu Bazar Falaknuma,176,28.0,5.04,3.55,5.17,3.91,Last week's price,2026
+Tamil Nadu,Viralimalai(Uzhavar Sandhai ),174,47.5,9.16,6.13,11.28,5.6,New forecaster,2026
+Haryana,Shahabad,172,31.15,12.02,6.81,11.79,6.64,New forecaster,2026
+Tamil Nadu,Kancheepuram(Uzhavar Sandhai ),172,32.5,8.74,5.96,11.15,5.59,New forecaster,2026
+Tamil Nadu,Vengamedu(Uzhavar Sandhai ),171,40.0,11.89,3.85,15.55,4.87,Last week's price,2026
+Tamil Nadu,Mecheri(Uzhavar Sandhai),170,32.5,7.26,4.18,8.95,3.98,New forecaster,2026
+Tamil Nadu,Muthupettai(Uzhavar Sandhai ),169,40.0,11.81,4.84,14.64,3.87,New forecaster,2026
+Himachal Pradesh,SMY Jaisinghpur,166,50.0,11.74,6.89,12.14,7.47,Last week's price,2026
+Tamil Nadu,Tirukattupalli(Uzhavar Sandhai ),165,45.0,10.25,4.43,9.15,4.3,New forecaster,2026
+Haryana,Naraingarh,164,22.5,9.07,6.92,12.71,6.33,New forecaster,2026
+Chhattisgarh,Durg,163,25.0,5.62,6.68,6.14,6.32,Last month's price,2026
+Punjab,Tanda Urmur,162,45.0,7.14,3.3,11.79,3.45,Last week's price,2026
+Tamil Nadu,Tiruvarur(Uzhavar Sandhai ),161,40.0,11.26,5.57,13.65,4.02,New forecaster,2026
+Punjab,Dasuya,161,40.0,8.32,4.43,10.88,4.51,Last week's price,2026
+Assam,Pamohi(Garchuk),161,37.0,6.07,4.56,7.39,5.02,Last week's price,2026
+Karnataka,Ramanagara,156,25.0,7.98,3.59,5.6,3.6,Last week's price,2026
+Tamil Nadu,Valangaiman,156,40.0,4.55,2.66,7.81,2.66,Last week's price,2026
+Punjab,Sirhind,155,35.0,10.8,4.89,10.09,4.98,Last week's price,2026
+Haryana,Narnaul,154,30.0,11.07,5.71,8.47,5.32,New forecaster,2026
+Himachal Pradesh,SMY Dharamshala,153,46.5,12.46,7.7,12.55,8.14,Last week's price,2026
+Telangana,Warangal,152,22.5,5.5,3.25,5.84,3.19,New forecaster,2026
+Kerala,Thrippunithura Market,150,57.5,12.99,8.3,18.55,8.25,New forecaster,2026
+Kerala,Sasthamkotta Market,149,40.0,4.89,4.55,9.76,4.62,Last week's price,2026
+Gujarat,Navsari,148,27.5,19.04,7.58,13.67,7.39,New forecaster,2026
+Himachal Pradesh,PMY Kather Solan,147,35.0,15.15,7.84,13.4,8.49,Last week's price,2026
+Punjab,Ludhiana,144,20.0,3.6,1.62,11.13,1.92,Last week's price,2026
+Tamil Nadu,Needamangalam(Uzhavar Sandhai ),143,40.0,7.28,3.15,9.23,3.21,Last week's price,2026
+Himachal Pradesh,PMY Kangni Mandi,143,35.0,12.67,6.88,13.35,7.01,Last week's price,2026
+Punjab,Doraha,143,25.0,6.85,3.11,6.05,3.56,Last week's price,2026
+Himachal Pradesh,SMY Dhanotu,142,32.5,14.44,11.98,16.2,11.12,New forecaster,2026
+Maharashtra,Chattrapati Sambhajinagar,142,23.0,12.97,7.89,13.75,7.88,New forecaster,2026
+Tamil Nadu,Papanasam(Uzhavar Sandhai ),140,48.0,10.7,7.27,11.54,7.13,New forecaster,2026
+Kerala,Pattambi Market,140,48.0,14.61,6.92,14.01,6.8,New forecaster,2026
+Maharashtra,Bhusaval,139,20.0,10.34,4.52,9.98,4.72,Last week's price,2026
+Punjab,Rampuraphul(Nabha Mandi),139,25.0,6.14,2.83,5.77,2.8,New forecaster,2026
+Gujarat,Rajkot,135,73.5,4.59,3.83,6.5,3.71,New forecaster,2026
+Kerala,Parassala Market,135,60.0,6.3,4.18,16.2,3.86,New forecaster,2026
+Madhya Pradesh,Indore(F&V),135,14.0,7.62,3.14,9.27,3.07,New forecaster,2026
+Telangana,Rythu Bazar Erragadda,134,28.0,5.17,3.42,6.33,3.69,Last week's price,2026
+Gujarat,Gondal(Veg.market Gondal),134,19.5,16.28,8.01,14.86,7.01,New forecaster,2026
+Gujarat,Porbandar,133,50.0,19.54,12.9,14.05,12.14,New forecaster,2026
+Gujarat,Padra,132,20.0,18.18,6.29,13.96,5.89,New forecaster,2026
+Meghalaya,Shillong,132,45.0,5.49,3.06,5.4,3.13,Last week's price,2026
+Rajasthan,Jaipur (F&V),131,23.5,9.95,5.95,9.22,6.09,Last week's price,2026
+Tamil Nadu,Virudhunagar(Uzhavar Sandhai ),131,37.5,6.79,3.96,6.38,3.91,New forecaster,2026
+Haryana,Barwala(Hisar),130,28.0,12.54,8.07,8.43,8.44,Last week's price,2026
+Himachal Pradesh,PMY Kullu,130,39.0,15.73,10.61,16.79,10.28,New forecaster,2026
+Tamil Nadu,Melapalayam(Uzhavar Sandhai ),130,44.5,9.14,7.01,13.63,7.46,Last week's price,2026
+Himachal Pradesh,PMY Kangra,130,45.0,13.44,9.08,13.23,8.79,New forecaster,2026
+Karnataka,Binny Mill (FF&V) Bengaluru,129,28.0,9.12,4.33,8.1,4.54,Last week's price,2026
+Haryana,Thanesar,126,35.0,15.28,7.09,12.19,7.0,New forecaster,2026
+Chandigarh,Chandigarh (Grain/F&V),126,20.0,7.76,4.46,6.76,4.27,New forecaster,2026
+Maharashtra,Nagpur,126,28.75,8.26,5.25,13.68,5.45,Last week's price,2026
+Punjab,Malerkotla,124,20.0,7.83,3.8,9.4,3.62,New forecaster,2026
+Tamil Nadu,Tiruthani(Uzhavar Sandhai ),121,50.0,10.0,2.77,12.45,3.02,Last week's price,2026
+Kerala,Quilandy Market,118,40.0,7.43,4.88,6.66,5.05,Last week's price,2026
+Gujarat,Deesa(Deesa Veg Yard),117,35.0,17.72,6.79,14.52,6.21,New forecaster,2026
+Jammu and Kashmir,Kathua (F&V),116,42.5,9.52,6.69,10.76,6.74,Last week's price,2026
+Himachal Pradesh,SMY Baijnath,116,38.5,11.59,4.44,11.32,4.94,Last week's price,2026
+Kerala,Ettumanoor Market,116,42.0,9.38,6.02,11.06,5.2,New forecaster,2026
+Himachal Pradesh,PMY Hamirpur,115,51.0,15.65,10.73,17.6,10.81,Last week's price,2026
+Uttarakhand,Vikasnagar,115,15.0,4.35,3.76,5.0,3.48,New forecaster,2026
+Punjab,Quadian,114,29.0,8.64,1.27,8.83,1.81,Last week's price,2026
+Kerala,Athirampuzha Market,113,51.0,8.84,5.37,9.48,5.16,New forecaster,2026
+Maharashtra,Rahata,112,20.0,13.33,7.0,13.09,7.02,Last week's price,2026
+Kerala,Neyyatinkara Market,112,47.0,4.99,1.36,11.59,1.71,Last week's price,2026
+Rajasthan,Jalore,112,20.0,2.56,1.8,6.04,1.81,Last week's price,2026
+Tamil Nadu,Medavakkam(Uzhavar Sandhai ),112,50.0,13.4,6.51,16.27,8.1,Last week's price,2026
+Punjab,Garh Shankar,110,32.0,6.47,4.11,9.21,4.28,Last week's price,2026
+Himachal Pradesh,SMY Nagrota Bagwan,109,44.0,10.49,4.03,9.3,3.97,New forecaster,2026
+Himachal Pradesh,PMY Chamba,107,41.0,7.51,1.97,8.12,2.73,Last week's price,2026
+Haryana,Ladwa,106,40.0,12.25,7.6,20.69,8.04,Last week's price,2026
+Maharashtra,Shrirampur,103,20.0,10.83,8.13,13.44,7.67,New forecaster,2026
+Kerala,Thamarassery Market,103,43.0,8.66,7.26,8.29,7.32,Last week's price,2026
+Kerala,Piravam Market,102,60.0,14.15,15.1,18.77,13.09,New forecaster,2026
+Gujarat,The Agricultural Produce Market Committee-Amreli,102,71.0,4.22,3.42,6.22,3.3,New forecaster,2026
+Tamil Nadu,Paruthipattu(Uzhavar Sandhai ),102,50.0,4.73,4.12,7.78,3.89,New forecaster,2026
+Karnataka,Bangarpet,100,20.0,8.36,6.44,9.81,6.34,New forecaster,2026
+Kerala,Thalayolaparambu Market,99,43.0,8.19,5.48,10.28,5.39,New forecaster,2026
+Tamil Nadu,Chidambaram(Uzhavar Sandhai ),98,40.0,7.6,1.58,7.91,1.98,Last week's price,2026
+Karnataka,Mysuru,97,24.0,7.32,6.67,7.01,6.41,New forecaster,2026
+Kerala,Aroor Market,96,56.0,9.42,6.14,9.03,5.95,New forecaster,2026
+Punjab,Patiala,95,30.0,14.75,5.96,7.7,6.0,Last week's price,2026
+Haryana,Gurgaon,94,30.0,8.85,4.47,14.05,4.68,Last week's price,2026
+Himachal Pradesh,SMY Santoshgarh,94,32.25,8.53,4.84,14.05,4.99,Last week's price,2026
+Uttar Pradesh,Kairana,94,16.0,4.28,1.46,5.48,1.75,Last week's price,2026
+Uttarakhand,Roorkee,94,10.0,1.59,0.66,3.23,0.83,Last week's price,2026
+Uttarakhand,Rishikesh,94,16.25,5.13,3.5,6.01,3.27,New forecaster,2026
+Himachal Pradesh,SMY Nalagarh,93,23.0,5.6,5.8,11.16,5.68,Last month's price,2026
+Maharashtra,Pune(Pimpri),92,25.0,6.09,3.62,5.29,3.58,New forecaster,2026
+Punjab,Ropar,91,38.0,8.07,4.63,8.4,5.05,Last week's price,2026
+Assam,Tinsukia Market,91,35.0,13.03,6.73,10.95,6.23,New forecaster,2026
+Punjab,Adampur,90,30.0,9.37,5.51,9.02,5.09,New forecaster,2026
+Haryana,Bahadurgarh,89,24.5,12.27,3.59,8.65,4.07,Last week's price,2026
+Odisha,Hindol,89,42.0,6.43,2.52,5.45,2.85,Last week's price,2026
+Rajasthan,Udaipur (F&V),89,25.0,9.29,4.24,9.01,4.24,Last week's price,2026
+Tamil Nadu,Vaniyampadi(Uzhavar Sandhai ),88,40.0,9.69,5.8,13.32,5.88,Last week's price,2026
+Telangana,Mahboob Manison,87,30.0,8.03,6.59,7.58,6.5,New forecaster,2026
+Madhya Pradesh,Manawar(F&V),87,11.0,3.96,1.86,9.32,1.83,New forecaster,2026
+Gujarat,Jasdan,86,65.65,6.49,3.99,5.87,3.97,New forecaster,2026
+Uttarakhand,Rudrapur,86,25.0,11.68,6.94,9.2,6.99,Last week's price,2026
+Gujarat,Jamnagar,84,74.38,7.5,6.22,7.36,5.39,New forecaster,2026
+Uttarakhand,Kotadwara,84,12.5,2.57,1.71,5.01,1.58,New forecaster,2026
+Punjab,Balachaur,84,30.0,9.47,7.24,9.29,6.81,New forecaster,2026
+Maharashtra,Akola,84,59.55,8.15,6.68,8.95,6.51,New forecaster,2026
+Uttarakhand,Haridwar Union,83,18.0,6.55,3.34,5.51,3.34,Last week's price,2026
+Kerala,Kattappana Market,82,54.0,11.96,13.31,11.72,13.68,Step-1 model (average per crop),2026
+Punjab,Gurdaspur,82,31.0,8.74,4.99,9.02,4.76,New forecaster,2026
+Haryana,Gohana,82,30.0,7.8,6.47,8.26,6.31,New forecaster,2026
+Uttar Pradesh,Gulavati,81,21.0,3.21,0.81,8.11,1.22,Last week's price,2026
+Kerala,Kanjangadu Market,81,53.0,10.04,3.01,12.1,3.29,Last week's price,2026
+Haryana,Raipur Rani,80,22.0,3.69,1.2,8.56,1.36,Last week's price,2026
+Telangana,L B Nagar,80,21.0,5.15,1.87,6.36,1.81,New forecaster,2026
+Tamil Nadu,Tiruvallur(Uzhavar Sandhai ),79,50.0,11.16,7.82,11.2,7.41,New forecaster,2026
+Uttarakhand,Manglaur,79,11.0,6.22,2.12,7.02,2.05,New forecaster,2026
+Assam,Fancy Bazaar,79,95.0,6.77,5.08,6.69,5.64,Last week's price,2026
+Tamil Nadu,Madhuranthagam(Uzhavar Sandhai ),79,40.0,5.38,3.48,13.22,3.57,Last week's price,2026
+Gujarat,Damnagar,77,35.0,15.3,8.26,12.31,7.9,New forecaster,2026
+Punjab,Patran,77,25.4,8.25,6.95,8.02,6.76,New forecaster,2026
+Himachal Pradesh,SMY Jogindernagar,76,30.5,10.02,4.66,9.65,4.59,New forecaster,2026
+Punjab,Zira,76,31.0,5.45,4.15,7.32,4.13,New forecaster,2026
+Gujarat,Himatnagar(Veg.Market Himatnagar),75,19.2,17.01,7.75,13.49,7.07,New forecaster,2026
+West Bengal,Siliguri,75,52.0,3.57,1.22,6.39,1.46,Last week's price,2026
+Punjab,Rayya,73,10.67,1.01,0.26,9.07,0.48,Last week's price,2026
+Tripura,Manubazar,72,55.0,15.07,8.11,14.84,8.57,Last week's price,2026
+West Bengal,Khatra,71,27.0,3.3,2.14,2.79,2.16,Last week's price,2026
+Punjab,Lalru,71,27.0,10.34,3.61,9.12,3.93,Last week's price,2026
+Kerala,Chavakkad Market,71,50.0,9.93,4.7,9.41,4.5,New forecaster,2026
+Gujarat,Dahod,71,60.95,2.77,1.18,2.55,1.28,Last week's price,2026
+Gujarat,Bilimora,70,18.0,8.61,2.94,7.25,3.0,Last week's price,2026
+Telangana,Siddipet(Rythu Bazar),70,30.0,5.61,2.76,6.99,2.91,Last week's price,2026
+West Bengal,Bishnupur(Bankura),70,41.0,3.56,1.25,3.21,1.36,Last week's price,2026
+Haryana,Jagadhri,68,28.0,8.86,9.75,11.89,8.19,New forecaster,2026
+Uttar Pradesh,Maigalganj,68,11.65,1.52,0.73,3.69,0.84,Last week's price,2026
+Punjab,Mukerian,68,27.5,6.67,2.95,7.24,3.12,Last week's price,2026
+Maharashtra,Kamthi,68,23.5,8.11,6.58,10.58,6.34,New forecaster,2026
+Kerala,Perambra Market,68,40.0,8.69,6.88,7.63,6.69,New forecaster,2026
+Madhya Pradesh,Kailaras,67,20.0,9.4,6.46,15.23,6.41,New forecaster,2026
+Uttarakhand,Haldwani,67,14.0,4.85,2.63,5.69,2.72,Last week's price,2026
+Gujarat,Rajkot(Veg.Sub Yard),66,19.8,19.46,7.89,18.29,7.0,New forecaster,2026
+Karnataka,Bengaluru,66,77.5,8.68,7.55,13.77,7.79,Last week's price,2026
+Haryana,Sadhaura,66,19.5,2.83,1.79,5.51,2.03,Last week's price,2026
+Manipur,Lamlong Bazaar,65,87.5,3.46,0.62,5.03,0.84,Last week's price,2026
+Kerala,Pulpally Market,65,37.0,5.61,7.43,14.11,5.18,New forecaster,2026
+Tamil Nadu,Perambakkam(Uzhavar Sandhai ),64,50.0,46.33,40.16,37.93,41.16,Step-1 model (average per crop),2026
+Kerala,Harippad Market,64,50.0,4.76,2.89,9.82,3.11,Last week's price,2026
+Gujarat,Mansa(Manas Veg Yard),63,20.0,19.58,4.85,9.48,4.93,Last week's price,2026
+Rajasthan,Jodhpur (F&V),63,22.5,4.92,3.08,9.05,3.07,New forecaster,2026
+Karnataka,Doddaballapur,63,27.0,9.91,3.84,9.59,3.52,New forecaster,2026
+Punjab,Dinanagar,63,38.0,5.46,2.4,8.38,2.64,Last week's price,2026
+Odisha,Betnoti,63,35.0,4.81,2.63,4.87,2.63,Last week's price,2026
+Tamil Nadu,Keelpennathur(Uzhavar Sandhai ),63,55.0,31.77,1.23,26.21,5.82,Last week's price,2026
+Telangana,Vantamamidi,63,12.5,6.67,4.01,8.2,3.94,New forecaster,2026
+Bihar,Khagaria,63,27.33,8.05,4.76,6.0,4.6,New forecaster,2026
+Odisha,Narasinghpur,62,40.0,13.89,4.4,7.7,4.67,Last week's price,2026
+Punjab,Jagraon,61,22.0,9.98,0.64,11.84,0.71,Last week's price,2026
+Maharashtra,Ratnagiri (Nachane),61,25.0,10.2,4.66,10.82,4.74,Last week's price,2026
+Gujarat,Jetpur(Dist.Rajkot),61,64.05,4.7,2.68,6.19,3.0,Last week's price,2026
+Madhya Pradesh,Sendhwa(F&V),61,9.0,1.51,1.58,4.25,0.89,New forecaster,2026
+Himachal Pradesh,SMY Rohroo,61,32.5,12.28,6.59,12.29,7.07,Last week's price,2026
+Telangana,Miryalguda(Rythu Bazar),60,37.5,6.42,3.25,9.37,3.49,Last week's price,2026
+Karnataka,Honnali,60,22.5,8.65,6.58,9.48,6.22,New forecaster,2026
+Kerala,Kottakkal Market,60,34.0,15.68,8.82,17.1,8.4,New forecaster,2026
+Uttar Pradesh,Kosikalan,59,21.0,4.26,3.92,3.87,3.59,New forecaster,2026
+Maharashtra,Mangal Wedha,59,22.0,8.16,4.4,11.28,4.48,Last week's price,2026
+West Bengal,Tamluk (Medinipur E),59,42.0,4.83,2.26,4.43,1.89,New forecaster,2026
+Punjab,Pathankot,59,21.0,9.35,4.9,10.26,4.9,Last week's price,2026
+Kerala,Chala Market,58,44.0,24.79,18.1,22.55,17.62,New forecaster,2026
+Haryana,Meham,58,24.0,10.59,4.55,9.13,4.41,New forecaster,2026
+Kerala,Pampady Market,58,50.0,8.35,9.23,11.2,8.71,Last month's price,2026
+Gujarat,Ankleshwar,58,18.0,11.53,5.12,11.3,6.43,Last week's price,2026
+Maharashtra,Akluj,57,25.0,11.25,6.55,10.8,6.26,New forecaster,2026
+Rajasthan,Malpura,57,60.0,6.37,2.96,4.95,3.03,Last week's price,2026
+Uttarakhand,Bhagwanpur(Naveen Mandi Sthal),57,7.0,5.24,3.03,5.37,2.8,New forecaster,2026
+Odisha,Sargipali,57,32.0,12.51,5.41,8.51,4.94,New forecaster,2026
+Punjab,Khanna,57,25.0,2.71,3.71,6.92,1.96,New forecaster,2026
+Punjab,Jalalabad,57,36.0,15.63,8.77,12.81,8.48,New forecaster,2026
+Delhi,"Flower Market,Gazipur",56,2.8,36.45,45.31,36.28,44.49,Step-1 model (average per crop),2026
+Punjab,Raikot,56,31.78,6.44,2.88,7.44,3.44,Last week's price,2026
+Himachal Pradesh,SMY Rampur,55,35.0,11.92,7.56,10.12,8.7,Last week's price,2026
+Madhya Pradesh,Khandwa(F&V),55,10.0,1.93,0.71,4.31,0.86,Last week's price,2026
+Madhya Pradesh,Shamgarh,54,62.65,7.69,4.99,6.17,4.89,New forecaster,2026
+Kerala,Chathanoor Market,54,47.5,11.53,4.48,12.92,4.5,Last week's price,2026
+Rajasthan,Bikaner (F&V),54,23.0,6.97,5.5,8.42,5.6,Last week's price,2026
+Uttar Pradesh,Chhutmalpur,54,14.0,3.28,1.71,3.15,1.74,Last week's price,2026
+Maharashtra,Karjat,53,40.0,8.31,4.24,4.99,3.85,New forecaster,2026
+Tamil Nadu,Jeyankondam (Uzhavar Sandhai ),53,37.5,7.38,2.57,6.14,2.44,New forecaster,2026
+Punjab,Mukerian(Talwara),52,40.0,9.42,3.05,8.71,3.27,Last week's price,2026
+Maharashtra,Kalmeshwar,52,14.35,6.21,4.16,6.41,3.96,New forecaster,2026
+Maharashtra,Mumbai- Fruit Market,52,45.0,10.65,4.35,10.08,4.82,Last week's price,2026
+Gujarat,"Anand(Veg,Yard,Anand)",52,18.12,15.67,5.05,12.42,5.18,Last week's price,2026
+Tripura,Sonamura,52,46.0,14.7,5.46,12.34,5.5,Last week's price,2026
+Chhattisgarh,Rajnandgaon,52,26.5,10.98,6.46,8.82,6.39,New forecaster,2026
+West Bengal,Jhargram,52,35.0,9.89,5.46,4.85,5.36,Step-1 model (average per crop),2026
+Punjab,Ahmedgarh,52,30.0,9.77,3.92,8.99,3.97,Last week's price,2026
+Karnataka,Bagepalli,51,16.0,5.04,3.64,6.21,3.44,New forecaster,2026
+Uttar Pradesh,Khandhla,51,14.5,2.37,0.73,3.76,0.88,Last week's price,2026
+Telangana,"Kukatpally,RBZ",51,28.0,4.97,3.97,5.93,4.04,Last week's price,2026
+Haryana,Panipat,51,15.0,8.67,4.85,13.2,4.81,New forecaster,2026
+Tamil Nadu,Vedasanthur(Uzhavar Sandhai ),51,22.5,6.27,4.5,9.94,4.26,New forecaster,2026
+Kerala,Kallachi Market,51,40.0,7.49,3.59,6.48,3.46,New forecaster,2026
+Maharashtra,Vai,51,25.0,5.98,5.17,5.63,4.84,New forecaster,2026
+Madhya Pradesh,Sagar(F&V),51,11.0,3.44,4.09,5.6,3.49,Last month's price,2026
+Tamil Nadu,Kandiyaperi(Uzhavar Sandhai ),50,24.5,4.22,4.34,9.83,4.54,Last month's price,2026
+Kerala,Kuttoor Market,50,68.0,20.19,15.8,26.16,15.21,New forecaster,2026
+Kerala,Kayamkulam Market,50,32.0,12.32,3.14,13.54,3.18,Last week's price,2026
+Telangana,Venkateswarnagar,49,18.0,3.22,2.81,7.24,2.73,New forecaster,2026
+Uttar Pradesh,Kopaganj,49,18.0,1.84,0.97,2.82,1.37,Last week's price,2026
+Haryana,Fatehabad,49,35.0,8.89,10.15,11.07,8.62,New forecaster,2026
+Telangana,Gudimalkapur,49,20.0,4.09,2.68,8.74,2.29,New forecaster,2026
+Rajasthan,Bassi,49,31.0,3.91,2.99,6.29,2.67,New forecaster,2026
+Uttar Pradesh,Varanasi,49,35.0,12.93,3.78,16.12,4.05,Last week's price,2026
+Tripura,Mohanpur,48,47.0,3.33,1.97,6.6,2.27,Last week's price,2026
+Maharashtra,Pune(Khadiki),48,15.25,1.51,1.0,11.21,1.08,Last week's price,2026
+Tripura,Kamalghat,48,46.0,2.94,1.52,6.63,1.94,Last week's price,2026
+Haryana,Tauru,48,25.0,10.33,5.26,7.51,5.04,New forecaster,2026
+Odisha,Banki,47,40.0,4.88,2.97,3.97,3.09,Last week's price,2026
+Uttar Pradesh,Mathura,47,31.67,9.57,7.14,8.69,7.26,Last week's price,2026
+Odisha,Kamakhyanagar,47,50.0,11.79,4.19,14.49,4.34,Last week's price,2026
+West Bengal,Medinipur(West),46,40.0,7.15,4.12,5.52,4.14,Last week's price,2026
+Gujarat,Savarkundla,46,63.5,3.57,2.91,5.06,2.83,New forecaster,2026
+Kerala,Kottarakkara Market,46,22.0,23.08,12.92,23.24,12.99,Last week's price,2026
+Punjab,Malout,46,30.0,12.93,8.25,11.86,8.04,New forecaster,2026
+Kerala,Munnar Market,46,65.0,20.3,16.48,16.73,16.43,New forecaster,2026
+West Bengal,Karsiyang(Matigara),46,29.0,4.59,1.08,6.33,1.25,Last week's price,2026
+Madhya Pradesh,Indore,46,50.0,8.91,6.12,11.6,6.6,Last week's price,2026
+West Bengal,Darjeeling,45,32.0,1.93,0.89,3.36,0.79,New forecaster,2026
+Uttarakhand,Sitarganj,45,16.0,10.16,6.68,7.98,6.52,New forecaster,2026
+Himachal Pradesh,SMY Bandrol,45,18.0,16.73,5.16,19.83,5.13,New forecaster,2026
+Kerala,Cherthala Market,45,41.0,4.61,3.32,9.8,3.11,New forecaster,2026
+Karnataka,Chamarajanagar,45,20.0,17.6,17.44,14.39,16.81,Step-1 model (average per crop),2026
+Haryana,Sohna,45,24.0,5.42,3.92,4.59,4.14,Last week's price,2026
+Karnataka,Davangere,44,23.98,7.93,8.43,7.26,6.08,New forecaster,2026
+Haryana,Ballabhgarh,43,17.0,7.25,4.77,6.52,4.79,Last week's price,2026
+Uttarakhand,Kicchha,43,9.0,2.17,1.42,4.36,1.37,New forecaster,2026
+Haryana,Kosli,43,20.0,3.14,2.38,4.5,2.75,Last week's price,2026
+Gujarat,Visavadar,43,71.4,8.33,8.05,8.85,7.88,New forecaster,2026
+Odisha,Angul,43,32.0,1.63,1.4,4.81,1.18,New forecaster,2026
+Telangana,Mahabubnagar(Rythu Bazar),43,30.0,7.27,2.99,10.27,3.19,Last week's price,2026
+Odisha,Bolangir,43,32.0,7.2,2.86,5.51,3.33,Last week's price,2026
+West Bengal,Habra,43,38.0,10.36,5.93,5.96,6.03,Last week's price,2026
+Tamil Nadu,Ambasamudram(Uzhavar Sandhai ),43,27.5,4.55,4.52,10.17,4.27,New forecaster,2026
+Gujarat,Dhanera,42,68.9,7.51,8.63,8.49,8.22,Last month's price,2026
+Gujarat,Jam Jodhpur,42,72.62,3.86,4.94,6.02,3.31,New forecaster,2026
+Tripura,Kalyanpur,42,49.0,16.85,6.93,9.61,7.69,Last week's price,2026
+Tamil Nadu,Chengalpet(Uzhavar Sandhai ),42,55.0,12.46,5.25,12.86,5.14,New forecaster,2026
+West Bengal,Jangipur,42,40.75,7.56,3.05,7.7,2.6,New forecaster,2026
+Himachal Pradesh,SMY Chauri Bihal,42,25.0,8.45,6.72,12.46,6.47,New forecaster,2026
+Jammu and Kashmir,Rajouri (Phaliana) (F&V),42,43.5,5.83,4.6,7.52,4.86,Last week's price,2026
+Madhya Pradesh,Kukshi(F&V),42,11.0,7.94,2.12,12.28,2.33,Last week's price,2026
+Punjab,GarhShankar (Kotfatuhi),41,28.0,3.62,1.82,4.11,2.18,Last week's price,2026
+Punjab,Lohian Khas,41,16.0,3.93,1.47,3.83,1.57,Last week's price,2026
+Uttar Pradesh,Khalilabad,41,15.5,1.47,1.18,2.58,1.18,Last week's price,2026
+Uttar Pradesh,Prayagraj,41,25.0,6.24,3.08,4.03,3.01,New forecaster,2026
+Punjab,Lehra Gaga,41,35.0,14.43,12.1,15.63,10.8,New forecaster,2026
+Kerala,Koduvayoor Market,41,37.0,13.84,16.44,16.65,15.28,Last month's price,2026
+Madhya Pradesh,Biaora,40,69.1,6.38,7.06,10.58,6.34,New forecaster,2026
+Punjab,Samrala,40,23.0,7.85,4.1,8.96,4.43,Last week's price,2026
+Punjab,Kharar,40,30.0,8.7,4.09,9.05,4.19,Last week's price,2026
+Maharashtra,"Sangli(Phale, Bhajipala Market)",40,42.5,11.12,9.16,7.97,9.51,Step-1 model (average per crop),2026
+Odisha,Attabira,39,28.0,10.15,2.19,10.65,2.33,Last week's price,2026
+Uttarakhand,Kashipur,39,23.0,6.88,6.13,5.8,5.67,New forecaster,2026
+Uttar Pradesh,Kanpur(Grain),39,25.94,5.64,2.78,5.93,3.69,Last week's price,2026
+Madhya Pradesh,Sarangpur(F&V),39,9.5,3.99,1.86,4.67,1.94,Last week's price,2026
+Madhya Pradesh,Sanawad(F&V),39,10.0,6.0,3.1,5.36,3.12,Last week's price,2026
+Gujarat,Halvad,39,88.75,7.4,4.4,6.64,3.89,New forecaster,2026
+Tripura,Pabiacherra,39,58.0,23.3,14.83,16.71,14.86,Last week's price,2026
+Uttar Pradesh,Shahaswan,39,21.0,6.01,1.27,4.74,1.75,Last week's price,2026
+Bihar,Raxaul,38,15.0,4.25,0.69,5.62,1.52,Last week's price,2026
+Maharashtra,Kolhapur,38,25.0,9.36,5.59,10.34,6.25,Last week's price,2026
+Madhya Pradesh,Mandsaur,38,58.02,12.13,9.31,11.92,9.46,Last week's price,2026
+Haryana,Ratia,38,28.0,12.06,4.49,8.84,4.44,New forecaster,2026
+Odisha,Boudh,38,50.0,8.16,4.64,14.43,4.13,New forecaster,2026
+Odisha,Gunpur,38,74.4,23.45,7.24,22.6,8.84,Last week's price,2026
+Andaman and Nicobar,Diglipur Vegetable Market (Subhashgram),38,45.0,8.16,2.57,6.31,3.48,Last week's price,2026
+Punjab,Baghapurana,37,25.0,4.51,2.95,6.25,3.1,Last week's price,2026
+Gujarat,Khambhat(Veg Yard Khambhat),37,16.0,22.91,7.46,13.15,6.75,New forecaster,2026
+Gujarat,"Kalol(Veg,Market,Kalol)",37,20.0,11.76,6.06,9.56,6.06,Last week's price,2026
+West Bengal,Gangarampur(Dakshin Dinajpur),37,34.0,7.32,4.41,5.0,4.43,Last week's price,2026
+Madhya Pradesh,Harda,37,66.8,4.53,3.7,5.07,3.53,New forecaster,2026
+Gujarat,Taleja,36,67.7,6.37,4.24,5.55,3.78,New forecaster,2026
+Kerala,Angamaly Market,36,55.5,10.08,9.65,11.6,9.17,New forecaster,2026
+Tamil Nadu,Naravarikuppam(Uzhavar Sandhai ),36,47.5,5.95,4.03,8.86,3.32,New forecaster,2026
+Maharashtra,Satara,36,18.75,6.98,2.95,6.82,3.05,Last week's price,2026
+Maharashtra,Latur,36,77.25,9.37,3.55,7.81,3.77,Last week's price,2026
+Tripura,Kulai,36,58.0,13.52,14.22,24.75,13.5,New forecaster,2026
+Uttar Pradesh,Bareilly,36,20.0,7.9,5.2,5.34,5.85,Last week's price,2026
+Punjab,Bassi Pathana,36,32.5,11.77,9.72,11.68,9.38,New forecaster,2026
+Odisha,Panposh,36,40.0,4.32,2.36,3.99,2.59,Last week's price,2026
+Kerala,Kollengode Market,36,45.0,10.4,12.49,11.8,9.73,New forecaster,2026
+Punjab,Morinda,36,33.75,7.74,4.4,6.63,4.2,New forecaster,2026
+Telangana,Kalwakurthy,36,23.75,7.72,5.35,6.54,5.15,New forecaster,2026
+Haryana,Rewari,35,30.0,8.34,3.47,14.44,3.34,New forecaster,2026
+Karnataka,Kalaburagi,35,45.0,13.29,15.19,14.28,13.39,Last month's price,2026
+Maharashtra,Vita,35,23.0,7.61,3.51,5.95,3.26,New forecaster,2026
+Kerala,Payyannur Market,35,50.0,7.19,2.93,9.48,3.47,Last week's price,2026
+West Bengal,Bolpur,35,49.6,4.49,4.5,12.16,4.22,New forecaster,2026
+Gujarat,Bagasara,34,64.08,8.85,7.33,6.65,6.63,New forecaster,2026
+Madhya Pradesh,Bina,34,58.5,6.42,4.35,5.63,3.87,New forecaster,2026
+Punjab,Noor Mehal,34,15.0,3.42,3.92,4.41,3.79,Last month's price,2026
+Punjab,Rajpura,34,29.5,17.42,9.38,15.18,9.47,Last week's price,2026
+Punjab,Bhagta Bhai Ka,34,32.0,7.51,4.41,11.49,3.76,New forecaster,2026
+Maharashtra,Karad,34,25.0,9.54,6.54,9.43,6.39,New forecaster,2026
+Punjab,Sahnewal,34,28.0,6.16,3.71,6.55,3.81,Last week's price,2026
+Odisha,Godbhaga,34,27.5,7.99,2.88,8.65,2.74,New forecaster,2026
+Odisha,Dungurapalli,34,40.0,9.1,4.83,8.14,4.67,New forecaster,2026
+Madhya Pradesh,Kolaras,34,62.65,6.49,7.52,6.95,6.86,Last month's price,2026
+Tripura,Machmara,33,38.0,27.33,5.92,20.2,6.66,Last week's price,2026
+West Bengal,Dhupguri,33,30.0,7.85,3.59,6.32,3.81,Last week's price,2026
+Uttar Pradesh,Jalaun,33,25.4,4.18,5.57,5.32,5.13,Last month's price,2026
+Uttar Pradesh,Shamli,33,38.0,27.35,19.36,21.15,19.63,Last week's price,2026
+West Bengal,Nadia,33,51.0,6.52,2.53,6.4,2.68,Last week's price,2026
+West Bengal,Kolaghat,33,55.0,13.64,12.43,12.27,13.08,Step-1 model (average per crop),2026
+Odisha,Tusura,33,38.0,8.85,3.12,5.12,3.65,Last week's price,2026
+Odisha,Baripada,33,38.0,4.58,4.62,5.26,4.61,Last month's price,2026
+Odisha,Bhawanipatna,33,29.0,3.03,1.73,7.23,1.51,New forecaster,2026
+Karnataka,Kustagi,33,75.0,5.51,2.41,3.49,2.18,New forecaster,2026
+Tamil Nadu,Kamuthi(Uzhavar Sandhai ),33,50.0,7.7,6.39,12.54,5.99,New forecaster,2026
+Punjab,Fazilka,33,35.0,11.38,6.92,12.56,7.07,Last week's price,2026
+Himachal Pradesh,SMY Wakhnaghat,33,16.0,9.17,5.47,22.25,5.31,New forecaster,2026
+Punjab,Phillaur(Apra Mandi),33,25.0,5.61,4.58,6.9,4.75,Last week's price,2026
+Himachal Pradesh,PMY Paonta Sahib,33,32.0,8.33,5.55,6.88,4.91,New forecaster,2026
+Uttar Pradesh,Lalganj,33,18.0,2.18,0.62,2.61,0.69,Last week's price,2026
+Odisha,Karanjia,32,36.5,6.35,3.13,4.96,3.12,New forecaster,2026
+Punjab,Harike,32,6.5,0.0,0.0,12.42,0.08,Last month's price,2026
+Kerala,Thalasserry Market,32,45.0,8.91,4.69,6.73,4.78,Last week's price,2026
+West Bengal,Jalpaiguri Sadar,32,32.0,8.75,2.73,7.98,2.81,Last week's price,2026
+Madhya Pradesh,Mandsaur(F&V),32,25.25,6.49,5.54,8.69,5.54,Last week's price,2026
+Gujarat,Dhrol,32,62.7,8.77,6.29,7.44,5.69,New forecaster,2026
+Uttar Pradesh,Jasvantnagar,32,19.4,3.05,1.46,3.68,1.33,New forecaster,2026
+Madhya Pradesh,Ujjain(F&V),32,12.58,2.48,2.06,9.27,1.27,New forecaster,2026
+Tripura,Boxonagar,32,52.0,14.25,6.95,9.9,6.64,New forecaster,2026
+Gujarat,Ahmedabad,31,19.5,18.15,9.79,12.34,9.69,New forecaster,2026
+Haryana,Jhajjar,31,28.0,12.46,5.03,10.21,5.1,Last week's price,2026
+Haryana,Rohtak,31,25.0,9.56,4.23,9.71,4.18,New forecaster,2026
+West Bengal,Birbhum,31,49.0,5.27,5.03,15.2,3.94,New forecaster,2026
+West Bengal,Balurghat,31,34.0,6.48,5.05,4.81,5.16,Step-1 model (average per crop),2026
+Madhya Pradesh,Dhar,31,30.1,6.09,5.06,5.96,4.44,New forecaster,2026
+Madhya Pradesh,Vidisha,31,57.72,3.5,3.07,4.69,2.74,New forecaster,2026
+Gujarat,Visnagar,31,64.25,3.34,2.14,2.87,1.73,New forecaster,2026
+West Bengal,Bankura Sadar,30,38.25,4.88,1.86,4.12,1.87,Last week's price,2026
+West Bengal,Barasat,30,50.0,9.13,2.87,8.7,3.19,Last week's price,2026
+Bihar,Madhubani,30,36.5,5.87,2.67,4.99,3.28,Last week's price,2026
+Madhya Pradesh,Burhanpur(F&V),30,20.0,6.38,7.38,8.47,5.99,New forecaster,2026
+Odisha,Dhenkanal,30,40.0,1.85,1.22,5.53,0.97,New forecaster,2026
+Odisha,Saraskana,30,38.0,5.26,4.21,6.08,3.95,New forecaster,2026
+Madhya Pradesh,Mandla,30,26.5,3.35,2.37,2.65,2.08,New forecaster,2026
+Uttar Pradesh,Naugarh,30,23.8,7.81,2.35,5.81,2.33,New forecaster,2026
+Gujarat,Talalagir,30,8.5,4.26,3.93,15.57,3.73,New forecaster,2026
+Gujarat,Rajula,30,62.26,13.17,10.39,10.14,11.78,Step-1 model (average per crop),2026
+Nagaland,Dimapur,30,55.0,6.0,5.83,7.12,5.83,Last week's price,2026
+Punjab,Patti,30,6.9,14.94,4.9,25.03,5.04,Last week's price,2026
+Uttar Pradesh,Rura,30,25.0,0.39,0.32,0.4,0.38,Last week's price,2026
+Telangana,"Excise Colony,RBZ",30,36.0,6.77,3.27,9.11,3.28,Last week's price,2026
+Telangana,Adilabad (Rythu Bazar),30,45.0,15.11,2.83,27.09,4.19,Last week's price,2026

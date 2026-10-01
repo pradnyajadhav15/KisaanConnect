@@ -1,0 +1,190 @@
+commodity,rows,actual_median_kg,last_month,last_week,static_model,forecaster,best,test_set
+Brinjal,29212,18.0,5.34,3.46,7.53,3.48,Last week's price,2024-25
+Green Chilli,27600,31.5,11.16,6.12,13.38,6.01,New forecaster,2024-25
+Bhindi(Ladies Finger),23515,20.0,7.85,4.56,11.03,4.44,New forecaster,2024-25
+Mustard,19991,62.0,3.32,1.78,6.21,1.65,New forecaster,2024-25
+Wheat,19855,25.0,0.5,0.32,1.29,0.33,Last week's price,2024-25
+Soyabean,14562,41.95,1.93,1.47,2.56,1.45,New forecaster,2024-25
+Garlic,14320,62.0,7.69,5.53,15.17,5.61,Last week's price,2024-25
+Cabbage,13957,15.0,3.75,2.25,6.82,2.27,Last week's price,2024-25
+Ginger(Green),13930,40.78,5.54,4.12,9.56,4.03,New forecaster,2024-25
+Apple,13193,112.5,18.05,10.29,29.3,9.8,New forecaster,2024-25
+Cauliflower,12471,26.0,7.32,4.74,13.26,4.58,New forecaster,2024-25
+Maize,11745,21.05,1.26,0.82,1.69,0.82,Last week's price,2024-25
+Banana,9369,27.5,1.67,1.22,3.9,1.18,New forecaster,2024-25
+Mango,8293,33.4,15.46,7.14,24.02,6.89,New forecaster,2024-25
+Lentil(Masur)(Whole),7740,64.05,2.79,2.13,4.12,2.06,New forecaster,2024-25
+Gur(Jaggery),7421,42.0,1.19,0.65,3.11,0.64,New forecaster,2024-25
+Bajra(Pearl Millet/Cumbu),7182,22.44,1.48,1.04,2.5,1.03,New forecaster,2024-25
+Carrot,7166,48.0,8.39,5.18,12.23,5.53,Last week's price,2024-25
+Groundnut,4873,51.0,4.62,3.27,5.08,3.14,New forecaster,2024-25
+Red gram/Arhar/Tur(whole),4857,60.0,4.88,3.43,8.06,3.26,New forecaster,2024-25
+Green Gram(Moong)(Whole),4349,69.03,6.69,3.88,6.86,3.83,New forecaster,2024-25
+Jowar(Sorghum),2285,33.71,4.36,3.25,5.66,3.16,New forecaster,2024-25
+Cotton,2065,72.2,3.37,2.37,5.61,2.45,Last week's price,2024-25
+Tomato,3360,25.0,5.32,2.82,5.2,2.87,Last week's price,2026
+Brinjal,3266,32.5,6.46,4.08,8.12,4.0,New forecaster,2026
+Potato,2998,18.0,2.74,1.73,4.82,1.71,New forecaster,2026
+Onion,2988,53.0,15.52,4.14,13.34,5.06,Last week's price,2026
+Bhindi(Ladies Finger),2910,32.0,5.81,3.7,6.84,3.68,New forecaster,2026
+Green Chilli,2825,46.0,8.91,5.94,9.24,5.99,Last week's price,2026
+Bitter gourd,2468,46.0,6.56,4.24,8.25,4.21,New forecaster,2026
+Bottle gourd,2445,19.0,3.47,2.16,5.18,2.17,Last week's price,2026
+Banana,2431,46.0,4.76,2.95,8.63,2.9,New forecaster,2026
+Cabbage,2218,27.5,4.42,2.32,6.2,2.3,New forecaster,2026
+Pumpkin,2137,18.0,2.49,1.48,4.03,1.46,New forecaster,2026
+Cauliflower,2087,34.0,5.41,3.35,7.36,3.32,New forecaster,2026
+Cucumbar(Kheera),1891,30.0,6.06,3.88,7.79,3.78,New forecaster,2026
+Ridgeguard(Tori),1833,40.0,6.69,3.32,8.07,3.36,Last week's price,2026
+Raddish,1783,27.5,3.9,2.35,5.73,2.34,New forecaster,2026
+Carrot,1777,50.0,17.73,6.02,14.91,5.25,New forecaster,2026
+Ginger(Green),1729,150.0,21.09,11.39,24.61,11.93,Last week's price,2026
+Banana - Green,1704,30.0,2.41,1.44,6.95,1.49,Last week's price,2026
+Snakeguard,1628,34.0,4.4,2.93,6.13,2.89,New forecaster,2026
+Lemon,1620,171.25,86.48,32.3,83.23,28.57,New forecaster,2026
+Drumstick,1611,40.0,9.18,6.08,9.05,6.55,Last week's price,2026
+Coriander(Leaves),1601,45.0,8.51,5.93,13.77,6.21,Last week's price,2026
+Wheat,1590,26.0,1.0,0.79,1.16,0.78,New forecaster,2026
+Beetroot,1556,46.0,7.13,4.36,9.08,4.34,New forecaster,2026
+Amaranthus,1548,27.5,1.59,1.14,8.59,1.12,New forecaster,2026
+Cluster beans,1533,36.0,5.24,2.93,5.99,2.97,Last week's price,2026
+Coconut,1518,57.5,3.35,1.85,8.99,1.86,Last week's price,2026
+Ashgourd,1490,20.0,2.91,1.66,4.47,1.65,New forecaster,2026
+Papaya,1466,35.0,3.7,2.07,6.41,2.06,New forecaster,2026
+Onion Green,1411,82.5,16.33,7.67,16.67,6.62,New forecaster,2026
+Green Avare(W),1357,66.0,13.53,9.96,13.96,10.16,Last week's price,2026
+Mint(Pudina),1329,47.5,6.62,4.14,9.69,4.52,Last week's price,2026
+Beans,1231,80.0,13.68,8.38,11.49,8.79,Last week's price,2026
+Capsicum,1141,50.0,8.22,5.53,11.29,5.61,Last week's price,2026
+Paddy(Common),1131,24.0,2.03,1.59,2.35,1.53,New forecaster,2026
+Garlic,1113,195.0,18.24,12.48,25.65,12.36,New forecaster,2026
+Guava,1062,57.5,10.81,6.99,12.47,6.96,New forecaster,2026
+Chow Chow,1053,35.0,2.68,2.93,5.59,2.87,Last month's price,2026
+Elephant Yam(Suran)/Amorphophallus,1014,44.0,3.84,2.49,8.06,2.48,New forecaster,2026
+Apple,889,90.0,28.58,15.28,30.95,15.18,New forecaster,2026
+Colacasia,868,47.5,4.0,2.89,7.79,2.93,Last week's price,2026
+Thondekai,812,41.0,6.68,4.28,7.34,4.27,New forecaster,2026
+Tapioca,758,33.0,2.52,1.66,4.95,1.66,Last week's price,2026
+Knool Khol,714,40.0,6.43,4.19,8.09,4.39,Last week's price,2026
+Cowpea(Veg),712,42.5,6.71,4.3,9.42,4.15,New forecaster,2026
+Yam(Ratalu),709,65.0,10.99,3.81,11.38,3.84,Last week's price,2026
+Pomegranate,674,115.0,21.26,13.92,23.97,14.98,Last week's price,2026
+Mousambi(Sweet Lime),670,40.0,8.64,3.37,11.23,3.32,New forecaster,2026
+Maize,649,23.5,2.14,1.5,2.91,1.5,Last week's price,2026
+Groundnut,632,70.0,5.46,3.35,8.15,3.51,Last week's price,2026
+Amla(Nelli Kai),623,85.0,13.99,7.73,17.26,7.8,Last week's price,2026
+Sweet Potato,614,48.75,6.48,4.3,9.62,4.25,New forecaster,2026
+Mango(Raw-Ripe),611,95.0,35.45,16.25,43.47,15.37,New forecaster,2026
+Tender Coconut,611,35.0,2.46,1.24,6.9,1.31,Last week's price,2026
+Lime,506,50.0,17.12,10.1,43.69,10.19,Last week's price,2026
+Soyabean,482,56.48,9.53,5.06,9.41,4.82,New forecaster,2026
+Rice,450,38.0,3.59,3.26,5.44,3.2,New forecaster,2026
+Bengal Gram(Gram)(Whole),435,61.5,3.78,3.44,4.36,3.24,New forecaster,2026
+Sweet Corn,403,37.5,2.71,1.85,7.36,1.86,Last week's price,2026
+Indian Beans(Seam),392,57.75,6.67,3.84,7.86,3.86,Last week's price,2026
+Water Melon,362,17.5,2.8,1.43,3.48,1.42,New forecaster,2026
+Pineapple,341,55.0,7.44,5.56,11.58,5.45,New forecaster,2026
+Chikoos(Sapota),326,47.5,3.28,1.95,7.35,1.98,Last week's price,2026
+Green Gram(Moong)(Whole),312,75.8,8.99,6.06,7.43,6.02,New forecaster,2026
+French Beans(Frasbean),302,47.5,14.91,6.88,13.75,6.93,Last week's price,2026
+Green Peas,286,135.0,17.32,12.26,22.3,11.08,New forecaster,2026
+Mashrooms,279,225.0,15.2,9.4,27.18,8.92,New forecaster,2026
+Mustard,275,74.32,3.13,2.94,3.42,2.62,New forecaster,2026
+Bajra(Pearl Millet/Cumbu),275,23.25,2.1,1.9,2.31,1.82,New forecaster,2026
+Pointed gourd(Parval),267,35.0,11.83,6.06,10.26,5.82,New forecaster,2026
+Spinach,257,20.0,7.03,4.51,6.41,4.49,New forecaster,2026
+Grapes,244,105.0,11.23,6.75,15.76,6.96,Last week's price,2026
+Black Gram(Urd Beans)(Whole),240,81.0,10.19,7.73,9.65,7.59,New forecaster,2026
+Orange,232,125.0,30.44,19.63,29.59,19.88,Last week's price,2026
+Tamarind Fruit,214,140.0,7.45,4.76,20.45,4.79,Last week's price,2026
+Rose(Local),193,160.0,52.23,46.73,62.89,47.38,Last week's price,2026
+Marigold(Calcutta),188,200.0,55.78,64.62,80.96,66.08,Last month's price,2026
+Cotton,186,87.28,6.75,3.77,5.27,4.19,Last week's price,2026
+Little gourd(Kundru),180,35.0,12.33,6.7,9.07,6.33,New forecaster,2026
+Sponge gourd,177,20.0,6.25,3.77,5.31,3.71,New forecaster,2026
+Red gram/Arhar/Tur(whole),173,81.0,8.29,6.34,9.23,6.47,Last week's price,2026
+Peas Wet,164,95.0,26.29,13.36,26.66,13.53,Last week's price,2026
+"Sesamum(Sesame,Gingelly,Til)",160,115.4,10.35,7.89,10.76,7.49,New forecaster,2026
+Jowar(Sorghum),151,43.3,5.82,4.11,7.83,4.07,New forecaster,2026
+Guar,150,50.0,20.66,7.55,16.27,7.23,New forecaster,2026
+Castor Seed,148,74.25,4.56,1.55,4.56,1.12,New forecaster,2026
+Baby Corn,147,27.5,2.65,1.54,6.29,1.56,Last week's price,2026
+Custard Apple(Sharifa),136,47.5,3.14,1.88,11.19,1.82,New forecaster,2026
+Betal Leaves,131,150.0,13.99,7.73,55.37,8.13,Last week's price,2026
+Jasmine,113,475.0,177.6,131.97,143.56,133.17,Last week's price,2026
+Sweet Pumpkin,100,18.0,2.62,1.97,2.42,1.96,New forecaster,2026
+Gur(Jaggery),99,48.0,5.52,4.6,7.67,4.5,New forecaster,2026
+Cummin Seed(Jeera),96,192.75,11.24,6.58,13.87,5.35,New forecaster,2026
+Pear(Marasebu),95,75.0,17.01,9.49,24.98,9.55,Last week's price,2026
+Tinda,95,28.0,14.4,6.48,11.25,6.39,New forecaster,2026
+Chilly Capsicum,95,24.0,5.34,4.24,6.65,4.14,New forecaster,2026
+Turnip,92,45.0,8.81,6.0,9.42,5.85,New forecaster,2026
+Lentil(Masur)(Whole),91,68.95,6.04,6.03,6.64,5.69,New forecaster,2026
+Masur Dal,85,105.5,6.13,3.92,9.07,3.94,Last week's price,2026
+Squash(Chappal Kadoo),85,15.0,5.41,2.49,4.68,2.29,New forecaster,2026
+Karbuja(Musk Melon),76,47.5,6.36,4.34,8.32,4.37,Last week's price,2026
+Papaya(Raw),75,20.0,4.39,3.73,3.74,3.41,New forecaster,2026
+Field Pea,71,45.0,9.75,8.13,9.13,8.19,Last week's price,2026
+Mango,70,70.0,33.1,9.77,31.97,11.59,Last week's price,2026
+Jack Fruit(Ripe),68,32.5,7.51,1.91,15.11,1.91,Last week's price,2026
+Leafy Vegetable,63,30.0,2.21,1.38,9.0,1.34,New forecaster,2026
+Pea Pod/Pea Cod/हरी मटर,61,110.0,30.75,12.48,27.19,12.54,Last week's price,2026
+Black Gram Dal(Urd Dal),59,104.0,9.78,8.81,10.11,9.66,Last week's price,2026
+Chili Red,58,200.0,29.69,15.78,36.06,17.07,Last week's price,2026
+Methi(Leaves),57,30.0,12.79,7.04,15.52,7.68,Last week's price,2026
+Arecanut(Betelnut/Supari),53,371.99,46.77,48.44,52.05,46.85,Last month's price,2026
+Ground Nut Seed,51,102.5,3.79,3.84,4.68,3.96,Last month's price,2026
+Corriander seed,51,133.25,14.95,9.17,13.1,8.62,New forecaster,2026
+Tube Rose(Loose),49,190.0,75.51,65.46,60.9,66.94,Step-1 model (average per crop),2026
+Kabuli Chana(Chickpeas-White),48,80.9,7.57,7.64,8.04,7.49,New forecaster,2026
+Black pepper,47,690.0,40.85,36.75,48.2,37.11,Last week's price,2026
+Green Gram Dal(Moong Dal),46,101.56,2.78,1.73,5.0,1.94,Last week's price,2026
+Spiny Gourd / Kartali(Kantola),43,65.0,25.17,10.76,23.12,9.82,New forecaster,2026
+Other green and fresh vegetables,42,20.0,3.55,2.67,5.68,2.68,Last week's price,2026
+Ginger(Dry),40,90.0,16.59,7.92,14.09,8.52,Last week's price,2026
+Gram Raw(Chholia),39,68.0,12.93,10.01,11.88,9.52,New forecaster,2026
+Kakada,39,425.0,197.18,135.83,167.31,132.14,New forecaster,2026
+Ragi(Finger Millet),37,46.5,2.05,1.62,2.29,1.69,Last week's price,2026
+Pegeon Pea(Arhar Fali),35,75.0,29.53,16.23,18.28,15.92,New forecaster,2026
+Peas(Dry),34,36.91,5.69,8.18,5.94,7.66,Last month's price,2026
+Round gourd,33,10.7,5.78,3.53,5.76,3.4,New forecaster,2026
+Dry Chillies,32,217.5,16.58,11.42,16.73,11.75,Last week's price,2026
+Guar Seed(Cluster Beans Seed),32,59.32,4.81,2.92,4.93,2.9,New forecaster,2026
+Methi Seeds,30,63.8,4.89,4.66,4.98,4.36,New forecaster,2026
+Onion,129,39.0,12.23,3.47,11.53,6.02,Last week's price,2026 Maharashtra
+Tomato,122,12.0,2.61,2.15,3.89,2.23,Last week's price,2026 Maharashtra
+Brinjal,114,19.0,7.18,4.1,7.81,3.93,New forecaster,2026 Maharashtra
+Bhindi(Ladies Finger),111,22.5,6.65,3.81,7.14,3.83,Last week's price,2026 Maharashtra
+Green Chilli,107,27.5,9.24,4.94,9.18,4.91,New forecaster,2026 Maharashtra
+Cucumbar(Kheera),97,17.5,4.62,3.52,5.52,3.47,New forecaster,2026 Maharashtra
+Cabbage,94,10.0,3.69,1.82,4.69,1.87,Last week's price,2026 Maharashtra
+Wheat,94,26.82,1.74,1.11,3.03,1.08,New forecaster,2026 Maharashtra
+Cauliflower,89,15.0,3.98,3.27,5.82,3.17,New forecaster,2026 Maharashtra
+Bitter gourd,80,22.5,7.84,3.95,6.61,3.85,New forecaster,2026 Maharashtra
+Potato,78,11.0,1.23,1.22,2.88,1.16,New forecaster,2026 Maharashtra
+Ginger(Green),72,90.0,19.91,12.72,21.08,12.13,New forecaster,2026 Maharashtra
+Black Gram(Urd Beans)(Whole),64,83.38,10.32,5.82,7.88,6.34,Last week's price,2026 Maharashtra
+Bottle gourd,64,14.25,3.98,2.68,6.67,2.77,Last week's price,2026 Maharashtra
+Green Gram(Moong)(Whole),63,92.5,16.66,8.13,11.58,8.25,Last week's price,2026 Maharashtra
+Chilly Capsicum,63,20.0,4.42,4.26,6.06,4.18,New forecaster,2026 Maharashtra
+Jowar(Sorghum),62,42.63,5.57,4.15,11.54,3.97,New forecaster,2026 Maharashtra
+Guar,60,45.0,14.79,8.83,14.35,8.27,New forecaster,2026 Maharashtra
+Rice,60,44.95,4.73,4.44,11.37,4.5,Last week's price,2026 Maharashtra
+Bengal Gram(Gram)(Whole),59,62.25,4.17,3.88,6.08,3.63,New forecaster,2026 Maharashtra
+Ridgeguard(Tori),54,25.5,7.77,4.74,7.29,4.63,New forecaster,2026 Maharashtra
+Carrot,53,21.0,2.82,2.26,5.24,2.26,Last week's price,2026 Maharashtra
+Pomegranate,51,82.5,13.63,11.34,19.16,11.75,Last week's price,2026 Maharashtra
+Drumstick,47,35.0,7.12,6.0,7.31,6.31,Last week's price,2026 Maharashtra
+Lime,46,86.88,63.36,34.99,59.37,35.45,Last week's price,2026 Maharashtra
+Maize,43,23.45,3.29,2.21,3.27,2.16,New forecaster,2026 Maharashtra
+Garlic,41,120.0,19.44,15.21,30.38,14.62,New forecaster,2026 Maharashtra
+Soyabean,41,56.0,8.93,3.17,8.01,2.41,New forecaster,2026 Maharashtra
+Bajra(Pearl Millet/Cumbu),39,25.0,3.42,2.18,4.96,2.15,New forecaster,2026 Maharashtra
+Red gram/Arhar/Tur(whole),39,87.5,12.8,8.96,12.61,9.38,Last week's price,2026 Maharashtra
+Mousambi(Sweet Lime),38,40.0,6.78,4.52,9.59,5.03,Last week's price,2026 Maharashtra
+Beans,38,30.0,13.32,6.04,11.24,5.85,New forecaster,2026 Maharashtra
+Beetroot,38,20.0,4.03,1.87,3.99,1.9,Last week's price,2026 Maharashtra
+Apple,32,125.0,14.44,13.66,22.51,13.94,Last week's price,2026 Maharashtra
+Coriander(Leaves),32,19.23,6.77,7.2,11.42,7.17,Last month's price,2026 Maharashtra
+Peas Wet,32,60.5,20.75,4.7,21.91,5.4,Last week's price,2026 Maharashtra
+Paddy(Common),30,29.62,5.11,4.36,4.61,4.27,New forecaster,2026 Maharashtra

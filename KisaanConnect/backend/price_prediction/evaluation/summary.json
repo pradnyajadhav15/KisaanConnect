@@ -14,7 +14,7 @@
       "forecaster_median_pct_error": 3.7,
       "forecaster_beats_last_week_pct": 48.5
     },
-    "Jul - Sep 2026 (30 states, incl. Maharashtra)": {
+    "2026, latest two weeks (all states, incl. Maharashtra)": {
       "rows": 94844,
       "actual_median_kg": 40.0,
       "last_month_mae_kg": 9.72,

@@ -18,7 +18,7 @@ test period. Errors are the average gap between forecast and actual modal price
 
 Test sets:
 - **Aug 2024 - Aug 2025 (8 states, no Maharashtra)**: learn from data before 2025-05-15, test 2025-05-15 to 2025-08-14.
-- **Jul - Sep 2026 (30 states, incl. Maharashtra)**: learn from everything before 2026-09-11, test 2026-09-11 to 2026-09-24.
+- **2026, latest two weeks (all states, incl. Maharashtra)**: learn from everything before 2026-09-11, test 2026-09-11 to 2026-09-24.
 
 Only reports where every method can make a forecast are scored.
 
@@ -27,7 +27,7 @@ Only reports where every method can make a forecast are scored.
 | Test set | Reports | Last month's price | Last week's price | Step-1 model (average per crop) | New forecaster |
 |---|---|---|---|---|---|
 | Aug 2024 - Aug 2025 (8 states, no Maharashtra) | 279,951 | 5.98 | 3.61 | 9.17 | **3.55** |
-| Jul - Sep 2026 (30 states, incl. Maharashtra) | 94,844 | 9.72 | 5.47 | 11.61 | **5.42** |
+| 2026, latest two weeks (all states, incl. Maharashtra) | 94,844 | 9.72 | 5.47 | 11.61 | **5.42** |
 | Maharashtra only (2026) | 2,970 | 8.91 | **5.09** | 9.97 | 5.21 |
 
 The new forecaster has the lowest error on both test sets, so it replaces the step-1 model in the app. But the margin over "last week's price" is small (1.7% and 0.9%), which is within normal week-to-week variation, and in Maharashtra last week's price was slightly better over these two weeks. The real improvement is using recent prices at all: the forecaster's error is 53% lower than the step-1 model's.
@@ -141,7 +141,7 @@ Full tables (every crop and mandi with at least 30 reports): `per_crop.csv`, `pe
 
 ## Limits
 
-- The 2026 test covers only two weeks (2026-09-11 to 2026-09-24), because the 2026 data starts on 21 Jul 2026.
+- The 2026 test covers only the latest two weeks (2026-09-11 to 2026-09-24); the 2026 data starts on 21 Jul 2026.
 - Maharashtra is only in the 2026 data; the 2024-25 data covers 8 other states.
 - There is no data between Aug 2025 and Jul 2026, so the model has seen each month of the year at most once.
 - In the app, forecasts are for the week after the latest data. If the data isn't refreshed, they get older.

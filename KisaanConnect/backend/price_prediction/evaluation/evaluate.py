@@ -40,8 +40,9 @@ DATA_PATH = OUT_DIR.parent / "data" / "mandi_history.csv.gz"
 SPLITS = [
     {"name": "2024-25", "label": "Aug 2024 - Aug 2025 (8 states, no Maharashtra)",
      "test_from": "2025-05-15", "test_to": "2025-08-14"},
-    {"name": "2026", "label": "Jul - Sep 2026 (30 states, incl. Maharashtra)",
-     "test_from": "2026-09-11", "test_to": "2026-09-24"},
+    # The 2026 test is always the latest two weeks of data (set in main()).
+    {"name": "2026", "label": "2026, latest two weeks (all states, incl. Maharashtra)",
+     "test_from": None, "test_to": None},
 ]
 METHODS = ["last_month", "last_week", "static_model", "forecaster"]
 METHOD_NAMES = {
@@ -244,7 +245,7 @@ Full tables (every crop and mandi with at least {MIN_GROUP_ROWS} reports): `per_
 
 ## Limits
 
-- The 2026 test covers only two weeks ({SPLITS[1]['test_from']} to {SPLITS[1]['test_to']}), because the 2026 data starts on 21 Jul 2026.
+- The 2026 test covers only the latest two weeks ({SPLITS[1]['test_from']} to {SPLITS[1]['test_to']}); the 2026 data starts on 21 Jul 2026.
 - Maharashtra is only in the 2026 data; the 2024-25 data covers 8 other states.
 - There is no data between Aug 2025 and Jul 2026, so the model has seen each month of the year at most once.
 - In the app, forecasts are for the week after the latest data. If the data isn't refreshed, they get older.
@@ -267,9 +268,16 @@ Full tables (every crop and mandi with at least {MIN_GROUP_ROWS} reports): `per_
     return wins
 
 
+def set_latest_split(df: pd.DataFrame) -> None:
+    last = df["date"].max()
+    SPLITS[1]["test_from"] = (last - pd.Timedelta(days=13)).strftime("%Y-%m-%d")
+    SPLITS[1]["test_to"] = last.strftime("%Y-%m-%d")
+
+
 def main() -> None:
     t = time.time()
     df = load()
+    set_latest_split(df)
     df = F.add_recent_price_features(df)
     print(f"features ready in {time.time() - t:.0f}s")
 

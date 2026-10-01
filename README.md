@@ -115,7 +115,7 @@ week ahead. Average error in Rs/kg (lower is better):
 Full results by crop and by mandi: [`evaluation/REPORT.md`](KisaanConnect/backend/price_prediction/evaluation/REPORT.md).
 
 **Limits.**
-- Forecasts are for the week after the latest data (currently 24 Sep 2026). Until the data is refreshed, they get older.
+- Forecasts are for the week after the latest data (currently 24 Sep 2026). A weekly job refreshes the data and model whenever the upstream source has new days (see [Weekly data refresh](#weekly-data-refresh)).
 - The 2026 test window is only two weeks, and there's no data between Aug 2025 and Jul 2026.
 - It uses only past prices: no weather, arrivals, festivals or policy changes.
 - It's a guide, not advice. Farmers should check today's local mandi rate before selling.
@@ -184,10 +184,18 @@ python train_price_model.py                                 # train, writes mode
 python -m price_prediction.evaluation.evaluate              # refresh evaluation/REPORT.md
 ```
 
-The 2024-25 Kaggle file must be downloaded by hand into `price_prediction/data/raw/`
+The 2024-25 Kaggle file can be downloaded by hand into `price_prediction/data/raw/`
 (see [`SOURCES.md`](KisaanConnect/backend/price_prediction/data/SOURCES.md)). Without it the
-build still works, using the 2026 data only. Training fails on purpose if Maharashtra has fewer than
-20 crops with enough reports.
+build keeps the 2024-25 rows already in `mandi_history.csv.gz`. Training fails on purpose if
+Maharashtra has fewer than 20 crops with enough reports.
+
+### Weekly data refresh
+
+[`refresh-data.yml`](.github/workflows/refresh-data.yml) runs every Monday at 06:00 IST (or by hand
+from the **Actions** tab → *Weekly price data refresh* → **Run workflow**). It pulls the newest
+AGMARKNET snapshot and, if there are new days, rebuilds the dataset, retrains the forecaster,
+refreshes `REPORT.md` and runs the tests. If everything passes, it commits the result, and Render
+redeploys the backend with the new forecasts. If a step fails, nothing is committed and GitHub emails you.
 
 ## Tests
 

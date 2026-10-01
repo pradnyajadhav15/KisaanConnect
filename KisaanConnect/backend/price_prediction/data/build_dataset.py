@@ -39,7 +39,8 @@ OUTPUT_PATH = DATA_DIR / "mandi_history.csv.gz"
 KAGGLE_FILE = RAW_DIR / "agmarknet_india_historical_prices_2024_2025.csv"
 GITHUB_FILE = RAW_DIR / "mandi_prices_snapshot.csv"
 LEGACY_FILE = DATA_DIR / "real_mandi_data.csv"
-# Pinned to a commit so every rebuild gives the same data. To pick up newer days,
+# Pinned to a commit so every rebuild gives the same data. The weekly refresh workflow
+# (.github/workflows/refresh-data.yml) moves this to the newest commit. To do it by hand,
 # replace the hash with the latest commit on that repo's main branch.
 GITHUB_COMMIT = "9b81fb7986e9f7ce0974d11dd9af008c8effa8b6"
 GITHUB_URL = (
@@ -220,6 +221,14 @@ def download_github_snapshot(attempts: int = 3) -> None:
     )
 
 
+def load_previous_kaggle_rows(path: Path) -> pd.DataFrame:
+    """The 2024-25 rows already in mandi_history.csv.gz, for machines without the Kaggle file (e.g. GitHub Actions)."""
+    df = pd.read_csv(path, low_memory=False)
+    df = df[df["source"] == "kaggle_2024_25"].copy()
+    df["date"] = pd.to_datetime(df["date"], format="%Y-%m-%d")
+    return df
+
+
 def build() -> pd.DataFrame:
     frames = []
     if GITHUB_FILE.exists():
@@ -230,6 +239,10 @@ def build() -> pd.DataFrame:
         frames.append(load_legacy(LEGACY_FILE))
     if KAGGLE_FILE.exists():
         frames.append(load_kaggle(KAGGLE_FILE))
+    elif OUTPUT_PATH.exists():
+        previous = load_previous_kaggle_rows(OUTPUT_PATH)
+        print(f"Kaggle file not in raw/; keeping the {len(previous):,} 2024-25 rows from {OUTPUT_PATH.name}")
+        frames.append(previous)
     else:
         print(f"MISSING: {KAGGLE_FILE.name} - optional, adds Aug 2024 - Aug 2025 history (see data/SOURCES.md)")
     if not frames:

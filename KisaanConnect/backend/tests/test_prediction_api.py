@@ -84,12 +84,17 @@ def test_explicit_variety_is_used(client, meta):
 
 def test_stale_combination_falls_back_to_latest_price(client, meta):
     stale = next(
-        (s, c, v, st)
-        for s, crops in meta["states"].items()
-        for c, varieties in crops.items()
-        for v, st in varieties.items()
-        if st["s7"] is None and st["s30"] is None
+        (
+            (s, c, v, st)
+            for s, crops in meta["states"].items()
+            for c, varieties in crops.items()
+            for v, st in varieties.items()
+            if st["s7"] is None and st["s30"] is None
+        ),
+        None,
     )
+    if stale is None:
+        pytest.skip("every combination has recent prices in this data")
     state, crop, variety, stats = stale
     body = predict(client, state=state, commodity=crop, variety=variety).json()
     assert body["confidence"] == "Low"
